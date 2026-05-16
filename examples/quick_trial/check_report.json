@@ -1,0 +1,282 @@
+[
+  {
+    "name": "trial_cactus",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          16,
+          23,
+          16
+        ],
+        "actual": [
+          16,
+          23,
+          16
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 24",
+        "actual": 23
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 436
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "cactus_voxels_min",
+        "pass": true,
+        "expected": ">= 120",
+        "actual": 270
+      },
+      {
+        "id": "flower_voxels",
+        "pass": true,
+        "expected": 2,
+        "actual": 2
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "trial_frog",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          18,
+          10,
+          16
+        ],
+        "actual": [
+          18,
+          10,
+          16
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 20",
+        "actual": 18
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 584
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "body_voxels_min",
+        "pass": true,
+        "expected": ">= 250",
+        "actual": 580
+      },
+      {
+        "id": "eye_voxels",
+        "pass": true,
+        "expected": 4,
+        "actual": 4
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "trial_rock_cluster",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          18,
+          9,
+          16
+        ],
+        "actual": [
+          18,
+          9,
+          16
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 20",
+        "actual": 18
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 594
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "stone_voxels_min",
+        "pass": true,
+        "expected": ">= 300",
+        "actual": 594
+      },
+      {
+        "id": "low_profile",
+        "pass": true,
+        "expected": "<= 9",
+        "actual": 9
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "trial_lantern",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          12,
+          22,
+          12
+        ],
+        "actual": [
+          12,
+          22,
+          12
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 24",
+        "actual": 22
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 488
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "light_voxels_min",
+        "pass": true,
+        "expected": ">= 200",
+        "actual": 216
+      },
+      {
+        "id": "wood_voxels_min",
+        "pass": true,
+        "expected": ">= 60",
+        "actual": 112
+      }
+    ],
+    "pass": true
+  }
+]

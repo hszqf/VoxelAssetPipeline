@@ -1,0 +1,170 @@
+[
+  {
+    "name": "trial_cactus",
+    "path": "examples/quick_trial/trial_cactus.vox",
+    "source_image": "examples/quick_trial/reference_views/trial_cactus_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/quick_trial/reference_views/trial_cactus_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/quick_trial/reference_views/trial_cactus_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/quick_trial/reference_views/trial_cactus_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/quick_trial/reference_views/trial_cactus_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      16,
+      23,
+      16
+    ],
+    "voxel_count": 436,
+    "observed": "Quick-trial procedural asset used to test a fresh generate/check/viewer path."
+  },
+  {
+    "name": "trial_frog",
+    "path": "examples/quick_trial/trial_frog.vox",
+    "source_image": "examples/quick_trial/reference_views/trial_frog_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/quick_trial/reference_views/trial_frog_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/quick_trial/reference_views/trial_frog_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/quick_trial/reference_views/trial_frog_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/quick_trial/reference_views/trial_frog_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      18,
+      10,
+      16
+    ],
+    "voxel_count": 584,
+    "observed": "Quick-trial procedural asset used to test a fresh generate/check/viewer path."
+  },
+  {
+    "name": "trial_rock_cluster",
+    "path": "examples/quick_trial/trial_rock_cluster.vox",
+    "source_image": "examples/quick_trial/reference_views/trial_rock_cluster_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/quick_trial/reference_views/trial_rock_cluster_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/quick_trial/reference_views/trial_rock_cluster_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/quick_trial/reference_views/trial_rock_cluster_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/quick_trial/reference_views/trial_rock_cluster_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      18,
+      9,
+      16
+    ],
+    "voxel_count": 594,
+    "observed": "Quick-trial procedural asset used to test a fresh generate/check/viewer path."
+  },
+  {
+    "name": "trial_lantern",
+    "path": "examples/quick_trial/trial_lantern.vox",
+    "source_image": "examples/quick_trial/reference_views/trial_lantern_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/quick_trial/reference_views/trial_lantern_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/quick_trial/reference_views/trial_lantern_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/quick_trial/reference_views/trial_lantern_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/quick_trial/reference_views/trial_lantern_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      12,
+      22,
+      12
+    ],
+    "voxel_count": 488,
+    "observed": "Quick-trial procedural asset used to test a fresh generate/check/viewer path."
+  }
+]

@@ -2,7 +2,10 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const manifests = ["examples/design_sheet_trial/manifest.json"];
+const manifests = [
+  "examples/design_sheet_trial/manifest.json",
+  "examples/quick_trial/manifest.json",
+];
 
 const payload = { manifests: {}, vox: {}, images: {} };
 

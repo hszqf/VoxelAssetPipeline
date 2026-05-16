@@ -5,6 +5,12 @@ const DATASETS = [
     manifest: "/examples/design_sheet_trial/manifest.json",
     cellResolution: 64,
   },
+  {
+    id: "quick-trial",
+    name: "Quick trial",
+    manifest: "/examples/quick_trial/manifest.json",
+    cellResolution: 64,
+  },
 ];
 
 const DEFAULT_CELL_RESOLUTION = 8;

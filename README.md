@@ -16,8 +16,12 @@ Standalone voxel asset workflow extracted from LittleWorld.
 ```powershell
 python voxel_pipeline.py generate-design-sheet
 python voxel_pipeline.py check-design-sheet
+python voxel_pipeline.py generate-quick-trial
+python voxel_pipeline.py check-quick-trial
 python voxel_pipeline.py build-viewer-data
 python voxel_pipeline.py apply-littleworld --project "E:\AI Projects\LittleWorld"
 ```
 
 The viewer is static. Open `viewer/index.html` directly, or run `node viewer/server.mjs` and open `http://127.0.0.1:5177/viewer/index.html` if a browser blocks local file access.
+
+`generate-quick-trial` creates a second sample dataset under `examples/quick_trial` to exercise a fresh asset set without replacing the original design-sheet trial.
