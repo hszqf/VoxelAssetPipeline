@@ -8,7 +8,7 @@
   --accent: #21b6d7;
   --accent-dark: #127e96;
   --left-pane: 320px;
-  --right-pane: 420px;
+  --right-pane: 560px;
   --bottom-pane: 280px;
 }
 
@@ -306,7 +306,8 @@ dd {
 .reference-header {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
+  flex: 0 0 auto;
 }
 
 .reference-header h2 {
@@ -321,38 +322,23 @@ dd {
   font-size: 12px;
 }
 
-.reference-tabs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(58px, 1fr));
-  gap: 6px;
-}
-
-.reference-tab {
-  min-width: 0;
-  height: 30px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #ffffff;
-  color: var(--muted);
-  cursor: pointer;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.reference-tab:hover {
-  background: var(--panel-2);
-}
-
-.reference-tab.active {
-  border-color: rgba(33, 182, 215, 0.65);
-  background: rgba(33, 182, 215, 0.12);
-  color: var(--accent-dark);
-}
-
-.reference-frame {
+.reference-views {
   min-height: 0;
   flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(86px, 1fr));
+  gap: 8px;
+  align-items: start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+}
+
+.reference-card {
+  min-width: 86px;
+  min-height: 0;
+  height: min(100%, 220px);
+  margin: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
@@ -360,30 +346,35 @@ dd {
     linear-gradient(90deg, rgba(36, 35, 31, 0.035) 1px, transparent 1px),
     #fffdf8;
   background-size: 16px 16px;
+  display: grid;
+  grid-template-rows: 28px minmax(0, 1fr);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-  touch-action: none;
 }
 
-.reference-frame.dragging {
-  cursor: grabbing;
+.reference-card figcaption {
+  min-width: 0;
+  border-bottom: 1px solid rgba(216, 208, 193, 0.8);
+  background: rgba(255, 253, 248, 0.88);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 28px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.reference-frame img {
+.reference-card img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
-  transform-origin: center center;
   user-select: none;
   pointer-events: none;
-}
-
-.reference-frame img:not([src]) {
-  display: none;
+  padding: 6px;
 }
 
 canvas {

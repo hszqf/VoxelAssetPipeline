@@ -27,14 +27,6 @@ const state = {
   lastX: 0,
   lastY: 0,
   infoCollapsed: true,
-  referenceZoom: 1,
-  referencePanX: 0,
-  referencePanY: 0,
-  referenceViewId: "iso",
-  referenceViews: [],
-  referenceDragging: false,
-  referenceLastX: 0,
-  referenceLastY: 0,
   layoutLeft: 320,
   layoutRight: 420,
   layoutBottom: 280,
@@ -55,9 +47,7 @@ const assetObserved = document.getElementById("assetObserved");
 const floatingInfo = document.getElementById("floatingInfo");
 const infoToggle = document.getElementById("infoToggle");
 const referenceName = document.getElementById("referenceName");
-const referenceTabs = document.getElementById("referenceTabs");
-const referenceFrame = document.getElementById("referenceFrame");
-const referenceImage = document.getElementById("referenceImage");
+const referenceViews = document.getElementById("referenceViews");
 const leftResize = document.getElementById("leftResize");
 const rightResize = document.getElementById("rightResize");
 
@@ -506,8 +496,11 @@ function currentCellResolution() {
 }
 
 function referenceViewsFor(asset) {
+  const preferredOrder = ["iso", "side", "front", "top"];
   if (Array.isArray(asset.reference_views) && asset.reference_views.length > 0) {
-    return asset.reference_views;
+    const byId = new Map(asset.reference_views.map((view) => [view.id, view]));
+    const ordered = preferredOrder.map((id) => byId.get(id)).filter(Boolean);
+    return ordered.length > 0 ? ordered : asset.reference_views.slice(0, 4);
   }
   if (asset.source_image) {
     return [{ id: "source", label: "Source", path: asset.source_image }];
@@ -515,45 +508,32 @@ function referenceViewsFor(asset) {
   return [];
 }
 
-function renderReferenceTabs() {
-  referenceTabs.innerHTML = "";
-  for (const view of state.referenceViews) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "reference-tab";
-    if (view.id === state.referenceViewId) {
-      button.classList.add("active");
-    }
-    button.textContent = view.label || view.id;
-    button.addEventListener("click", () => {
-      state.referenceViewId = view.id;
-      updateReference(state.currentAsset);
-    });
-    referenceTabs.appendChild(button);
-  }
-}
-
 function updateReference(asset) {
-  state.referenceViews = referenceViewsFor(asset);
-  if (!state.referenceViews.length) {
+  const views = referenceViewsFor(asset);
+  referenceViews.innerHTML = "";
+  if (!views.length) {
     referenceName.textContent = "No source";
-    referenceTabs.innerHTML = "";
-    referenceImage.removeAttribute("src");
     return;
   }
 
-  if (!state.referenceViews.some((view) => view.id === state.referenceViewId)) {
-    state.referenceViewId = state.referenceViews[0].id;
-  }
+  referenceName.textContent = asset.name;
+  for (const view of views) {
+    const path = normalizePath(view.path);
+    const label = view.label || view.id || path.split("/").pop() || path;
+    const local = embeddedImage(path);
+    const card = document.createElement("figure");
+    card.className = "reference-card";
 
-  renderReferenceTabs();
-  const activeView = state.referenceViews.find((view) => view.id === state.referenceViewId) || state.referenceViews[0];
-  const path = normalizePath(activeView.path);
-  const label = activeView.label || path.split("/").pop() || path;
-  const local = embeddedImage(path);
-  referenceName.textContent = label;
-  referenceImage.src = local ? `data:image/png;base64,${local}` : `/${path}`;
-  resetReferenceView();
+    const caption = document.createElement("figcaption");
+    caption.textContent = label;
+
+    const image = document.createElement("img");
+    image.alt = `${asset.name} ${label}`;
+    image.src = local ? `data:image/png;base64,${local}` : `/${path}`;
+
+    card.append(caption, image);
+    referenceViews.appendChild(card);
+  }
 }
 
 function setInfoCollapsed(collapsed) {
@@ -561,17 +541,6 @@ function setInfoCollapsed(collapsed) {
   floatingInfo.classList.toggle("collapsed", collapsed);
   infoToggle.textContent = collapsed ? "+" : "-";
   infoToggle.title = collapsed ? "Expand info" : "Collapse info";
-}
-
-function applyReferenceTransform() {
-  referenceImage.style.transform = `translate(${state.referencePanX}px, ${state.referencePanY}px) scale(${state.referenceZoom})`;
-}
-
-function resetReferenceView() {
-  state.referenceZoom = 1;
-  state.referencePanX = 0;
-  state.referencePanY = 0;
-  applyReferenceTransform();
 }
 
 function normalizePath(path) {
@@ -772,49 +741,6 @@ canvas.addEventListener("wheel", (event) => {
   state.zoom = Math.max(4, Math.min(72, state.zoom * factor));
   render();
 }, { passive: false });
-
-referenceFrame.addEventListener("pointerdown", (event) => {
-  state.referenceDragging = true;
-  state.referenceLastX = event.clientX;
-  state.referenceLastY = event.clientY;
-  referenceFrame.setPointerCapture(event.pointerId);
-  referenceFrame.classList.add("dragging");
-});
-
-referenceFrame.addEventListener("pointermove", (event) => {
-  if (!state.referenceDragging) {
-    return;
-  }
-  const dx = event.clientX - state.referenceLastX;
-  const dy = event.clientY - state.referenceLastY;
-  state.referenceLastX = event.clientX;
-  state.referenceLastY = event.clientY;
-  state.referencePanX += dx;
-  state.referencePanY += dy;
-  applyReferenceTransform();
-});
-
-referenceFrame.addEventListener("pointerup", (event) => {
-  state.referenceDragging = false;
-  referenceFrame.releasePointerCapture(event.pointerId);
-  referenceFrame.classList.remove("dragging");
-});
-
-referenceFrame.addEventListener("pointercancel", () => {
-  state.referenceDragging = false;
-  referenceFrame.classList.remove("dragging");
-});
-
-referenceFrame.addEventListener("wheel", (event) => {
-  event.preventDefault();
-  const factor = Math.exp(-event.deltaY * 0.001);
-  state.referenceZoom = Math.max(0.35, Math.min(8, state.referenceZoom * factor));
-  applyReferenceTransform();
-}, { passive: false });
-
-referenceFrame.addEventListener("dblclick", () => {
-  resetReferenceView();
-});
 
 leftResize.addEventListener("pointerdown", (event) => {
   startLayoutResize("left", event);
