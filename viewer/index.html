@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LittleWorld Vox Viewer</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <header class="brand">
+      <div>
+        <h1>Vox Viewer</h1>
+        <p>LittleWorld clean icon review</p>
+      </div>
+      <button id="resetView" class="icon-button" type="button" title="Reset view">R</button>
+    </header>
+
+    <section class="panel">
+      <label for="datasetSelect">Set</label>
+      <select id="datasetSelect"></select>
+    </section>
+
+    <section class="panel grow">
+      <div class="panel-title">Assets</div>
+      <div id="assetList" class="asset-list"></div>
+    </section>
+  </aside>
+
+  <div id="leftResize" class="layout-splitter layout-splitter-left" role="separator" aria-label="Resize asset list" tabindex="0"></div>
+
+  <main class="stage">
+    <canvas id="viewer" aria-label="Voxel preview canvas"></canvas>
+    <section id="floatingInfo" class="floating-info collapsed">
+      <button id="infoToggle" class="info-toggle" type="button" title="Expand info">+</button>
+      <div id="assetName" class="asset-name">No asset</div>
+      <dl class="info-details">
+        <div><dt>Size</dt><dd id="assetSize">-</dd></div>
+        <div><dt>Voxels</dt><dd id="assetVoxels">-</dd></div>
+        <div><dt>Scale</dt><dd id="assetScale">-</dd></div>
+        <div><dt>Cells</dt><dd id="assetCells">-</dd></div>
+      </dl>
+      <p id="assetObserved" class="observed info-details"></p>
+    </section>
+    <div class="hud">
+      <span>Drag: rotate</span>
+      <span>Wheel: zoom</span>
+      <span>Cyan wireframe: 1 game cell</span>
+    </div>
+  </main>
+
+  <div id="rightResize" class="layout-splitter layout-splitter-right" role="separator" aria-label="Resize reference panel" tabindex="0"></div>
+
+  <aside class="reference">
+    <header class="reference-header">
+      <div>
+        <h2>Reference</h2>
+        <p id="referenceName">No source</p>
+      </div>
+      <div id="referenceTabs" class="reference-tabs" aria-label="Reference views"></div>
+    </header>
+    <div id="referenceFrame" class="reference-frame">
+      <img id="referenceImage" alt="Original three-view reference">
+    </div>
+  </aside>
+
+  <script src="./embedded-data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

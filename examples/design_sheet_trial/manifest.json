@@ -1,0 +1,395 @@
+[
+  {
+    "name": "design_flower",
+    "path": "examples/design_sheet_trial/design_flower.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_flower_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_flower_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_flower_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_flower_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_flower_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      14,
+      18,
+      14
+    ],
+    "voxel_count": 378,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  },
+  {
+    "name": "design_mushroom",
+    "path": "examples/design_sheet_trial/design_mushroom.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_mushroom_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_mushroom_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_mushroom_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_mushroom_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_mushroom_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      12,
+      12,
+      12
+    ],
+    "voxel_count": 443,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  },
+  {
+    "name": "design_shell",
+    "path": "examples/design_sheet_trial/design_shell.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_shell_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_shell_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_shell_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_shell_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_shell_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      14,
+      8,
+      10
+    ],
+    "voxel_count": 458,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  },
+  {
+    "name": "design_bee",
+    "path": "examples/design_sheet_trial/design_bee.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_bee_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_bee_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_bee_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_bee_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_bee_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      20,
+      14,
+      14
+    ],
+    "voxel_count": 860,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  },
+  {
+    "name": "design_butterfly",
+    "path": "examples/design_sheet_trial/design_butterfly.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_butterfly_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_butterfly_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_butterfly_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_butterfly_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_butterfly_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      8,
+      17,
+      22
+    ],
+    "voxel_count": 896,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  },
+  {
+    "name": "design_fish",
+    "path": "examples/design_sheet_trial/design_fish.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_fish_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_fish_iso.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_fish_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_fish_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_fish_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      20,
+      11,
+      10
+    ],
+    "voxel_count": 498,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  },
+  {
+    "name": "design_tree",
+    "path": "examples/design_sheet_trial/design_tree.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_tree_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_tree_iso.png"
+      },
+      {
+        "id": "source",
+        "label": "Source",
+        "path": "examples/design_sheet_trial/reference_generated_tree_cloud_crab.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_tree_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_tree_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_tree_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      28,
+      34,
+      28
+    ],
+    "voxel_count": 6656,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  },
+  {
+    "name": "design_cloud",
+    "path": "examples/design_sheet_trial/design_cloud.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_cloud_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_cloud_iso.png"
+      },
+      {
+        "id": "source",
+        "label": "Source",
+        "path": "examples/design_sheet_trial/reference_generated_tree_cloud_crab.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_cloud_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_cloud_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_cloud_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      20,
+      14,
+      16
+    ],
+    "voxel_count": 1124,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  },
+  {
+    "name": "design_crab",
+    "path": "examples/design_sheet_trial/design_crab.vox",
+    "source_image": "examples/design_sheet_trial/reference_views/design_crab_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/design_sheet_trial/reference_views/design_crab_iso.png"
+      },
+      {
+        "id": "source",
+        "label": "Source",
+        "path": "examples/design_sheet_trial/reference_generated_tree_cloud_crab.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/design_sheet_trial/reference_views/design_crab_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/design_sheet_trial/reference_views/design_crab_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/design_sheet_trial/reference_views/design_crab_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      24,
+      9,
+      18
+    ],
+    "voxel_count": 768,
+    "observed": "Derived from the provided isometric voxel design sheet, then converted to side/front/top projections from the actual voxel array."
+  }
+]

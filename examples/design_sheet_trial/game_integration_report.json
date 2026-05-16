@@ -1,0 +1,83 @@
+[
+  {
+    "entity": "Flower",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Flower.prefab",
+    "old_vox": "Assets/Voxel/design_sheet_trial/design_flower.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_flower.vox",
+    "old_size_per_vox": "0.015625",
+    "new_size_per_vox": "0.015625",
+    "changed": false
+  },
+  {
+    "entity": "Mushroom",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Mushroom.prefab",
+    "old_vox": "Assets/Voxel/design_sheet_trial/design_mushroom.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_mushroom.vox",
+    "old_size_per_vox": "0.015625",
+    "new_size_per_vox": "0.015625",
+    "changed": false
+  },
+  {
+    "entity": "Shell",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Shell.prefab",
+    "old_vox": "Assets/Voxel/design_sheet_trial/design_shell.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_shell.vox",
+    "old_size_per_vox": "0.015625",
+    "new_size_per_vox": "0.015625",
+    "changed": false
+  },
+  {
+    "entity": "Bee",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Bee.prefab",
+    "old_vox": "Assets/Voxel/design_sheet_trial/design_bee.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_bee.vox",
+    "old_size_per_vox": "0.015625",
+    "new_size_per_vox": "0.015625",
+    "changed": false
+  },
+  {
+    "entity": "Butterfly",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Butterfly.prefab",
+    "old_vox": "Assets/Voxel/design_sheet_trial/design_butterfly.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_butterfly.vox",
+    "old_size_per_vox": "0.015625",
+    "new_size_per_vox": "0.015625",
+    "changed": false
+  },
+  {
+    "entity": "Fish",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Fish.prefab",
+    "old_vox": "Assets/Voxel/design_sheet_trial/design_fish.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_fish.vox",
+    "old_size_per_vox": "0.015625",
+    "new_size_per_vox": "0.015625",
+    "changed": false
+  },
+  {
+    "entity": "Tree",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Tree.prefab",
+    "old_vox": "Assets/Voxel/items/tree.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_tree.vox",
+    "old_size_per_vox": "0.25",
+    "new_size_per_vox": "0.015625",
+    "changed": true
+  },
+  {
+    "entity": "Cloud",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Cloud.prefab",
+    "old_vox": "Assets/Voxel/items/cloud.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_cloud.vox",
+    "old_size_per_vox": "0.25",
+    "new_size_per_vox": "0.015625",
+    "changed": true
+  },
+  {
+    "entity": "Crab",
+    "prefab": "Assets/Resources/LittleWorld/Entities/Entity_Crab.prefab",
+    "old_vox": "Assets/Voxel/animals_water/crab.vox",
+    "new_vox": "Assets/Voxel/design_sheet_trial/design_crab.vox",
+    "old_size_per_vox": "0.25",
+    "new_size_per_vox": "0.015625",
+    "changed": true
+  }
+]

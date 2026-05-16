@@ -1,0 +1,686 @@
+[
+  {
+    "name": "design_flower",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          14,
+          18,
+          14
+        ],
+        "actual": [
+          14,
+          18,
+          14
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 22",
+        "actual": 18
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 378
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "stem_components",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "petal_voxels_min",
+        "pass": true,
+        "expected": ">= 48",
+        "actual": 64
+      },
+      {
+        "id": "yellow_center_voxels",
+        "pass": true,
+        "expected": 8,
+        "actual": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "design_mushroom",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          12,
+          12,
+          12
+        ],
+        "actual": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 14",
+        "actual": 12
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 443
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "cap_components",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "stem_components",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "white_spots_min",
+        "pass": true,
+        "expected": ">= 3",
+        "actual": 4
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "design_shell",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          14,
+          8,
+          10
+        ],
+        "actual": [
+          14,
+          8,
+          10
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 16",
+        "actual": 14
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 458
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "shell_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "rib_voxels_min",
+        "pass": true,
+        "expected": ">= 20",
+        "actual": 112
+      },
+      {
+        "id": "low_profile",
+        "pass": true,
+        "expected": "<= 8",
+        "actual": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "design_bee",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          20,
+          14,
+          14
+        ],
+        "actual": [
+          20,
+          14,
+          14
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 22",
+        "actual": 20
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 860
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "wing_components",
+        "pass": true,
+        "expected": 2,
+        "actual": 2
+      },
+      {
+        "id": "front_eye_voxels",
+        "pass": true,
+        "expected": 8,
+        "actual": 8
+      },
+      {
+        "id": "stripe_columns_min",
+        "pass": true,
+        "expected": ">= 5",
+        "actual": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "design_butterfly",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          8,
+          17,
+          22
+        ],
+        "actual": [
+          8,
+          17,
+          22
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 24",
+        "actual": 22
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 896
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "wing_components",
+        "pass": true,
+        "expected": 4,
+        "actual": 4
+      },
+      {
+        "id": "body_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "yellow_mark_voxels",
+        "pass": true,
+        "expected": 16,
+        "actual": 16
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "design_fish",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          20,
+          11,
+          10
+        ],
+        "actual": [
+          20,
+          11,
+          10
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 22",
+        "actual": 20
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 498
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "eye_components",
+        "pass": true,
+        "expected": 2,
+        "actual": 2
+      },
+      {
+        "id": "pupil_voxels",
+        "pass": true,
+        "expected": 2,
+        "actual": 2
+      },
+      {
+        "id": "fin_voxels_min",
+        "pass": true,
+        "expected": ">= 18",
+        "actual": 47
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "design_tree",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          28,
+          34,
+          28
+        ],
+        "actual": [
+          28,
+          34,
+          28
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 36",
+        "actual": 34
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 6656
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "trunk_components",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "canopy_components",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "base_voxels_min",
+        "pass": true,
+        "expected": ">= 250",
+        "actual": 648
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "design_cloud",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          20,
+          14,
+          16
+        ],
+        "actual": [
+          20,
+          14,
+          16
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 20",
+        "actual": 20
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 1124
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "cloud_components",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "shadow_voxels_min",
+        "pass": true,
+        "expected": ">= 120",
+        "actual": 424
+      },
+      {
+        "id": "compact_height",
+        "pass": true,
+        "expected": "<= 14",
+        "actual": 14
+      }
+    ],
+    "pass": true
+  },
+  {
+    "name": "design_crab",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          24,
+          9,
+          18
+        ],
+        "actual": [
+          24,
+          9,
+          18
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 24",
+        "actual": 24
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 768
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "body_components",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "eye_components",
+        "pass": true,
+        "expected": 2,
+        "actual": 2
+      },
+      {
+        "id": "low_profile",
+        "pass": true,
+        "expected": "<= 9",
+        "actual": 9
+      }
+    ],
+    "pass": true
+  }
+]
