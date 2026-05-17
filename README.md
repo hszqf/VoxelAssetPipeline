@@ -33,9 +33,6 @@ Only after the source sheet is approved should the pipeline write `.vox` files.
 | --- | --- |
 | <img src="examples/quick_trial/preview.png" alt="Quick trial generated voxel assets" width="100%"> | <img src="examples/quick_trial/reference_quick_trial_pipeline.png" alt="Quick trial reference views" width="100%"> |
 
-| Dog output | Orthographic review |
-| --- | --- |
-| <img src="examples/dog_trial/preview.png" alt="Golden dog voxel preview" width="100%"> | <img src="examples/dog_trial/projection_review.png" alt="Golden dog side front top projection review" width="100%"> |
 
 ## Viewer
 
