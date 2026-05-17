@@ -1,0 +1,49 @@
+[
+  {
+    "name": "dog_golden",
+    "path": "examples/dog_trial/dog_golden.vox",
+    "source_image": "examples/dog_trial/reference_dog_pack.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/dog_trial/reference_views/dog_golden_iso.png"
+      },
+      {
+        "id": "source",
+        "label": "Source",
+        "path": "examples/dog_trial/reference_dog_pack.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/dog_trial/reference_views/dog_golden_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/dog_trial/reference_views/dog_golden_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/dog_trial/reference_views/dog_golden_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "tiny",
+    "review_status": "pending_review",
+    "size": [
+      24,
+      16,
+      14
+    ],
+    "voxel_count": 861,
+    "observed": "Selected from dog reference pack candidate 6: golden puppy with floppy ears and short tail."
+  }
+]

@@ -11,6 +11,12 @@ const DATASETS = [
     manifest: "/examples/quick_trial/manifest.json",
     cellResolution: 64,
   },
+  {
+    id: "dog-trial",
+    name: "Dog trial",
+    manifest: "/examples/dog_trial/manifest.json",
+    cellResolution: 64,
+  },
 ];
 
 const DEFAULT_CELL_RESOLUTION = 8;

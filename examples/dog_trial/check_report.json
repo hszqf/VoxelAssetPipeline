@@ -1,0 +1,90 @@
+[
+  {
+    "name": "dog_golden",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          24,
+          16,
+          14
+        ],
+        "actual": [
+          24,
+          16,
+          14
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 24",
+        "actual": 24
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 861
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "coat_voxels_min",
+        "pass": true,
+        "expected": ">= 300",
+        "actual": 611
+      },
+      {
+        "id": "muzzle_voxels_min",
+        "pass": true,
+        "expected": ">= 60",
+        "actual": 138
+      },
+      {
+        "id": "ear_and_paw_voxels_min",
+        "pass": true,
+        "expected": ">= 50",
+        "actual": 84
+      },
+      {
+        "id": "collar_voxels",
+        "pass": true,
+        "expected": 18,
+        "actual": 18
+      },
+      {
+        "id": "face_detail_voxels_min",
+        "pass": true,
+        "expected": ">= 10",
+        "actual": 10
+      }
+    ],
+    "pass": true
+  }
+]

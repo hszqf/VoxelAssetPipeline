@@ -22,6 +22,8 @@ def main() -> None:
     sub.add_parser("check-design-sheet")
     sub.add_parser("generate-quick-trial")
     sub.add_parser("check-quick-trial")
+    sub.add_parser("generate-dog-trial")
+    sub.add_parser("check-dog-trial")
     sub.add_parser("build-viewer-data")
     apply_lw = sub.add_parser("apply-littleworld")
     apply_lw.add_argument("--project", required=True)
@@ -35,6 +37,10 @@ def main() -> None:
         raise SystemExit(run_python(ROOT / "workflows" / "quick_trial_assets.py"))
     if args.cmd == "check-quick-trial":
         raise SystemExit(run_python(ROOT / "workflows" / "check_quick_trial.py"))
+    if args.cmd == "generate-dog-trial":
+        raise SystemExit(run_python(ROOT / "workflows" / "dog_trial_assets.py"))
+    if args.cmd == "check-dog-trial":
+        raise SystemExit(run_python(ROOT / "workflows" / "check_dog_trial.py"))
     if args.cmd == "build-viewer-data":
         raise SystemExit(subprocess.call(["node", str(ROOT / "viewer" / "build-embedded-data.mjs")], cwd=ROOT))
     if args.cmd == "apply-littleworld":

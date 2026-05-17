@@ -5,6 +5,7 @@ const root = resolve(import.meta.dirname, "..");
 const manifests = [
   "examples/design_sheet_trial/manifest.json",
   "examples/quick_trial/manifest.json",
+  "examples/dog_trial/manifest.json",
 ];
 
 const payload = { manifests: {}, vox: {}, images: {} };
