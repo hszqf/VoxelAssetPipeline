@@ -10,14 +10,15 @@ Use this skill when a user needs voxel game assets or `.vox` files.
 ## Required Workflow
 
 1. Start with a real raster design reference from the user or an image-generation model. Do not use `VoxelModel`, `.vox`, canvas/SVG/PNG script rendering, or viewer screenshots as the first design reference.
-2. Default to one approved AI source sheet for exactly one asset, containing `Front 3/4 design + Back 3/4 design + Side 64-grid + Front 64-grid + Top 64-grid` in a single image. The Side/Front/Top orthographic design views must already include visible 64x64 cell guides and a bounding cell frame.
-3. Reject or regenerate the source sheet before asking for approval if the orthographic design views do not show the 64-cell guide, if the asset fills the whole 64x64 frame without intended scale, or if the Side/Front/Top views are not in the same scale system.
-4. Stop after the first valid source sheet and wait for user confirmation before creating voxel geometry, `.vox`, manifests, or viewer data.
-5. After confirmation, create voxel models at the agreed game-cell scale. Default: one game cell is `64 x 64 x 64`; small objects should occupy only their real proportion inside that cell.
-6. Render per-asset review views: `Source`, `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`. Every generated source sheet, multi-row reference sheet, and projection review image must include the asset's model/manifest name in the upper-left corner of its row.
-7. Run structural validation. Every model must pass `single_connected_component`; `floating_component_sizes` must be empty. Do not rely only on visual inspection.
-8. Update the static viewer data and ask the user to inspect assets one by one.
-9. Only after user approval, run the project adapter to integrate assets into the game.
+2. Before prompting for the source sheet, choose a scale budget: target `game_cells` and intended occupied voxel bounds inside the guide, such as `cow: about 40w x 32h x 20d inside one 64-cell frame`.
+3. Default to one approved AI source sheet for exactly one asset, containing `Front 3/4 design + Back 3/4 design + Side 64-grid + Front 64-grid + Top 64-grid` in a single image. The Side/Front/Top orthographic design views must already include visible 64x64 cell guides and a bounding cell frame.
+4. Reject or regenerate the source sheet before asking for approval if the orthographic design views do not show the 64-cell guide, if the asset ignores the declared scale budget, if the asset fills the whole 64x64 frame without intent, or if the Side/Front/Top views are not in the same scale system.
+5. Stop after the first valid source sheet and wait for user confirmation before creating voxel geometry, `.vox`, manifests, or viewer data.
+6. After confirmation, create voxel models at the agreed game-cell scale. Default: one game cell is `64 x 64 x 64`; assets should occupy only their declared proportion inside that cell.
+7. Render per-asset review views: `Source`, `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`. Every generated source sheet, multi-row reference sheet, and projection review image must include the asset's model/manifest name in the upper-left corner of its row.
+8. Run structural validation. Every model must pass `single_connected_component`; `floating_component_sizes` must be empty. Do not rely only on visual inspection.
+9. Update the static viewer data and ask the user to inspect assets one by one.
+10. Only after user approval, run the project adapter to integrate assets into the game.
 
 ## Tool Project
 
@@ -41,10 +42,12 @@ The static viewer is available at `viewer/index.html`. It should work from `file
 ## Review Rules
 
 - Preserve scale relationships before detail. A tiny object should not fill the 64-cell frame.
+- Declare the occupied bounds before image generation. Prompt with concrete dimensions, not just "small" or "large".
+- If the intended object is larger than one 64-cell frame, choose multi-cell `game_cells` before source generation instead of cramming it into one cell.
 - Generate and approve one asset per source sheet. Do not ask an image model for multiple animals, props, or characters in one source sheet.
 - Treat source references and voxel review renders as different artifact classes. Script-rendered voxel images are allowed only after the design source is approved.
 - Treat the source sheet's Side/Front/Top 64-grid views as design requirements, not post-voxel review extras.
-- AI image prompts must explicitly request visible 64x64 guides, a bounding cell frame, and the asset's intended occupied proportion inside the cell.
+- AI image prompts must explicitly request visible 64x64 guides, a bounding cell frame, and the asset's intended occupied bounds inside the cell.
 - Add asset-name labels automatically during rendering. Use the model/manifest name such as `dog_golden`, not a subjective display description.
 - Treat the top view as authoritative for back silhouette, roof/canopy footprint, and markings.
 - Do not add raised detail unless it is visible in the source sheet's side and top views.

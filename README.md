@@ -25,6 +25,8 @@ This first source sheet must come from a user-provided raster image or an image-
 
 The Side, Front, and Top design views in that first sheet must already show visible 64x64 guides and a bounding cell frame. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it. For batches, repeat the source-sheet approval loop one asset at a time.
 
+Before generating the sheet, decide the scale budget. A single-cell cow should read as a medium asset, for example roughly `40w x 32h x 20d` inside the 64-cell frame, leaving empty grid space around it. Objects larger than that should either use a larger tier or be declared as multi-cell assets instead of being squeezed into one 64-cell frame.
+
 <p align="center">
   <img src="examples/dog_trial/reference_dog_icon_three_view_clean.png" alt="Dog source sheet with icon, front three-quarter, side, front, and top views" width="100%">
 </p>

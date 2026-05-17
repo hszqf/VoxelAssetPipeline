@@ -27,20 +27,31 @@ Forbidden as first-step references:
 Workflow:
 
 1. Generate or provide the combined source sheet using a real raster design source.
-2. Reject or regenerate it if Side/Front/Top do not include visible 64-cell guides, a bounding frame, and consistent scale.
-3. Stop for approval before creating voxel geometry or writing `.vox`.
-4. Build the voxel model from the approved sheet.
-5. Render generated review views: `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`.
-6. Run structural checks, especially `single_connected_component` and `floating_component_sizes`.
-7. Rebuild `viewer/embedded-data.js`.
-8. Review in `viewer/index.html`; the Reference pane should show `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top`.
+2. Before prompting, choose `game_cells` and target occupied bounds, such as `cow: about 40w x 32h x 20d inside one 64-cell frame`.
+3. Reject or regenerate it if Side/Front/Top do not include visible 64-cell guides, a bounding frame, consistent scale, and the declared occupied bounds.
+4. Stop for approval before creating voxel geometry or writing `.vox`.
+5. Build the voxel model from the approved sheet.
+6. Render generated review views: `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`.
+7. Run structural checks, especially `single_connected_component` and `floating_component_sizes`.
+8. Rebuild `viewer/embedded-data.js`.
+9. Review in `viewer/index.html`; the Reference pane should show `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top`.
+
+Single-cell scale guide:
+
+| Tier | Typical occupied max dimension inside 64 | Examples |
+| --- | --- | --- |
+| tiny | 8-16 cells | flower, shell, pickup |
+| small | 16-28 cells | frog, small dog, rock cluster |
+| medium | 28-44 cells | cow, deer, wolf, medium prop |
+| large | 44-56 cells | horse, small tree, large creature |
+| full-cell | 56-64 cells | block, full-cell obstacle, wall segment |
 
 AI prompt requirements:
 
 - Request exactly one asset in one sheet with `Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid`.
 - Require visible 64x64 grid guides and bounding cell frames on Side, Front, and Top.
 - Keep Side, Front, and Top at the same scale.
-- Show intended occupied proportion inside the 64x64 cell; small objects should leave visible empty space.
+- State concrete occupied bounds inside the 64x64 cell; small objects should leave visible empty space.
 - Include front/back direction cues for animals and characters.
 - For batches, repeat this source approval loop one asset at a time.
 
