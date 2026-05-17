@@ -24,6 +24,19 @@ def main() -> None:
     sub.add_parser("check-quick-trial")
     sub.add_parser("generate-dog-trial")
     sub.add_parser("check-dog-trial")
+    check_source = sub.add_parser("check-source-sheet")
+    check_source.add_argument("--image", required=True)
+    check_source.add_argument("--asset", required=True)
+    check_source.add_argument("--side", required=True)
+    check_source.add_argument("--front", required=True)
+    check_source.add_argument("--top", required=True)
+    check_source.add_argument("--tolerance", default="4")
+    check_source.add_argument("--origin-tolerance", default="4")
+    check_source.add_argument("--side-frame")
+    check_source.add_argument("--front-frame")
+    check_source.add_argument("--top-frame")
+    check_source.add_argument("--allow-colored-annotations", action="store_true")
+    check_source.add_argument("--json-out")
     sub.add_parser("build-viewer-data")
     apply_lw = sub.add_parser("apply-littleworld")
     apply_lw.add_argument("--project", required=True)
@@ -41,6 +54,34 @@ def main() -> None:
         raise SystemExit(run_python(ROOT / "workflows" / "dog_trial_assets.py"))
     if args.cmd == "check-dog-trial":
         raise SystemExit(run_python(ROOT / "workflows" / "check_dog_trial.py"))
+    if args.cmd == "check-source-sheet":
+        cmd_args = [
+            "--image",
+            args.image,
+            "--asset",
+            args.asset,
+            "--side",
+            args.side,
+            "--front",
+            args.front,
+            "--top",
+            args.top,
+            "--tolerance",
+            args.tolerance,
+            "--origin-tolerance",
+            args.origin_tolerance,
+        ]
+        if args.side_frame:
+            cmd_args.extend(["--side-frame", args.side_frame])
+        if args.front_frame:
+            cmd_args.extend(["--front-frame", args.front_frame])
+        if args.top_frame:
+            cmd_args.extend(["--top-frame", args.top_frame])
+        if args.allow_colored_annotations:
+            cmd_args.append("--allow-colored-annotations")
+        if args.json_out:
+            cmd_args.extend(["--json-out", args.json_out])
+        raise SystemExit(run_python(ROOT / "voxel_asset_pipeline" / "source_sheet_check.py", *cmd_args))
     if args.cmd == "build-viewer-data":
         raise SystemExit(subprocess.call(["node", str(ROOT / "viewer" / "build-embedded-data.mjs")], cwd=ROOT))
     if args.cmd == "apply-littleworld":

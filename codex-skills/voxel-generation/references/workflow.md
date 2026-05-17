@@ -57,6 +57,7 @@ Single-cell scale guide:
 AI source prompt requirements:
 
 - Ask for exactly one asset in one clean sheet.
+- Fill `references/source_sheet_prompt_template.md` from the confirmed scale contract. Do not freehand the prompt for production source sheets.
 - Ask for `Front 3/4 design | Back 3/4 design | registered Side 64-grid | registered Front 64-grid | registered Top 64-grid`.
 - Require visible 64x64 grid guides and a clear bounding cell frame on Side, Front, and Top.
 - Require the same scale across Side, Front, and Top.
@@ -65,6 +66,7 @@ AI source prompt requirements:
 - Require direction cues in both Front 3/4 and Back 3/4 views for animals and characters.
 - Require orthographic axes: Side uses X length horizontally and Y height vertically; Front uses Z width/depth horizontally and Y height vertically; Top uses X length horizontally and Z width/depth vertically.
 - Mark the front/head direction and keep it consistent between Side and Top.
+- Forbid colored axes, colored dashed baselines, dimension arrows, brackets, and numeric measurement labels inside grid panels. The checker measures the real silhouette; AI-written numbers are not trusted.
 
 Orthographic registration gate:
 
@@ -80,7 +82,16 @@ Source approval gate:
 
 - Do not approve multi-asset source sheets. For batches, repeat the source approval loop once per asset.
 - Do not ask for approval if Side/Front/Top lack visible 64-cell guides.
-- Before asking for approval, estimate the occupied bounding box in the Side, Front, and Top panels.
+- Before asking for approval, run the PNG source-sheet checker when the source sheet is available as a local PNG:
+
+```powershell
+python voxel_pipeline.py check-source-sheet --image "<source-sheet.png>" --asset cow --side 40x32 --front 20x32 --top 40x20 --tolerance 4 --json-out "<source-sheet-report.json>"
+```
+
+- The checker detects grid panels, estimates real silhouette bboxes, checks target tolerances, flags colored guide annotations, checks top orientation, and checks basic Side/Front/Top registration.
+- If auto panel detection fails, pass explicit frame coordinates with `--side-frame x,y,w,h --front-frame x,y,w,h --top-frame x,y,w,h`.
+- The checker is a hard gate for measurable failures, not a replacement for human visual review.
+- Before asking for approval, estimate any remaining occupied bounding box or landmark issues in the Side, Front, and Top panels.
 - Write a short bbox and registration self-check report: target bounds, observed Side/Front/Top bounds, tolerance, registration checks, and pass/fail.
 - Do not approve if the asset's bounding box is much larger or smaller than the confirmed scale contract.
 - Do not approve if Side/Front/Top have inconsistent origins, separately centered silhouettes, mismatched height/length/width, inconsistent ground baseline, or contradictory landmark positions.

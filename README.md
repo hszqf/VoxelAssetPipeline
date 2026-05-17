@@ -25,9 +25,9 @@ This first source sheet must come from a user-provided raster image or an image-
 
 The Side, Front, and Top design views in that first sheet must already show visible 64x64 guides, a bounding cell frame, and shared orthographic registration. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it. For batches, repeat the source-sheet approval loop one asset at a time.
 
-Before generating the sheet, confirm the scale contract. A single-cell cow should read as a medium asset, for example roughly `40w x 32h x 20d` inside the 64-cell frame with tolerance such as `+/-4`, leaving empty grid space around it. Objects larger than that should either use a larger tier or be declared as multi-cell assets instead of being squeezed into one 64-cell frame.
+Before generating the sheet, confirm the scale contract. A single-cell cow should read as a medium asset, for example roughly `40w x 32h x 20d` inside the 64-cell frame with tolerance such as `+/-4`, leaving empty grid space around it. Objects larger than that should either use a larger tier or be declared as multi-cell assets instead of being squeezed into one 64-cell frame. Production prompts should be filled from `codex-skills/voxel-generation/references/source_sheet_prompt_template.md`.
 
-After generation, estimate the Side/Front/Top bounding boxes and report the bbox plus registration self-check before asking for approval. Side, Front, and Top must behave like a registered blueprint: Side length matches Top length, Front width matches Top width, Side/Front height and ground baseline match, and major landmarks line up. If the generated sheet is out of tolerance or separately centered, do not silently regenerate; report the failed measurements first, then regenerate under the confirmed scale contract or revise the contract with the user.
+After generation, run the PNG source-sheet checker and report the bbox plus registration self-check before asking for approval. Side, Front, and Top must behave like a registered blueprint: Side length matches Top length, Front width matches Top width, Side/Front height and ground baseline match, and major landmarks line up. If the generated sheet is out of tolerance or separately centered, do not silently regenerate; report the failed measurements first, then regenerate under the confirmed scale contract or revise the contract with the user.
 
 Script-rendered sheets like the dog example below are deterministic review artifacts from one `VoxelModel`; they prove geometry after approval, but they should not be used as the first design source.
 
@@ -107,6 +107,14 @@ python voxel_pipeline.py check-quick-trial
 python voxel_pipeline.py generate-dog-trial
 python voxel_pipeline.py check-dog-trial
 
+python voxel_pipeline.py check-source-sheet `
+  --image "<source-sheet.png>" `
+  --asset cow `
+  --side 40x32 `
+  --front 20x32 `
+  --top 40x20 `
+  --tolerance 4
+
 python voxel_pipeline.py build-viewer-data
 ```
 
@@ -119,14 +127,15 @@ python voxel_pipeline.py apply-littleworld --project "E:\AI Projects\LittleWorld
 ## Workflow
 
 1. Generate or provide a source sheet with `Front 3/4 design + Back 3/4 design + registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`.
-2. Reject or regenerate it if Side/Front/Top lack visible 64x64 guides, bounding frames, consistent scale, or shared orthographic registration.
-3. Stop for human approval of style, direction, silhouette, and occupied 64-cell proportion.
-4. Build `.vox` assets from the approved sheet.
-5. Render source and generated reference views.
-6. Run validators.
-7. Rebuild `viewer/embedded-data.js`.
-8. Inspect assets in `viewer/index.html`.
-9. Apply a project adapter only after approval.
+2. Run `check-source-sheet` on the PNG source image when available.
+3. Reject or regenerate it if Side/Front/Top lack visible 64x64 guides, bounding frames, consistent scale, or shared orthographic registration.
+4. Stop for human approval of style, direction, silhouette, and occupied 64-cell proportion.
+5. Build `.vox` assets from the approved sheet.
+6. Render source and generated reference views.
+7. Run validators.
+8. Rebuild `viewer/embedded-data.js`.
+9. Inspect assets in `viewer/index.html`.
+10. Apply a project adapter only after approval.
 
 ## Codex Skill
 

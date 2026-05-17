@@ -28,15 +28,17 @@ Workflow:
 
 1. Generate or provide the combined source sheet using a real raster design source.
 2. Before prompting, confirm `game_cells`, target occupied bounds, and tolerance with the user, such as `cow: about 40w x 32h x 20d inside one 64-cell frame, tolerance +/-4`.
-3. After generation, estimate the visible bounding box in Side, Front, and Top and write a bbox plus registration self-check report.
-4. Reject or regenerate it if Side/Front/Top do not include visible 64-cell guides, a bounding frame, consistent scale, registered axes, or the confirmed occupied bounds.
-5. Do not silently regenerate. Report failed bbox or registration measurements before retrying or ask the user to revise the scale contract.
-6. Stop for approval before creating voxel geometry or writing `.vox`.
-7. Build the voxel model from the approved sheet.
-8. Render generated review views: `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`.
-9. Run structural checks, especially `single_connected_component` and `floating_component_sizes`.
-10. Rebuild `viewer/embedded-data.js`.
-11. Review in `viewer/index.html`; the Reference pane should show `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top`.
+3. Fill the skill prompt template from the confirmed contract; do not improvise prompt structure.
+4. After generation, run `python voxel_pipeline.py check-source-sheet` when the source sheet is available as a PNG.
+5. Estimate any remaining visual bbox or landmark issues in Side, Front, and Top and write a bbox plus registration self-check report.
+6. Reject or regenerate it if Side/Front/Top do not include visible 64-cell guides, a bounding frame, consistent scale, registered axes, or the confirmed occupied bounds.
+7. Do not silently regenerate. Report failed bbox or registration measurements before retrying or ask the user to revise the scale contract.
+8. Stop for approval before creating voxel geometry or writing `.vox`.
+9. Build the voxel model from the approved sheet.
+10. Render generated review views: `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`.
+11. Run structural checks, especially `single_connected_component` and `floating_component_sizes`.
+12. Rebuild `viewer/embedded-data.js`.
+13. Review in `viewer/index.html`; the Reference pane should show `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top`.
 
 Single-cell scale guide:
 
@@ -51,13 +53,30 @@ Single-cell scale guide:
 AI prompt requirements:
 
 - Request exactly one asset in one sheet with `Front 3/4 design | Back 3/4 design | registered Side 64-grid | registered Front 64-grid | registered Top 64-grid`.
+- Use `codex-skills/voxel-generation/references/source_sheet_prompt_template.md` as the production prompt template.
 - Require visible 64x64 grid guides and bounding cell frames on Side, Front, and Top.
 - Keep Side, Front, and Top at the same scale.
 - State concrete occupied bounds inside the 64x64 cell; small objects should leave visible empty space.
 - Include front/back direction cues for animals and characters.
 - Require registered orthographic axes: Side uses X length horizontally and Y height vertically; Front uses Z width/depth horizontally and Y height vertically; Top uses X length horizontally and Z width/depth vertically.
 - Require the same front/head direction between Side and Top.
+- Forbid colored axes, colored dashed baselines, measurement arrows/brackets, and dimension numbers inside grid panels.
 - For batches, repeat this source approval loop one asset at a time.
+
+PNG source-sheet checker:
+
+```powershell
+python voxel_pipeline.py check-source-sheet `
+  --image "<source-sheet.png>" `
+  --asset cow `
+  --side 40x32 `
+  --front 20x32 `
+  --top 40x20 `
+  --tolerance 4 `
+  --json-out "<source-sheet-report.json>"
+```
+
+The checker detects the three orthographic grid panels, estimates real silhouette bboxes, checks target tolerance, flags colored guide annotations, checks Top length orientation, and checks basic Side/Front/Top registration. If auto frame detection fails, pass explicit `--side-frame x,y,w,h --front-frame x,y,w,h --top-frame x,y,w,h`.
 
 BBox and registration self-check report:
 
