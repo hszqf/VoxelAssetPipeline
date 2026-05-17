@@ -28,10 +28,12 @@ Forbidden as first-step design references:
 
 Script-rendered images are review artifacts only. They can be produced after the user approves a real design source and after voxel geometry exists.
 
-Scale budget gate:
+Scale contract gate:
 
 - Choose `game_cells` before image generation. Default is `[1, 1, 1]`.
 - Declare target occupied bounds in voxel cells before prompting, for example `cow: side about 40 cells wide x 32 cells high, top about 40 cells long x 20 cells deep`.
+- Confirm the scale contract with the user before generating when the user has not already given exact bounds.
+- Include a tolerance, usually `±4 cells` or about `10%` of the target dimension.
 - Do not let a normal animal, prop, plant, or pickup fill the full 64x64 frame unless it is intentionally a full-cell object.
 - If the object should be larger than one cell, choose a multi-cell target such as `[2, 1, 1]` before source generation and make the source sheet reflect that larger frame.
 - Reject source sheets where the asset ignores the declared bounds.
@@ -60,9 +62,20 @@ Source approval gate:
 
 - Do not approve multi-asset source sheets. For batches, repeat the source approval loop once per asset.
 - Do not ask for approval if Side/Front/Top lack visible 64-cell guides.
-- Do not approve if the asset's bounding box is much larger or smaller than the declared scale budget.
+- Before asking for approval, estimate the occupied bounding box in the Side, Front, and Top panels.
+- Write a short bbox self-check report: target bounds, observed Side/Front/Top bounds, tolerance, and pass/fail.
+- Do not approve if the asset's bounding box is much larger or smaller than the confirmed scale contract.
 - Do not create `VoxelModel`, `.vox`, manifest, viewer data, or generated review renders before this gate passes.
 - If the AI model omits the guides or changes scale between views, regenerate the source sheet with a stricter prompt.
+- Do not silently regenerate a failed source sheet. Tell the user the failed measurements first; then regenerate under the confirmed contract, or ask for a revised contract when the target itself seems wrong.
+
+Example bbox self-check:
+
+```text
+Scale contract: cow, game_cells=[1,1,1], target side 40w x 32h, top 40w x 20d, tolerance ±4
+Observed: side 54w x 42h, front 31w x 44h, top 48w x 29d
+Result: FAIL. The cow is too large for the medium single-cell budget. Regenerating with stronger empty-space and 40x32x20 bounds.
+```
 
 Pipeline stages:
 
@@ -97,6 +110,7 @@ Failure handling:
 - If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset.
 - If the first source image was accidentally created by script-rendering a voxel draft, discard it as a design source.
 - If the first AI source sheet lacks Side/Front/Top 64-grid guides, discard or regenerate it before voxel work.
+- If the bbox self-check fails, report the failed measurements before retrying; do not silently auto-regenerate.
 - Return to the design-source step and generate or request a proper raster design reference.
 - Do not continue by patching the draft model; this hides anatomy and proportion errors such as duplicated legs.
 
