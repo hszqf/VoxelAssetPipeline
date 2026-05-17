@@ -326,7 +326,7 @@ dd {
   min-height: 0;
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, minmax(86px, 1fr));
+  grid-template-columns: repeat(5, minmax(76px, 1fr));
   gap: 8px;
   align-items: start;
   overflow-x: auto;
@@ -335,7 +335,7 @@ dd {
 }
 
 .reference-card {
-  min-width: 86px;
+  min-width: 76px;
   min-height: 0;
   height: min(100%, 220px);
   margin: 0;

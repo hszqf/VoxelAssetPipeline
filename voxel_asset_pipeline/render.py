@@ -82,6 +82,18 @@ def model_to_dict(model: VoxelModel) -> dict:
     return {"size": [model.width, model.height, model.depth], "voxels": model.voxels}
 
 
+def oriented_model(model: VoxelModel, orientation: str = "icon") -> VoxelModel:
+    if orientation in ("icon", "rear3q"):
+        return model
+    if orientation != "front3q":
+        raise ValueError(f"Unknown isometric orientation: {orientation}")
+
+    mirrored = VoxelModel(f"{model.name}_front3q", model.width, model.height, model.depth)
+    for (x, y, z), color in model.voxels.items():
+        mirrored.set(model.width - 1 - x, y, z, color)
+    return mirrored
+
+
 def model_offset(model: VoxelModel, frame_size: int = 64) -> tuple[int, int, int]:
     return ((frame_size - model.width) // 2, 0, (frame_size - model.depth) // 2)
 
@@ -147,35 +159,49 @@ def draw_projection_panel(
         fill_rect(pixels, width, height, x, y, scale, scale, COLORS[color_name])
 
 
-def draw_iso_panel(pixels, width: int, height: int, panel_x: int, panel_y: int, panel_w: int, panel_h: int, model: VoxelModel) -> None:
+def draw_iso_panel(
+    pixels,
+    width: int,
+    height: int,
+    panel_x: int,
+    panel_y: int,
+    panel_w: int,
+    panel_h: int,
+    model: VoxelModel,
+    orientation: str = "icon",
+) -> None:
+    view_model = oriented_model(model, orientation)
     scale = 5.8
-    polygons = list(iter_face_polygons(model, scale, 0, 0))
+    polygons = list(iter_face_polygons(view_model, scale, 0, 0))
     xs = [x for pts, _, _ in polygons for x, _ in pts]
     ys = [y for pts, _, _ in polygons for _, y in pts]
     if xs and ys:
         fit = min(1.0, (panel_w - 44) / max(max(xs) - min(xs), 1), (panel_h - 42) / max(max(ys) - min(ys), 1))
         scale *= fit
-    polygons = list(iter_face_polygons(model, scale, 0, 0))
+    polygons = list(iter_face_polygons(view_model, scale, 0, 0))
     xs = [x for pts, _, _ in polygons for x, _ in pts]
     ys = [y for pts, _, _ in polygons for _, y in pts]
     tx = panel_x + (panel_w - (max(xs) - min(xs))) * 0.5 - min(xs) if xs else panel_x
     ty = panel_y + (panel_h - (max(ys) - min(ys))) * 0.5 - min(ys) if ys else panel_y
-    for pts, rgba, factor in iter_face_polygons(model, scale, tx, ty):
+    for pts, rgba, factor in iter_face_polygons(view_model, scale, tx, ty):
         draw_polygon(pixels, width, height, pts, rgba, factor)
 
 
 def render_reference_sheet(model: VoxelModel, path: Path, include_icon: bool = True, frame_size: int = 64) -> None:
-    """Render one source sheet containing Icon plus Side/Front/Top views."""
-    icon_w = 260 if include_icon else 0
+    """Render one source sheet containing Icon, Front 3/4, and Side/Front/Top views."""
+    icon_w = 220 if include_icon else 0
+    front_w = 220 if include_icon else 0
     view_w = 178
     height = 196
-    width = icon_w + view_w * len(VIEWS)
+    projection_x = icon_w + front_w
+    width = projection_x + view_w * len(VIEWS)
     pixels = [(244, 241, 233, 255) for _ in range(width * height)]
 
     if include_icon:
         draw_iso_panel(pixels, width, height, 0, 0, icon_w, height, model)
+        draw_iso_panel(pixels, width, height, icon_w, 0, front_w, height, model, "front3q")
     for col, view in enumerate(VIEWS):
-        draw_projection_panel(pixels, width, height, icon_w + col * view_w, 0, model, view, frame_size)
+        draw_projection_panel(pixels, width, height, projection_x + col * view_w, 0, model, view, frame_size)
 
     write_png(path, width, height, pixels)
 

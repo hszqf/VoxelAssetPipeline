@@ -21,7 +21,7 @@ from voxel_asset_pipeline.model import (
     write_png,
     write_vox,
 )
-from voxel_asset_pipeline.render import VIEWS, fill_rect, put_pixel, render_review, stroke_rect, visible_projection
+from voxel_asset_pipeline.render import VIEWS, fill_rect, oriented_model, put_pixel, render_review, stroke_rect, visible_projection
 
 
 OUT_DIR = ROOT / "examples" / "design_sheet_trial"
@@ -364,11 +364,20 @@ def draw_projection_panel(pixels, width: int, height: int, panel_x: int, panel_y
         fill_rect(pixels, width, height, x, y, scale, scale, COLORS[color_name])
 
 
-def draw_iso_panel(pixels, width: int, height: int, panel_x: int, panel_y: int, model: VoxelModel) -> None:
+def draw_iso_panel(
+    pixels,
+    width: int,
+    height: int,
+    panel_x: int,
+    panel_y: int,
+    model: VoxelModel,
+    orientation: str = "icon",
+) -> None:
     panel_w = 260
     panel_h = 196
+    view_model = oriented_model(model, orientation)
     scale = 5.2
-    polygons = list(iter_face_polygons(model, scale, 0, 0))
+    polygons = list(iter_face_polygons(view_model, scale, 0, 0))
     xs = [x for pts, _, _ in polygons for x, _ in pts]
     ys = [y for pts, _, _ in polygons for _, y in pts]
     if xs and ys:
@@ -376,12 +385,12 @@ def draw_iso_panel(pixels, width: int, height: int, panel_x: int, panel_y: int, 
         bbox_h = max(ys) - min(ys)
         fit = min(1.0, 224 / max(bbox_w, 1), 164 / max(bbox_h, 1))
         scale *= fit
-    polygons = list(iter_face_polygons(model, scale, 0, 0))
+    polygons = list(iter_face_polygons(view_model, scale, 0, 0))
     xs = [x for pts, _, _ in polygons for x, _ in pts]
     ys = [y for pts, _, _ in polygons for _, y in pts]
     tx = panel_x + (panel_w - (max(xs) - min(xs))) * 0.5 - min(xs) if xs else panel_x
     ty = panel_y + (panel_h - (max(ys) - min(ys))) * 0.5 - min(ys) if ys else panel_y
-    for pts, rgba, factor in iter_face_polygons(model, scale, tx, ty):
+    for pts, rgba, factor in iter_face_polygons(view_model, scale, tx, ty):
         draw_polygon(pixels, width, height, pts, rgba, factor)
 
 
@@ -389,15 +398,16 @@ def render_pipeline_reference(models: list[VoxelModel], path: Path) -> None:
     row_h = 196
     iso_w = 260
     panel_w = 178
-    width = iso_w + panel_w * len(VIEWS)
+    width = iso_w * 2 + panel_w * len(VIEWS)
     height = row_h * len(models)
     pixels = [(244, 241, 233, 255) for _ in range(width * height)]
 
     for row, model in enumerate(models):
         y = row * row_h
         draw_iso_panel(pixels, width, height, 0, y, model)
+        draw_iso_panel(pixels, width, height, iso_w, y, model, "front3q")
         for col, view in enumerate(VIEWS):
-            draw_projection_panel(pixels, width, height, iso_w + col * panel_w, y, model, view)
+            draw_projection_panel(pixels, width, height, iso_w * 2 + col * panel_w, y, model, view)
 
     write_png(path, width, height, pixels)
     print(f"Wrote {path}")
@@ -407,6 +417,7 @@ def reference_view_items(model_name: str) -> list[dict]:
     base = "examples/design_sheet_trial/reference_views"
     views = [
         {"id": "iso", "label": "Icon", "path": f"{base}/{model_name}_iso.png"},
+        {"id": "front3q", "label": "Front 3/4", "path": f"{base}/{model_name}_front3q.png"},
         {"id": "side", "label": "Side", "path": f"{base}/{model_name}_side.png"},
         {"id": "front", "label": "Front", "path": f"{base}/{model_name}_front.png"},
         {"id": "top", "label": "Top", "path": f"{base}/{model_name}_top.png"},
@@ -425,6 +436,10 @@ def render_individual_reference_views(models: list[VoxelModel]) -> None:
         iso_pixels = [(244, 241, 233, 255) for _ in range(iso_w * row_h)]
         draw_iso_panel(iso_pixels, iso_w, row_h, 0, 0, model)
         write_png(ref_dir / f"{model.name}_iso.png", iso_w, row_h, iso_pixels)
+
+        front_pixels = [(244, 241, 233, 255) for _ in range(iso_w * row_h)]
+        draw_iso_panel(front_pixels, iso_w, row_h, 0, 0, model, "front3q")
+        write_png(ref_dir / f"{model.name}_front3q.png", iso_w, row_h, front_pixels)
 
         panel_w = 178
         for view in VIEWS:

@@ -502,7 +502,7 @@ function currentCellResolution() {
 }
 
 function referenceViewsFor(asset) {
-  const preferredOrder = ["source", "iso", "side", "front", "top"];
+  const preferredOrder = ["source", "iso", "front3q", "side", "front", "top"];
   if (Array.isArray(asset.reference_views) && asset.reference_views.length > 0) {
     const candidates = asset.reference_views.slice();
     if (asset.source_image && !candidates.some((view) => normalizePath(view.path || "") === normalizePath(asset.source_image))) {

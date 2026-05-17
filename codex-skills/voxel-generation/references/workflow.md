@@ -5,19 +5,19 @@ Core invariant: first source-sheet approval happens before `.vox` generation.
 Default source reference format:
 
 ```text
-Icon | Side | Front | Top
+Icon | Front 3/4 | Side | Front | Top
 ```
 
-Use one raster image that contains the final icon-style view plus the three orthographic views. This keeps the visual target and the structural constraints together, reducing ambiguous features such as accidental raised blocks on an animal's back.
+Use one raster image that contains the final icon-style view, a side-front three-quarter view, and the three orthographic views. This keeps the visual target and the structural constraints together, reducing ambiguous features such as accidental raised blocks on an animal's back or confusing front/back orientation.
 
 Pipeline stages:
 
 1. Source sheet: generated or user-provided, used to settle visual style, orientation, scale, and silhouette.
 2. Approval stop: do not write `.vox` until the user approves the source sheet.
 3. Voxel construction: convert into a structured `VoxelModel` array and write MagicaVoxel `.vox`.
-4. Review renders: source sheet plus generated icon and side/front/top views inside a 64-cell guide.
+4. Review renders: source sheet plus generated icon, front three-quarter, and side/front/top views inside a 64-cell guide.
 5. Validation: size, one-cell fit, domain-specific checks, `single_connected_component`, and `floating_component_sizes`.
-6. Viewer: rebuild `viewer/embedded-data.js` so `viewer/index.html` works from `file://`; the Reference pane should show `Source` first, then generated `Icon / Side / Front / Top`.
+6. Viewer: rebuild `viewer/embedded-data.js` so `viewer/index.html` works from `file://`; the Reference pane should show `Source` first, then generated `Icon / Front 3/4 / Side / Front / Top`.
 7. Adapter: apply only after user approval.
 
 When adding new assets, update:
@@ -31,5 +31,6 @@ When adding new assets, update:
 Animal and character assets:
 
 - Treat top view as authoritative for back silhouette and markings.
+- Add or inspect `Front 3/4` when the asset has a face, snout, chest, or other direction-specific front detail.
 - Do not add a raised back patch unless it is visible in side and top views.
 - Prefer flat, connected body volumes before adding decorative color variation.

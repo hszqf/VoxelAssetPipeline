@@ -10,6 +10,11 @@
         "path": "examples/design_sheet_trial/reference_views/design_flower_iso.png"
       },
       {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_flower_front3q.png"
+      },
+      {
         "id": "side",
         "label": "Side",
         "path": "examples/design_sheet_trial/reference_views/design_flower_side.png"
@@ -50,6 +55,11 @@
         "id": "iso",
         "label": "Icon",
         "path": "examples/design_sheet_trial/reference_views/design_mushroom_iso.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_mushroom_front3q.png"
       },
       {
         "id": "side",
@@ -94,6 +104,11 @@
         "path": "examples/design_sheet_trial/reference_views/design_shell_iso.png"
       },
       {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_shell_front3q.png"
+      },
+      {
         "id": "side",
         "label": "Side",
         "path": "examples/design_sheet_trial/reference_views/design_shell_side.png"
@@ -134,6 +149,11 @@
         "id": "iso",
         "label": "Icon",
         "path": "examples/design_sheet_trial/reference_views/design_bee_iso.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_bee_front3q.png"
       },
       {
         "id": "side",
@@ -178,6 +198,11 @@
         "path": "examples/design_sheet_trial/reference_views/design_butterfly_iso.png"
       },
       {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_butterfly_front3q.png"
+      },
+      {
         "id": "side",
         "label": "Side",
         "path": "examples/design_sheet_trial/reference_views/design_butterfly_side.png"
@@ -218,6 +243,11 @@
         "id": "iso",
         "label": "Icon",
         "path": "examples/design_sheet_trial/reference_views/design_fish_iso.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_fish_front3q.png"
       },
       {
         "id": "side",
@@ -267,6 +297,11 @@
         "path": "examples/design_sheet_trial/reference_generated_tree_cloud_crab.png"
       },
       {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_tree_front3q.png"
+      },
+      {
         "id": "side",
         "label": "Side",
         "path": "examples/design_sheet_trial/reference_views/design_tree_side.png"
@@ -314,6 +349,11 @@
         "path": "examples/design_sheet_trial/reference_generated_tree_cloud_crab.png"
       },
       {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_cloud_front3q.png"
+      },
+      {
         "id": "side",
         "label": "Side",
         "path": "examples/design_sheet_trial/reference_views/design_cloud_side.png"
@@ -359,6 +399,11 @@
         "id": "source",
         "label": "Source",
         "path": "examples/design_sheet_trial/reference_generated_tree_cloud_crab.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/design_sheet_trial/reference_views/design_crab_front3q.png"
       },
       {
         "id": "side",

@@ -56,6 +56,7 @@ def reference_view_items(model_name: str) -> list[dict]:
     return [
         {"id": "iso", "label": "Icon", "path": f"{base}/{model_name}_iso.png"},
         {"id": "source", "label": "Source", "path": SOURCE_REFERENCE},
+        {"id": "front3q", "label": "Front 3/4", "path": f"{base}/{model_name}_front3q.png"},
         {"id": "side", "label": "Side", "path": f"{base}/{model_name}_side.png"},
         {"id": "front", "label": "Front", "path": f"{base}/{model_name}_front.png"},
         {"id": "top", "label": "Top", "path": f"{base}/{model_name}_top.png"},
@@ -70,6 +71,10 @@ def render_individual_reference_views(models: list[VoxelModel]) -> None:
         iso_pixels = [(244, 241, 233, 255) for _ in range(iso_w * row_h)]
         draw_iso_panel(iso_pixels, iso_w, row_h, 0, 0, iso_w, row_h, model)
         write_png(ref_dir / f"{model.name}_iso.png", iso_w, row_h, iso_pixels)
+
+        front_pixels = [(244, 241, 233, 255) for _ in range(iso_w * row_h)]
+        draw_iso_panel(front_pixels, iso_w, row_h, 0, 0, iso_w, row_h, model, "front3q")
+        write_png(ref_dir / f"{model.name}_front3q.png", iso_w, row_h, front_pixels)
 
         panel_w = 178
         for view in VIEWS:
