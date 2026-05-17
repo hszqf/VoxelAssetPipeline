@@ -8,7 +8,7 @@ Default source reference format:
 Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid
 ```
 
-Use one raster image that contains the front and back three-quarter design views plus three orthographic design views. The Side/Front/Top views must already include visible 64x64 guides and a bounding cell frame. These guides are part of source approval, not a post-voxel review overlay.
+Use one raster image for exactly one asset. It contains the front and back three-quarter design views plus three orthographic design views. The Side/Front/Top views must already include visible 64x64 guides and a bounding cell frame. These guides are part of source approval, not a post-voxel review overlay.
 
 Allowed first-step references:
 
@@ -37,11 +37,12 @@ Workflow:
 
 AI prompt requirements:
 
-- Request one sheet with `Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid`.
+- Request exactly one asset in one sheet with `Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid`.
 - Require visible 64x64 grid guides and bounding cell frames on Side, Front, and Top.
 - Keep Side, Front, and Top at the same scale.
 - Show intended occupied proportion inside the 64x64 cell; small objects should leave visible empty space.
 - Include front/back direction cues for animals and characters.
+- For batches, repeat this source approval loop one asset at a time.
 
 Viewer dataset registration:
 
@@ -52,7 +53,7 @@ Viewer dataset registration:
 - Do not add batch names manually to `viewer/app.js`.
 - Add optional `examples/<batch_name>/dataset.json` only when the displayed name, id, cell resolution, or order needs to be overridden.
 
-If a script-rendered voxel draft was used as the first source image, discard it and restart from the design-source step. If the AI source sheet lacks Side/Front/Top 64-grid guides, regenerate it before voxel work. Do not patch the model forward; errors such as duplicated limbs usually come from skipping the design-source gate.
+If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset. If a script-rendered voxel draft was used as the first source image, discard it and restart from the design-source step. If the AI source sheet lacks Side/Front/Top 64-grid guides, regenerate it before voxel work. Do not patch the model forward; errors such as duplicated limbs usually come from skipping the design-source gate.
 
 For animals and character assets:
 

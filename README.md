@@ -19,11 +19,11 @@ VoxelAssetPipeline turns an approved visual reference into `.vox` assets with re
 
 ## Source Sheet First
 
-The first artifact should be a combined source sheet. For directional assets such as animals, `Front 3/4` removes the common front/back ambiguity that made side-back icons easy to misread.
+The first artifact should be a combined source sheet for exactly one asset. For directional assets such as animals, `Front 3/4` removes the common front/back ambiguity that made side-back icons easy to misread.
 
 This first source sheet must come from a user-provided raster image or an image-generation model. Do not use script-rendered `VoxelModel`, `.vox`, viewer, canvas, SVG, or projection output as the design reference; those are review artifacts after the design source has been approved.
 
-The Side, Front, and Top design views in that first sheet must already show visible 64x64 guides and a bounding cell frame. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it.
+The Side, Front, and Top design views in that first sheet must already show visible 64x64 guides and a bounding cell frame. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it. For batches, repeat the source-sheet approval loop one asset at a time.
 
 <p align="center">
   <img src="examples/dog_trial/reference_dog_icon_three_view_clean.png" alt="Dog source sheet with icon, front three-quarter, side, front, and top views" width="100%">

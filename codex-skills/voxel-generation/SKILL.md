@@ -1,6 +1,6 @@
 ---
 name: voxel-generation
-description: Generate voxel game assets / 体素素材 / 体素生成 from approved raster design references, including a hard first-step gate that forbids script-rendered voxel drafts as design references, one-sheet Front 3/4 design/Back 3/4 design/Side 64-grid/Front 64-grid/Top 64-grid source sheets, automatic asset-name labels on reference/review images, proportional 64-cell voxel modeling, .vox export, review renders, structural checks, static viewer review, and optional project adapter integration. Use when the user needs 体素素材, voxel assets, .vox files, 小模型生成, AI voxel icon design references, or review generated voxel models.
+description: Generate voxel game assets / 体素素材 / 体素生成 from approved raster design references, including a hard first-step gate that forbids script-rendered voxel drafts as design references, one-asset-per-sheet Front 3/4 design/Back 3/4 design/Side 64-grid/Front 64-grid/Top 64-grid source sheets, automatic asset-name labels on reference/review images, proportional 64-cell voxel modeling, .vox export, review renders, structural checks, static viewer review, and optional project adapter integration. Use when the user needs 体素素材, voxel assets, .vox files, 小模型生成, AI voxel icon design references, or review generated voxel models.
 ---
 
 # Voxel Generation
@@ -10,7 +10,7 @@ Use this skill when a user needs voxel game assets or `.vox` files.
 ## Required Workflow
 
 1. Start with a real raster design reference from the user or an image-generation model. Do not use `VoxelModel`, `.vox`, canvas/SVG/PNG script rendering, or viewer screenshots as the first design reference.
-2. Default to one approved AI source sheet containing `Front 3/4 design + Back 3/4 design + Side 64-grid + Front 64-grid + Top 64-grid` in a single image. The Side/Front/Top orthographic design views must already include visible 64x64 cell guides and a bounding cell frame.
+2. Default to one approved AI source sheet for exactly one asset, containing `Front 3/4 design + Back 3/4 design + Side 64-grid + Front 64-grid + Top 64-grid` in a single image. The Side/Front/Top orthographic design views must already include visible 64x64 cell guides and a bounding cell frame.
 3. Reject or regenerate the source sheet before asking for approval if the orthographic design views do not show the 64-cell guide, if the asset fills the whole 64x64 frame without intended scale, or if the Side/Front/Top views are not in the same scale system.
 4. Stop after the first valid source sheet and wait for user confirmation before creating voxel geometry, `.vox`, manifests, or viewer data.
 5. After confirmation, create voxel models at the agreed game-cell scale. Default: one game cell is `64 x 64 x 64`; small objects should occupy only their real proportion inside that cell.
@@ -41,6 +41,7 @@ The static viewer is available at `viewer/index.html`. It should work from `file
 ## Review Rules
 
 - Preserve scale relationships before detail. A tiny object should not fill the 64-cell frame.
+- Generate and approve one asset per source sheet. Do not ask an image model for multiple animals, props, or characters in one source sheet.
 - Treat source references and voxel review renders as different artifact classes. Script-rendered voxel images are allowed only after the design source is approved.
 - Treat the source sheet's Side/Front/Top 64-grid views as design requirements, not post-voxel review extras.
 - AI image prompts must explicitly request visible 64x64 guides, a bounding cell frame, and the asset's intended occupied proportion inside the cell.

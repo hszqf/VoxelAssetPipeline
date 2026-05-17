@@ -10,7 +10,7 @@ Default source reference format:
 Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid
 ```
 
-Use one raster image that contains the front and back three-quarter design views plus three orthographic design views. The Side/Front/Top views must already include visible 64x64 guides and a bounding cell frame. These guides are part of source approval, not a post-voxel review overlay.
+Use one raster image for exactly one asset. It contains the front and back three-quarter design views plus three orthographic design views. The Side/Front/Top views must already include visible 64x64 guides and a bounding cell frame. These guides are part of source approval, not a post-voxel review overlay.
 
 Allowed first-step source references:
 
@@ -30,7 +30,8 @@ Script-rendered images are review artifacts only. They can be produced after the
 
 AI source prompt requirements:
 
-- Ask for `Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid` in one clean sheet.
+- Ask for exactly one asset in one clean sheet.
+- Ask for `Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid`.
 - Require visible 64x64 grid guides and a clear bounding cell frame on Side, Front, and Top.
 - Require the same scale across Side, Front, and Top.
 - Require the asset to occupy its intended proportion inside the 64x64 cell, not fill the entire frame unless it is truly a full-cell object.
@@ -39,6 +40,7 @@ AI source prompt requirements:
 
 Source approval gate:
 
+- Do not approve multi-asset source sheets. For batches, repeat the source approval loop once per asset.
 - Do not ask for approval if Side/Front/Top lack visible 64-cell guides.
 - Do not create `VoxelModel`, `.vox`, manifest, viewer data, or generated review renders before this gate passes.
 - If the AI model omits the guides or changes scale between views, regenerate the source sheet with a stricter prompt.
@@ -73,6 +75,7 @@ Reference and review image labels:
 
 Failure handling:
 
+- If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset.
 - If the first source image was accidentally created by script-rendering a voxel draft, discard it as a design source.
 - If the first AI source sheet lacks Side/Front/Top 64-grid guides, discard or regenerate it before voxel work.
 - Return to the design-source step and generate or request a proper raster design reference.
