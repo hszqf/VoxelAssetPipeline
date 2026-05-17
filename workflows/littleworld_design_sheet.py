@@ -21,7 +21,16 @@ from voxel_asset_pipeline.model import (
     write_png,
     write_vox,
 )
-from voxel_asset_pipeline.render import VIEWS, fill_rect, oriented_model, put_pixel, render_review, stroke_rect, visible_projection
+from voxel_asset_pipeline.render import (
+    VIEWS,
+    draw_name_label,
+    fill_rect,
+    oriented_model,
+    put_pixel,
+    render_review,
+    stroke_rect,
+    visible_projection,
+)
 
 
 OUT_DIR = ROOT / "examples" / "design_sheet_trial"
@@ -408,6 +417,7 @@ def render_pipeline_reference(models: list[VoxelModel], path: Path) -> None:
         draw_iso_panel(pixels, width, height, iso_w, y, model, "front3q")
         for col, view in enumerate(VIEWS):
             draw_projection_panel(pixels, width, height, iso_w * 2 + col * panel_w, y, model, view)
+        draw_name_label(pixels, width, height, 8, y + 8, model.name)
 
     write_png(path, width, height, pixels)
     print(f"Wrote {path}")

@@ -14,6 +14,48 @@ VIEWS = [
     ("top", ("x", "z"), "y", 1),
 ]
 
+FONT_5X7 = {
+    "A": ("01110", "10001", "10001", "11111", "10001", "10001", "10001"),
+    "B": ("11110", "10001", "10001", "11110", "10001", "10001", "11110"),
+    "C": ("01111", "10000", "10000", "10000", "10000", "10000", "01111"),
+    "D": ("11110", "10001", "10001", "10001", "10001", "10001", "11110"),
+    "E": ("11111", "10000", "10000", "11110", "10000", "10000", "11111"),
+    "F": ("11111", "10000", "10000", "11110", "10000", "10000", "10000"),
+    "G": ("01111", "10000", "10000", "10011", "10001", "10001", "01111"),
+    "H": ("10001", "10001", "10001", "11111", "10001", "10001", "10001"),
+    "I": ("11111", "00100", "00100", "00100", "00100", "00100", "11111"),
+    "J": ("00111", "00010", "00010", "00010", "10010", "10010", "01100"),
+    "K": ("10001", "10010", "10100", "11000", "10100", "10010", "10001"),
+    "L": ("10000", "10000", "10000", "10000", "10000", "10000", "11111"),
+    "M": ("10001", "11011", "10101", "10101", "10001", "10001", "10001"),
+    "N": ("10001", "11001", "10101", "10011", "10001", "10001", "10001"),
+    "O": ("01110", "10001", "10001", "10001", "10001", "10001", "01110"),
+    "P": ("11110", "10001", "10001", "11110", "10000", "10000", "10000"),
+    "Q": ("01110", "10001", "10001", "10001", "10101", "10010", "01101"),
+    "R": ("11110", "10001", "10001", "11110", "10100", "10010", "10001"),
+    "S": ("01111", "10000", "10000", "01110", "00001", "00001", "11110"),
+    "T": ("11111", "00100", "00100", "00100", "00100", "00100", "00100"),
+    "U": ("10001", "10001", "10001", "10001", "10001", "10001", "01110"),
+    "V": ("10001", "10001", "10001", "10001", "10001", "01010", "00100"),
+    "W": ("10001", "10001", "10001", "10101", "10101", "10101", "01010"),
+    "X": ("10001", "10001", "01010", "00100", "01010", "10001", "10001"),
+    "Y": ("10001", "10001", "01010", "00100", "00100", "00100", "00100"),
+    "Z": ("11111", "00001", "00010", "00100", "01000", "10000", "11111"),
+    "0": ("01110", "10001", "10011", "10101", "11001", "10001", "01110"),
+    "1": ("00100", "01100", "00100", "00100", "00100", "00100", "01110"),
+    "2": ("01110", "10001", "00001", "00010", "00100", "01000", "11111"),
+    "3": ("11110", "00001", "00001", "01110", "00001", "00001", "11110"),
+    "4": ("00010", "00110", "01010", "10010", "11111", "00010", "00010"),
+    "5": ("11111", "10000", "10000", "11110", "00001", "00001", "11110"),
+    "6": ("01110", "10000", "10000", "11110", "10001", "10001", "01110"),
+    "7": ("11111", "00001", "00010", "00100", "01000", "01000", "01000"),
+    "8": ("01110", "10001", "10001", "01110", "10001", "10001", "01110"),
+    "9": ("01110", "10001", "10001", "01111", "00001", "00001", "01110"),
+    "-": ("00000", "00000", "00000", "11111", "00000", "00000", "00000"),
+    "_": ("00000", "00000", "00000", "00000", "00000", "00000", "11111"),
+    " ": ("00000", "00000", "00000", "00000", "00000", "00000", "00000"),
+}
+
 
 def put_pixel(pixels, width: int, height: int, x: int, y: int, color) -> None:
     if 0 <= x < width and 0 <= y < height:
@@ -57,6 +99,36 @@ def draw_line(pixels, width: int, height: int, x0: int, y0: int, x1: int, y1: in
 def stroke_rect_thick(pixels, width: int, height: int, x: int, y: int, w: int, h: int, color, thickness: int) -> None:
     for i in range(thickness):
         stroke_rect(pixels, width, height, x + i, y + i, max(1, w - i * 2), max(1, h - i * 2), color)
+
+
+def text_size(text: str, scale: int = 2) -> tuple[int, int]:
+    if not text:
+        return 0, 7 * scale
+    return (len(text) * 6 - 1) * scale, 7 * scale
+
+
+def draw_text(pixels, width: int, height: int, x: int, y: int, text: str, color, scale: int = 2) -> None:
+    cursor = x
+    for raw_char in text.upper():
+        glyph = FONT_5X7.get(raw_char, FONT_5X7["-"])
+        for gy, row in enumerate(glyph):
+            for gx, value in enumerate(row):
+                if value != "1":
+                    continue
+                fill_rect(pixels, width, height, cursor + gx * scale, y + gy * scale, scale, scale, color)
+        cursor += 6 * scale
+
+
+def draw_name_label(pixels, width: int, height: int, x: int, y: int, name: str) -> None:
+    label = name[:24]
+    text_w, text_h = text_size(label, 2)
+    pad_x = 6
+    pad_y = 4
+    box_w = text_w + pad_x * 2
+    box_h = text_h + pad_y * 2
+    fill_rect(pixels, width, height, x, y, box_w, box_h, (255, 253, 248, 255))
+    stroke_rect(pixels, width, height, x, y, box_w, box_h, (54, 50, 44, 255))
+    draw_text(pixels, width, height, x + pad_x, y + pad_y, label, (45, 43, 38, 255), 2)
 
 
 def axis_index(axis: str) -> int:
@@ -202,6 +274,7 @@ def render_reference_sheet(model: VoxelModel, path: Path, include_icon: bool = T
         draw_iso_panel(pixels, width, height, icon_w, 0, front_w, height, model, "front3q")
     for col, view in enumerate(VIEWS):
         draw_projection_panel(pixels, width, height, projection_x + col * view_w, 0, model, view, frame_size)
+    draw_name_label(pixels, width, height, 8, 8, model.name)
 
     write_png(path, width, height, pixels)
 
@@ -247,4 +320,5 @@ def render_review(path: Path, out_dir: Path, assets: list[str], frame_size: list
                 y0 = int(oy + (view_h - vy - 1) * scale)
                 fill_rect(pixels, width, height, x0, y0, max(1, int(scale)), max(1, int(scale)), COLORS[color_name])
             stroke_rect(pixels, width, height, ox, oy, int(view_w * scale), int(view_h * scale), bbox)
+        draw_name_label(pixels, width, height, 8, row * cell_h + 8, asset)
     write_png(path, width, height, pixels)
