@@ -24,9 +24,11 @@ When adding new assets, update:
 
 - a generation workflow and its builder list
 - a validation workflow with per-asset checks
-- `viewer/app.js` dataset registration when adding a new manifest
-- `viewer/build-embedded-data.mjs` manifest list
+- `examples/<batch_name>/manifest.json`
+- optional `examples/<batch_name>/dataset.json` for display overrides
 - project adapter mapping only when the game has a matching entity prefab
+
+Do not manually register new batches in `viewer/app.js`. Run `python voxel_pipeline.py build-viewer-data`; the build script scans `examples/*/manifest.json` and emits dataset metadata for the viewer dropdown.
 
 Animal and character assets:
 

@@ -18,6 +18,15 @@ Workflow:
 6. Rebuild `viewer/embedded-data.js`.
 7. Review in `viewer/index.html`; the Reference pane should show `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top`.
 
+Viewer dataset registration:
+
+- Put each review batch under `examples/<batch_name>/manifest.json`.
+- Run `python voxel_pipeline.py build-viewer-data`.
+- `viewer/build-embedded-data.mjs` scans `examples/*/manifest.json` and writes `window.VOX_VIEWER_EMBEDDED.datasets`.
+- `viewer/app.js` builds the Set dropdown from the embedded dataset metadata.
+- Do not add batch names manually to `viewer/app.js`.
+- Add optional `examples/<batch_name>/dataset.json` only when the displayed name, id, cell resolution, or order needs to be overridden.
+
 For animals and character assets:
 
 - Treat top view as authoritative for back silhouette and markings.

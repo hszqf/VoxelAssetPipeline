@@ -1,29 +1,8 @@
-const DATASETS = [
-  {
-    id: "design-sheet",
-    name: "Design sheet trial",
-    manifest: "/examples/design_sheet_trial/manifest.json",
-    cellResolution: 64,
-  },
-  {
-    id: "quick-trial",
-    name: "Quick trial",
-    manifest: "/examples/quick_trial/manifest.json",
-    cellResolution: 64,
-  },
-  {
-    id: "dog-trial",
-    name: "Dog trial",
-    manifest: "/examples/dog_trial/manifest.json",
-    cellResolution: 64,
-  },
-];
-
 const DEFAULT_CELL_RESOLUTION = 8;
 
 const state = {
   datasets: new Map(),
-  currentDataset: DATASETS[0].id,
+  currentDataset: null,
   currentAsset: null,
   currentModel: null,
   yaw: -Math.PI / 4,
@@ -562,11 +541,52 @@ function setInfoCollapsed(collapsed) {
 }
 
 function normalizePath(path) {
-  return path.replace(/\\/g, "/").replace(/^\/+/, "");
+  return String(path || "").replace(/\\/g, "/").replace(/^\/+/, "");
 }
 
 function embedded() {
-  return window.VOX_VIEWER_EMBEDDED || { manifests: {}, vox: {}, images: {} };
+  return window.VOX_VIEWER_EMBEDDED || { datasets: [], manifests: {}, vox: {}, images: {} };
+}
+
+function titleCaseBatchName(name) {
+  return name
+    .replace(/[_-]+/g, " ")
+    .replace(/\b[a-z]/g, (char) => char.toUpperCase());
+}
+
+function datasetFromManifestPath(path, manifest = []) {
+  const manifestPath = normalizePath(path);
+  const parts = manifestPath.split("/");
+  const batchName = parts.length >= 3 ? parts[1] : manifestPath.replace(/\/manifest\.json$/, "");
+  const firstAsset = Array.isArray(manifest) ? manifest.find(Boolean) : null;
+  return {
+    id: batchName.replace(/[_\s]+/g, "-").toLowerCase(),
+    name: titleCaseBatchName(batchName),
+    manifest: `/${manifestPath}`,
+    cellResolution: firstAsset?.cell_resolution || DEFAULT_CELL_RESOLUTION,
+  };
+}
+
+function embeddedDatasets() {
+  const payload = embedded();
+  if (Array.isArray(payload.datasets) && payload.datasets.length > 0) {
+    return payload.datasets.map((dataset) => {
+      const inferred = datasetFromManifestPath(dataset.manifest);
+      return {
+        ...dataset,
+        id: dataset.id || inferred.id,
+        name: dataset.name || inferred.name,
+        manifest: dataset.manifest?.startsWith("/") ? dataset.manifest : `/${normalizePath(dataset.manifest || "")}`,
+        cellResolution: dataset.cellResolution || inferred.cellResolution,
+      };
+    });
+  }
+
+  const manifestPaths = Object.keys(payload.manifests || {})
+    .filter((path) => !path.startsWith("/"))
+    .filter((path) => path.endsWith("/manifest.json"))
+    .sort((a, b) => a.localeCompare(b, "en"));
+  return manifestPaths.map((path) => datasetFromManifestPath(path, payload.manifests[path]));
 }
 
 function embeddedManifest(path) {
@@ -687,14 +707,21 @@ async function loadDataset(datasetId) {
 }
 
 async function init() {
-  for (const dataset of DATASETS) {
+  const datasets = embeddedDatasets();
+  if (!datasets.length) {
+    throw new Error("No datasets found. Run `python voxel_pipeline.py build-viewer-data` after generating manifests.");
+  }
+
+  state.currentDataset = datasets[0].id;
+
+  for (const dataset of datasets) {
     const option = document.createElement("option");
     option.value = dataset.id;
     option.textContent = dataset.name;
     datasetSelect.appendChild(option);
   }
 
-  for (const dataset of DATASETS) {
+  for (const dataset of datasets) {
     const assets = await fetchJsonWithEmbeddedFallback(dataset.manifest);
     state.datasets.set(dataset.id, { ...dataset, assets });
   }

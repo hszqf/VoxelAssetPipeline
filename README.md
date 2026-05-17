@@ -56,6 +56,33 @@ http://127.0.0.1:5177/viewer/index.html
 
 The Reference pane shows `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top` views.
 
+## Adding a Batch
+
+Create a directory under `examples/` with a `manifest.json`:
+
+```text
+examples/missing_batch_01/manifest.json
+```
+
+Then rebuild the embedded viewer payload:
+
+```powershell
+python voxel_pipeline.py build-viewer-data
+```
+
+The viewer scans `examples/*/manifest.json` automatically. You do not need to edit `viewer/app.js` when adding a new batch.
+
+Optional display metadata can be added next to the manifest:
+
+```json
+{
+  "id": "missing-batch-01",
+  "name": "Missing batch 01",
+  "cellResolution": 64,
+  "order": 100
+}
+```
+
 ## Commands
 
 Run from the repository root:
