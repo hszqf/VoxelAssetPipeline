@@ -10,7 +10,7 @@ Standalone workflow for generating, validating, and reviewing small voxel game a
 
 VoxelAssetPipeline turns an approved visual reference into `.vox` assets with repeatable review steps:
 
-- start from a single source sheet: `Front 3/4 design + Back 3/4 design + Side 64-grid + Front 64-grid + Top 64-grid`
+- start from a single source sheet: `Front 3/4 design + Back 3/4 design + registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`
 - build small MagicaVoxel-compatible `.vox` files
 - render generated `Icon / Front 3/4 / Side / Front / Top` review images
 - run structural checks such as `single_connected_component` and `floating_component_sizes`
@@ -23,11 +23,13 @@ The first artifact should be a combined source sheet for exactly one asset. For 
 
 This first source sheet must come from a user-provided raster image or an image-generation model. Do not use script-rendered `VoxelModel`, `.vox`, viewer, canvas, SVG, or projection output as the design reference; those are review artifacts after the design source has been approved.
 
-The Side, Front, and Top design views in that first sheet must already show visible 64x64 guides and a bounding cell frame. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it. For batches, repeat the source-sheet approval loop one asset at a time.
+The Side, Front, and Top design views in that first sheet must already show visible 64x64 guides, a bounding cell frame, and shared orthographic registration. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it. For batches, repeat the source-sheet approval loop one asset at a time.
 
-Before generating the sheet, confirm the scale contract. A single-cell cow should read as a medium asset, for example roughly `40w x 32h x 20d` inside the 64-cell frame with tolerance such as `±4`, leaving empty grid space around it. Objects larger than that should either use a larger tier or be declared as multi-cell assets instead of being squeezed into one 64-cell frame.
+Before generating the sheet, confirm the scale contract. A single-cell cow should read as a medium asset, for example roughly `40w x 32h x 20d` inside the 64-cell frame with tolerance such as `+/-4`, leaving empty grid space around it. Objects larger than that should either use a larger tier or be declared as multi-cell assets instead of being squeezed into one 64-cell frame.
 
-After generation, estimate the Side/Front/Top bounding boxes and report the bbox self-check before asking for approval. If the generated sheet is out of tolerance, do not silently regenerate; report the failed measurements first, then regenerate under the confirmed scale contract or revise the contract with the user.
+After generation, estimate the Side/Front/Top bounding boxes and report the bbox plus registration self-check before asking for approval. Side, Front, and Top must behave like a registered blueprint: Side length matches Top length, Front width matches Top width, Side/Front height and ground baseline match, and major landmarks line up. If the generated sheet is out of tolerance or separately centered, do not silently regenerate; report the failed measurements first, then regenerate under the confirmed scale contract or revise the contract with the user.
+
+Script-rendered sheets like the dog example below are deterministic review artifacts from one `VoxelModel`; they prove geometry after approval, but they should not be used as the first design source.
 
 <p align="center">
   <img src="examples/dog_trial/reference_dog_icon_three_view_clean.png" alt="Dog source sheet with icon, front three-quarter, side, front, and top views" width="100%">
@@ -116,8 +118,8 @@ python voxel_pipeline.py apply-littleworld --project "E:\AI Projects\LittleWorld
 
 ## Workflow
 
-1. Generate or provide a source sheet with `Front 3/4 design + Back 3/4 design + Side 64-grid + Front 64-grid + Top 64-grid`.
-2. Reject or regenerate it if Side/Front/Top lack visible 64x64 guides, bounding frames, or consistent scale.
+1. Generate or provide a source sheet with `Front 3/4 design + Back 3/4 design + registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`.
+2. Reject or regenerate it if Side/Front/Top lack visible 64x64 guides, bounding frames, consistent scale, or shared orthographic registration.
 3. Stop for human approval of style, direction, silhouette, and occupied 64-cell proportion.
 4. Build `.vox` assets from the approved sheet.
 5. Render source and generated reference views.

@@ -10,7 +10,7 @@ Default source reference format:
 Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid
 ```
 
-Use one raster image for exactly one asset. It contains the front and back three-quarter design views plus three orthographic design views. The Side/Front/Top views must already include visible 64x64 guides and a bounding cell frame. These guides are part of source approval, not a post-voxel review overlay.
+Use one raster image for exactly one asset. It contains the front and back three-quarter design views plus three registered orthographic design views. The Side/Front/Top views must already include visible 64x64 guides, a bounding cell frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
 
 Allowed first-step source references:
 
@@ -27,6 +27,12 @@ Forbidden as first-step design references:
 - generated orthographic projections from an unapproved voxel model
 
 Script-rendered images are review artifacts only. They can be produced after the user approves a real design source and after voxel geometry exists.
+
+Design source vs deterministic review:
+
+- AI or user raster source sheets settle style, silhouette, direction, scale intent, and approximate registered orthographic design.
+- Script-rendered `VoxelModel` sheets prove exact geometry after approval. They are deterministic projections from one voxel coordinate set, like `dog_golden`; they are not valid first-step design sources.
+- If an early image looks perfectly grid-registered because it was rendered from a script or voxel draft, treat it as a review artifact and restart the design-source gate.
 
 Scale contract gate:
 
@@ -51,30 +57,44 @@ Single-cell scale guide:
 AI source prompt requirements:
 
 - Ask for exactly one asset in one clean sheet.
-- Ask for `Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid`.
+- Ask for `Front 3/4 design | Back 3/4 design | registered Side 64-grid | registered Front 64-grid | registered Top 64-grid`.
 - Require visible 64x64 grid guides and a clear bounding cell frame on Side, Front, and Top.
 - Require the same scale across Side, Front, and Top.
 - Require the asset to occupy its declared bounds inside the 64x64 cell, not fill the entire frame unless it is truly a full-cell object.
 - For small creatures, props, plants, and pickups, state that the object should use only a small portion of the cell while preserving empty space.
 - Require direction cues in both Front 3/4 and Back 3/4 views for animals and characters.
+- Require orthographic axes: Side uses X length horizontally and Y height vertically; Front uses Z width/depth horizontally and Y height vertically; Top uses X length horizontally and Z width/depth vertically.
+- Mark the front/head direction and keep it consistent between Side and Top.
+
+Orthographic registration gate:
+
+- Do not accept Side, Front, and Top as three separately centered drawings. They must behave like a blueprint registered to one 64-cell coordinate system.
+- Side length must match Top length on X within tolerance.
+- Front width must match Top width on Z within tolerance.
+- Side height must match Front height on Y within tolerance.
+- Side and Front must share the same ground baseline.
+- Body center, head/front extent, back/tail extent, leg positions, ears/horns, wings, handles, major markings, and other structural landmarks must line up across the views.
+- If the source sheet has a plausible style but failed registration, show it only as failure evidence. Do not ask for source approval and do not begin `.vox` work.
 
 Source approval gate:
 
 - Do not approve multi-asset source sheets. For batches, repeat the source approval loop once per asset.
 - Do not ask for approval if Side/Front/Top lack visible 64-cell guides.
 - Before asking for approval, estimate the occupied bounding box in the Side, Front, and Top panels.
-- Write a short bbox self-check report: target bounds, observed Side/Front/Top bounds, tolerance, and pass/fail.
+- Write a short bbox and registration self-check report: target bounds, observed Side/Front/Top bounds, tolerance, registration checks, and pass/fail.
 - Do not approve if the asset's bounding box is much larger or smaller than the confirmed scale contract.
+- Do not approve if Side/Front/Top have inconsistent origins, separately centered silhouettes, mismatched height/length/width, inconsistent ground baseline, or contradictory landmark positions.
 - Do not create `VoxelModel`, `.vox`, manifest, viewer data, or generated review renders before this gate passes.
 - If the AI model omits the guides or changes scale between views, regenerate the source sheet with a stricter prompt.
-- Do not silently regenerate a failed source sheet. Tell the user the failed measurements first; then regenerate under the confirmed contract, or ask for a revised contract when the target itself seems wrong.
+- Do not silently regenerate a failed source sheet. Tell the user the failed measurements/checks first; then regenerate under the confirmed contract, or ask for a revised contract when the target itself seems wrong.
 
-Example bbox self-check:
+Example bbox and registration self-check:
 
 ```text
 Scale contract: cow, game_cells=[1,1,1], target side 40w x 32h, top 40w x 20d, tolerance ±4
 Observed: side 54w x 42h, front 31w x 44h, top 48w x 29d
-Result: FAIL. The cow is too large for the medium single-cell budget. Regenerating with stronger empty-space and 40x32x20 bounds.
+Registration: FAIL. Side length does not match Top length; Side/Front height does not match; Top is separately centered.
+Result: FAIL. The cow is too large and not registered. Report these failures, then regenerate with stronger empty-space, 40x32x20 bounds, and registered axes.
 ```
 
 Pipeline stages:
@@ -82,7 +102,7 @@ Pipeline stages:
 1. Source sheet: generated by an image model or provided by the user, used to settle visual style, orientation, scale, silhouette, and declared occupied 64-cell bounds.
 2. Approval stop: do not write `.vox` until the user approves a source sheet that includes Side/Front/Top 64-grid design views.
 3. Voxel construction: convert into a structured `VoxelModel` array and write MagicaVoxel `.vox`.
-4. Review renders: source sheet plus generated icon, front three-quarter, and side/front/top views inside a 64-cell guide. Add the asset's model/manifest name in the upper-left corner of every generated source/review row.
+4. Review renders: source sheet plus generated icon, front three-quarter, and side/front/top views inside a 64-cell guide. The generated side/front/top views must come from the same `VoxelModel` coordinate set, not AI-drawn panels. Add the asset's model/manifest name in the upper-left corner of every generated source/review row.
 5. Validation: size, one-cell fit, domain-specific checks, `single_connected_component`, and `floating_component_sizes`.
 6. Viewer: rebuild `viewer/embedded-data.js` so `viewer/index.html` works from `file://`; the Reference pane should show `Source` first, then generated `Icon / Front 3/4 / Side / Front / Top`.
 7. Adapter: apply only after user approval.
@@ -110,7 +130,7 @@ Failure handling:
 - If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset.
 - If the first source image was accidentally created by script-rendering a voxel draft, discard it as a design source.
 - If the first AI source sheet lacks Side/Front/Top 64-grid guides, discard or regenerate it before voxel work.
-- If the bbox self-check fails, report the failed measurements before retrying; do not silently auto-regenerate.
+- If the bbox or registration self-check fails, report the failed measurements/checks before retrying; do not silently auto-regenerate.
 - Return to the design-source step and generate or request a proper raster design reference.
 - Do not continue by patching the draft model; this hides anatomy and proportion errors such as duplicated legs.
 

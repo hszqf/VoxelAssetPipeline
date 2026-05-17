@@ -8,7 +8,7 @@ Default source reference format:
 Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid
 ```
 
-Use one raster image for exactly one asset. It contains the front and back three-quarter design views plus three orthographic design views. The Side/Front/Top views must already include visible 64x64 guides and a bounding cell frame. These guides are part of source approval, not a post-voxel review overlay.
+Use one raster image for exactly one asset. It contains the front and back three-quarter design views plus three registered orthographic design views. The Side/Front/Top views must already include visible 64x64 guides, a bounding cell frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
 
 Allowed first-step references:
 
@@ -27,10 +27,10 @@ Forbidden as first-step references:
 Workflow:
 
 1. Generate or provide the combined source sheet using a real raster design source.
-2. Before prompting, confirm `game_cells`, target occupied bounds, and tolerance with the user, such as `cow: about 40w x 32h x 20d inside one 64-cell frame, tolerance ±4`.
-3. After generation, estimate the visible bounding box in Side, Front, and Top and write a self-check report.
-4. Reject or regenerate it if Side/Front/Top do not include visible 64-cell guides, a bounding frame, consistent scale, or the confirmed occupied bounds.
-5. Do not silently regenerate. Report failed bbox measurements before retrying or ask the user to revise the scale contract.
+2. Before prompting, confirm `game_cells`, target occupied bounds, and tolerance with the user, such as `cow: about 40w x 32h x 20d inside one 64-cell frame, tolerance +/-4`.
+3. After generation, estimate the visible bounding box in Side, Front, and Top and write a bbox plus registration self-check report.
+4. Reject or regenerate it if Side/Front/Top do not include visible 64-cell guides, a bounding frame, consistent scale, registered axes, or the confirmed occupied bounds.
+5. Do not silently regenerate. Report failed bbox or registration measurements before retrying or ask the user to revise the scale contract.
 6. Stop for approval before creating voxel geometry or writing `.vox`.
 7. Build the voxel model from the approved sheet.
 8. Render generated review views: `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`.
@@ -50,20 +50,31 @@ Single-cell scale guide:
 
 AI prompt requirements:
 
-- Request exactly one asset in one sheet with `Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid`.
+- Request exactly one asset in one sheet with `Front 3/4 design | Back 3/4 design | registered Side 64-grid | registered Front 64-grid | registered Top 64-grid`.
 - Require visible 64x64 grid guides and bounding cell frames on Side, Front, and Top.
 - Keep Side, Front, and Top at the same scale.
 - State concrete occupied bounds inside the 64x64 cell; small objects should leave visible empty space.
 - Include front/back direction cues for animals and characters.
+- Require registered orthographic axes: Side uses X length horizontally and Y height vertically; Front uses Z width/depth horizontally and Y height vertically; Top uses X length horizontally and Z width/depth vertically.
+- Require the same front/head direction between Side and Top.
 - For batches, repeat this source approval loop one asset at a time.
 
-BBox self-check report:
+BBox and registration self-check report:
 
 ```text
-Scale contract: cow, game_cells=[1,1,1], target side 40w x 32h, top 40w x 20d, tolerance ±4
+Scale contract: cow, game_cells=[1,1,1], target side 40w x 32h, top 40w x 20d, tolerance +/-4
 Observed: side 54w x 42h, front 31w x 44h, top 48w x 29d
-Result: FAIL. The cow is too large for the medium single-cell budget. Regenerating with stronger empty-space and 40x32x20 bounds.
+Registration: FAIL. Side length does not match Top length; Side/Front height does not match; Top is separately centered.
+Result: FAIL. The cow is too large and not registered. Report these failures, then retry with stronger empty-space, 40x32x20 bounds, and registered axes.
 ```
+
+Orthographic registration rules:
+
+- Side, Front, and Top must behave like a blueprint registered to one coordinate system, not three separately centered illustrations.
+- Side length must match Top length; Front width must match Top width; Side height must match Front height.
+- Side and Front must share a ground baseline.
+- Body center, front/head extent, back/tail extent, legs, ears/horns, wings, handles, and major markings must line up across views.
+- AI-drawn grid art is only a design reference. After approval, generated review grids must come from one `VoxelModel` so the projections are deterministic.
 
 Viewer dataset registration:
 
@@ -74,7 +85,7 @@ Viewer dataset registration:
 - Do not add batch names manually to `viewer/app.js`.
 - Add optional `examples/<batch_name>/dataset.json` only when the displayed name, id, cell resolution, or order needs to be overridden.
 
-If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset. If a script-rendered voxel draft was used as the first source image, discard it and restart from the design-source step. If the AI source sheet lacks Side/Front/Top 64-grid guides, regenerate it before voxel work. If bbox self-check fails, report the failed measurements before retrying; do not silently auto-regenerate. Do not patch the model forward; errors such as duplicated limbs usually come from skipping the design-source gate.
+If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset. If a script-rendered voxel draft was used as the first source image, discard it and restart from the design-source step. If the AI source sheet lacks Side/Front/Top 64-grid guides or registered orthographic axes, regenerate it before voxel work. If bbox or registration self-check fails, report the failed measurements before retrying; do not silently auto-regenerate. Do not patch the model forward; errors such as duplicated limbs usually come from skipping the design-source gate.
 
 For animals and character assets:
 
