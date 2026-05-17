@@ -1,0 +1,7 @@
+interface:
+  display_name: "体素生成"
+  short_description: "Reference-approved voxel asset generation"
+  default_prompt: "Use $voxel-generation when generating voxel assets from references."
+
+policy:
+  allow_implicit_invocation: true

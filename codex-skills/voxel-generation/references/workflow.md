@@ -1,0 +1,35 @@
+# Voxel Asset Pipeline Workflow
+
+Core invariant: first source-sheet approval happens before `.vox` generation.
+
+Default source reference format:
+
+```text
+Icon | Side | Front | Top
+```
+
+Use one raster image that contains the final icon-style view plus the three orthographic views. This keeps the visual target and the structural constraints together, reducing ambiguous features such as accidental raised blocks on an animal's back.
+
+Pipeline stages:
+
+1. Source sheet: generated or user-provided, used to settle visual style, orientation, scale, and silhouette.
+2. Approval stop: do not write `.vox` until the user approves the source sheet.
+3. Voxel construction: convert into a structured `VoxelModel` array and write MagicaVoxel `.vox`.
+4. Review renders: source sheet plus generated icon and side/front/top views inside a 64-cell guide.
+5. Validation: size, one-cell fit, domain-specific checks, `single_connected_component`, and `floating_component_sizes`.
+6. Viewer: rebuild `viewer/embedded-data.js` so `viewer/index.html` works from `file://`; the Reference pane should show `Source` first, then generated `Icon / Side / Front / Top`.
+7. Adapter: apply only after user approval.
+
+When adding new assets, update:
+
+- a generation workflow and its builder list
+- a validation workflow with per-asset checks
+- `viewer/app.js` dataset registration when adding a new manifest
+- `viewer/build-embedded-data.mjs` manifest list
+- project adapter mapping only when the game has a matching entity prefab
+
+Animal and character assets:
+
+- Treat top view as authoritative for back silhouette and markings.
+- Do not add a raised back patch unless it is visible in side and top views.
+- Prefer flat, connected body volumes before adding decorative color variation.

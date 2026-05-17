@@ -28,3 +28,23 @@ The viewer is static. Open `viewer/index.html` directly, or run `node viewer/ser
 
 `generate-quick-trial` creates a second sample dataset under `examples/quick_trial` to exercise a fresh asset set without replacing the original design-sheet trial.
 `generate-dog-trial` demonstrates the source-sheet flow with one approved image containing `Icon + Side + Front + Top`.
+
+## Codex Skill
+
+This repo includes a distributable Codex skill at `codex-skills/voxel-generation`. Git does not install Codex skills automatically; each user needs to copy the skill into their own Codex skills directory once after cloning.
+
+Install on Windows PowerShell from the repo root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install_codex_skill.ps1
+```
+
+The installer copies the skill to:
+
+```text
+%USERPROFILE%\.codex\skills\voxel-generation
+```
+
+After installing, restart Codex or refresh the skill list. The skill should appear as `体素生成` and can be invoked with `$voxel-generation`.
+
+If the repo is cloned somewhere else, no skill file needs editing. The skill tells Codex to use the current workspace when it contains `voxel_pipeline.py`; otherwise Codex should ask for the local `VoxelAssetPipeline` path.
