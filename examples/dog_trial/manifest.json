@@ -2,7 +2,7 @@
   {
     "name": "dog_golden",
     "path": "examples/dog_trial/dog_golden.vox",
-    "source_image": "examples/dog_trial/reference_dog_pack.png",
+    "source_image": "examples/dog_trial/reference_dog_icon_three_view_clean.png",
     "reference_views": [
       {
         "id": "iso",
@@ -12,7 +12,7 @@
       {
         "id": "source",
         "label": "Source",
-        "path": "examples/dog_trial/reference_dog_pack.png"
+        "path": "examples/dog_trial/reference_dog_icon_three_view_clean.png"
       },
       {
         "id": "side",
@@ -40,10 +40,10 @@
     "review_status": "pending_review",
     "size": [
       24,
-      16,
+      15,
       14
     ],
-    "voxel_count": 861,
-    "observed": "Selected from dog reference pack candidate 6: golden puppy with floppy ears and short tail."
+    "voxel_count": 761,
+    "observed": "Rebuilt from clean three-view reference: golden puppy with flat back, floppy ears, cream muzzle, and short tail."
   }
 ]

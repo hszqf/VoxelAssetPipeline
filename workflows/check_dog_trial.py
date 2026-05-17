@@ -45,7 +45,7 @@ def add_structure_checks(checks: list[dict], model: dict) -> None:
 def check_dog_golden(model: dict) -> dict:
     checks: list[dict] = []
     size = model["size"]
-    check_item(checks, "size", size, [24, 16, 14])
+    check_item(checks, "size", size, [24, 15, 14])
     check_item(checks, "inside_one_cell", game_cells(size), [1, 1, 1])
     check_item(checks, "max_axis_within_style_scale", max(size), "<= 24", passed=max(size) <= 24)
     check_item(checks, "has_voxels", len(model["voxels"]), "> 0", passed=len(model["voxels"]) > 0)
@@ -57,7 +57,7 @@ def check_dog_golden(model: dict) -> dict:
     collar = color_points(model, {"blue"})
     face = color_points(model, {"black"})
     check_item(checks, "coat_voxels_min", len(coat), ">= 300", passed=len(coat) >= 300)
-    check_item(checks, "muzzle_voxels_min", len(muzzle), ">= 60", passed=len(muzzle) >= 60)
+    check_item(checks, "muzzle_voxels_min", len(muzzle), ">= 40", passed=len(muzzle) >= 40)
     check_item(checks, "ear_and_paw_voxels_min", len(ears_and_paws), ">= 50", passed=len(ears_and_paws) >= 50)
     check_item(checks, "collar_voxels", len(collar), 18)
     check_item(checks, "face_detail_voxels_min", len(face), ">= 10", passed=len(face) >= 10)

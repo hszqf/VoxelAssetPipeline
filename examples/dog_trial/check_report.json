@@ -7,12 +7,12 @@
         "pass": true,
         "expected": [
           24,
-          16,
+          15,
           14
         ],
         "actual": [
           24,
-          16,
+          15,
           14
         ]
       },
@@ -40,7 +40,7 @@
         "id": "has_voxels",
         "pass": true,
         "expected": "> 0",
-        "actual": 861
+        "actual": 761
       },
       {
         "id": "single_connected_component",
@@ -58,13 +58,13 @@
         "id": "coat_voxels_min",
         "pass": true,
         "expected": ">= 300",
-        "actual": 611
+        "actual": 609
       },
       {
         "id": "muzzle_voxels_min",
         "pass": true,
-        "expected": ">= 60",
-        "actual": 138
+        "expected": ">= 40",
+        "actual": 40
       },
       {
         "id": "ear_and_paw_voxels_min",

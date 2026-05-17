@@ -34,7 +34,7 @@ const state = {
   lastY: 0,
   infoCollapsed: true,
   layoutLeft: 320,
-  layoutRight: 420,
+  layoutRight: 560,
   layoutBottom: 280,
   layoutDragging: null,
 };
@@ -502,11 +502,20 @@ function currentCellResolution() {
 }
 
 function referenceViewsFor(asset) {
-  const preferredOrder = ["iso", "side", "front", "top"];
+  const preferredOrder = ["source", "iso", "side", "front", "top"];
   if (Array.isArray(asset.reference_views) && asset.reference_views.length > 0) {
-    const byId = new Map(asset.reference_views.map((view) => [view.id, view]));
+    const candidates = asset.reference_views.slice();
+    if (asset.source_image && !candidates.some((view) => normalizePath(view.path || "") === normalizePath(asset.source_image))) {
+      candidates.unshift({ id: "source", label: "Source", path: asset.source_image });
+    }
+    const byId = new Map(candidates.map((view) => [view.id, view]));
     const ordered = preferredOrder.map((id) => byId.get(id)).filter(Boolean);
-    return ordered.length > 0 ? ordered : asset.reference_views.slice(0, 4);
+    for (const view of candidates) {
+      if (!ordered.includes(view)) {
+        ordered.push(view);
+      }
+    }
+    return ordered;
   }
   if (asset.source_image) {
     return [{ id: "source", label: "Source", path: asset.source_image }];
@@ -529,6 +538,9 @@ function updateReference(asset) {
     const local = embeddedImage(path);
     const card = document.createElement("figure");
     card.className = "reference-card";
+    if (view.id) {
+      card.classList.add(`reference-card-${view.id}`);
+    }
 
     const caption = document.createElement("figcaption");
     caption.textContent = label;

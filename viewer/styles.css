@@ -330,7 +330,7 @@ dd {
   gap: 8px;
   align-items: start;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   padding-bottom: 2px;
 }
 
@@ -375,6 +375,15 @@ dd {
   user-select: none;
   pointer-events: none;
   padding: 6px;
+}
+
+.reference-card-source {
+  grid-column: 1 / -1;
+  height: 190px;
+}
+
+.reference-card-source img {
+  padding: 8px;
 }
 
 canvas {
