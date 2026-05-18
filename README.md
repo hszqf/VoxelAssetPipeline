@@ -10,24 +10,24 @@ Standalone workflow for generating, validating, and reviewing small voxel game a
 
 VoxelAssetPipeline turns an approved visual reference into `.vox` assets with repeatable review steps:
 
-- start from a single source sheet: `Front 3/4 design + Back 3/4 design + registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`
+- approve style first with `Front 3/4 design + Back 3/4 design`, then generate a separate `Side / Front / Top` orthographic sheet
 - build small MagicaVoxel-compatible `.vox` files
 - render generated `Icon / Front 3/4 / Side / Front / Top` review images
 - run structural checks such as `single_connected_component` and `floating_component_sizes`
 - review everything in a static browser viewer that also works from `file://`
 - optionally apply a game adapter, such as LittleWorld Unity prefab export
 
-## Source Sheet First
+## Sources First
 
-The first artifact should be a combined source sheet for exactly one asset. For directional assets such as animals, `Front 3/4` removes the common front/back ambiguity that made side-back icons easy to misread.
+The first artifact should be a style reference for exactly one asset: `Front 3/4 design + Back 3/4 design`. For directional assets such as animals, this removes the common front/back ambiguity that made side-back icons easy to misread.
 
-This first source sheet must come from a user-provided raster image or an image-generation model. Do not use script-rendered `VoxelModel`, `.vox`, viewer, canvas, SVG, or projection output as the design reference; those are review artifacts after the design source has been approved.
+This first style reference must come from a user-provided raster image or an image-generation model. Do not use script-rendered `VoxelModel`, `.vox`, viewer, canvas, SVG, or projection output as the design reference; those are review artifacts after the design source has been approved.
 
-The Side, Front, and Top design views in that first sheet must already show visible 64x64 guides, a bounding cell frame, and shared orthographic registration. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it. For batches, repeat the source-sheet approval loop one asset at a time.
+After the style reference is approved, generate a separate orthographic sheet containing only `registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`. The left/front-back style views do not participate in occupied-cell measurement. Side, Front, and Top must show visible, countable 64x64 guides, a bounding cell frame, and shared orthographic registration. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it. For batches, repeat the style and orthographic approval loop one asset at a time.
 
-Before generating the sheet, confirm the scale contract. A single-cell cow should read as a medium asset, for example roughly `40w x 32h x 20d` inside the 64-cell frame with tolerance such as `+/-4`, leaving empty grid space around it. Objects larger than that should either use a larger tier or be declared as multi-cell assets instead of being squeezed into one 64-cell frame. Production prompts should be filled from `codex-skills/voxel-generation/references/source_sheet_prompt_template.md`.
+Before generating the orthographic sheet, confirm the scale contract. A single-cell cow should read as a medium asset, for example roughly `40w x 32h x 20d` inside the 64-cell frame with tolerance such as `+/-4`, leaving empty grid space around it. Objects larger than that should either use a larger tier or be declared as multi-cell assets instead of being squeezed into one 64-cell frame. Production prompts should be filled from `codex-skills/voxel-generation/references/style_reference_prompt_template.md` and `codex-skills/voxel-generation/references/source_sheet_prompt_template.md`.
 
-After generation, run the PNG source-sheet checker and report the bbox plus registration self-check before asking for approval. Side, Front, and Top must behave like a registered blueprint: Side length matches Top length, Front width matches Top width, Side/Front height and ground baseline match, and major landmarks line up. If the generated sheet is out of tolerance or separately centered, do not silently regenerate; report the failed measurements first, then regenerate under the confirmed scale contract or revise the contract with the user.
+After orthographic generation, run the PNG source-sheet checker and report the grid, bbox, and registration self-check before asking for approval. Side, Front, and Top must behave like a registered blueprint: Side length matches Top length, Front width matches Top width, Side/Front height and ground baseline match, and major landmarks line up. If the generated sheet is out of tolerance, has a clearly wrong grid, or is separately centered, do not silently regenerate; report the failed measurements first, then regenerate under the confirmed scale contract or revise the contract with the user.
 
 Script-rendered sheets like the dog example below are deterministic review artifacts from one `VoxelModel`; they prove geometry after approval, but they should not be used as the first design source.
 
@@ -35,7 +35,7 @@ Script-rendered sheets like the dog example below are deterministic review artif
   <img src="examples/dog_trial/reference_dog_icon_three_view_clean.png" alt="Dog source sheet with icon, front three-quarter, side, front, and top views" width="100%">
 </p>
 
-Only after the source sheet is approved should the pipeline write `.vox` files.
+Only after the orthographic source sheet is approved should the pipeline write `.vox` files.
 
 ## Review Gallery
 
@@ -126,16 +126,19 @@ python voxel_pipeline.py apply-littleworld --project "E:\AI Projects\LittleWorld
 
 ## Workflow
 
-1. Generate or provide a source sheet with `Front 3/4 design + Back 3/4 design + registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`.
-2. Run `check-source-sheet` on the PNG source image when available.
-3. Reject or regenerate it if Side/Front/Top lack visible 64x64 guides, bounding frames, consistent scale, or shared orthographic registration.
-4. Stop for human approval of style, direction, silhouette, and occupied 64-cell proportion.
-5. Build `.vox` assets from the approved sheet.
-6. Render source and generated reference views.
-7. Run validators.
-8. Rebuild `viewer/embedded-data.js`.
-9. Inspect assets in `viewer/index.html`.
-10. Apply a project adapter only after approval.
+1. Generate or provide a style reference with `Front 3/4 design + Back 3/4 design`.
+2. Approve style, direction, colors, and rough silhouette without measuring occupied cells.
+3. Confirm the Side/Front/Top scale contract.
+4. Generate a separate orthographic sheet with `registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`.
+5. Run `check-source-sheet` on the orthographic PNG.
+6. Reject or regenerate it if Side/Front/Top lack valid 64x64 guides, bounding frames, consistent scale, or shared orthographic registration.
+7. Stop for human approval of occupied 64-cell proportion and landmark alignment.
+8. Build `.vox` assets from the approved sheet.
+9. Render source and generated reference views.
+10. Run validators.
+11. Rebuild `viewer/embedded-data.js`.
+12. Inspect assets in `viewer/index.html`.
+13. Apply a project adapter only after approval.
 
 ## Codex Skill
 

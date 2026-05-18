@@ -22,6 +22,7 @@ param(
   [string]$Top,
   [string]$Tolerance = '4',
   [string]$OriginTolerance = '4',
+  [string]$GridLineTolerance = '12',
   [string]$SideFrame,
   [string]$FrontFrame,
   [string]$TopFrame,
@@ -55,7 +56,8 @@ try {
       '--front', $Front,
       '--top', $Top,
       '--tolerance', $Tolerance,
-      '--origin-tolerance', $OriginTolerance
+      '--origin-tolerance', $OriginTolerance,
+      '--grid-line-tolerance', $GridLineTolerance
     )
     if ($SideFrame) { $argsList += @('--side-frame', $SideFrame) }
     if ($FrontFrame) { $argsList += @('--front-frame', $FrontFrame) }

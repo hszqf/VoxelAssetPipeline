@@ -1,10 +1,16 @@
-# Voxel Source Sheet Prompt Template
+# Voxel Orthographic Source Sheet Prompt Template
 
-Use this template before any voxel geometry is created. Fill every placeholder
-from the confirmed scale contract.
+Use this after the front/back style reference has been approved. Fill every
+placeholder from the confirmed scale contract.
 
 ```text
-Create one clean voxel game asset source sheet for exactly one asset.
+Create one clean voxel game asset orthographic source sheet for exactly one asset.
+
+Use the approved front/back style reference as the visual source of truth for:
+- colors
+- front/back direction
+- face/head/tail identity
+- markings and distinctive features
 
 Asset:
 - name: {{asset_name}}
@@ -22,11 +28,9 @@ Scale contract:
 - Leave clear empty grid margin around the full silhouette. Do not enlarge the asset to fill the 64-cell frame.
 
 Sheet layout, left to right:
-1. Front 3/4 design
-2. Back 3/4 design
-3. registered Side 64-grid
-4. registered Front 64-grid
-5. registered Top 64-grid
+1. registered Side 64-grid
+2. registered Front 64-grid
+3. registered Top 64-grid
 
 Orthographic registration:
 - Side view uses X length horizontally and Y height vertically.
@@ -42,6 +46,7 @@ Orthographic registration:
 Clean-grid requirements:
 - Use a light neutral background.
 - Side, Front, and Top must each have a visible 64 x 64 light gray grid and a plain bounding frame.
+- Each grid must genuinely read as 64 cells by 64 cells. Do not draw a vague decorative grid.
 - Do not draw colored axes, colored dashed baselines, measurement arrows, brackets, or dimension numbers inside the grid panels.
 - Do not draw blue/red/green guide labels inside the grid panels.
 - Panel titles are allowed above panels only.
@@ -52,7 +57,7 @@ Reject conditions:
 - Any orthographic panel is separately centered instead of registered to the same 64-cell coordinate system.
 - The Top view is rotated so length is vertical instead of horizontal.
 - The visible full silhouette exceeds the target bounds by more than +/- {{tolerance}} cells.
-- The 3/4 designs contradict the Side/Front/Top proportions.
+- The orthographic views contradict the approved front/back style reference.
 ```
 
 After generation, run the source-sheet checker before asking the user for

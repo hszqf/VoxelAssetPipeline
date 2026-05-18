@@ -1,16 +1,17 @@
 # Voxel Asset Pipeline Workflow
 
-Core invariant: first source-sheet approval happens before voxel geometry or `.vox` generation.
+Core invariant: style approval and orthographic source-sheet approval both happen before voxel geometry or `.vox` generation.
 
 The source sheet must be a design reference, not a voxel draft rendered by this pipeline.
 
-Default source reference format:
+Default two-stage source format:
 
 ```text
-Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid
+Stage 1 style reference: Front 3/4 design | Back 3/4 design
+Stage 2 orthographic sheet: registered Side 64-grid | registered Front 64-grid | registered Top 64-grid
 ```
 
-Use one raster image for exactly one asset. It contains the front and back three-quarter design views plus three registered orthographic design views. The Side/Front/Top views must already include visible 64x64 guides, a bounding cell frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
+Use one asset per image. The style reference settles front/back identity, colors, silhouette, and distinctive features. The orthographic sheet is generated after style approval and contains only the registered Side/Front/Top design views. Side/Front/Top must include visible, countable 64x64 guides, a bounding cell frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
 
 Allowed first-step source references:
 
@@ -30,7 +31,8 @@ Script-rendered images are review artifacts only. They can be produced after the
 
 Design source vs deterministic review:
 
-- AI or user raster source sheets settle style, silhouette, direction, scale intent, and approximate registered orthographic design.
+- AI or user raster style references settle style, silhouette, and direction.
+- AI or user raster orthographic sheets settle scale intent and approximate registered Side/Front/Top design.
 - Script-rendered `VoxelModel` sheets prove exact geometry after approval. They are deterministic projections from one voxel coordinate set, like `dog_golden`; they are not valid first-step design sources.
 - If an early image looks perfectly grid-registered because it was rendered from a script or voxel draft, treat it as a review artifact and restart the design-source gate.
 
@@ -57,8 +59,11 @@ Single-cell scale guide:
 AI source prompt requirements:
 
 - Ask for exactly one asset in one clean sheet.
-- Fill `references/source_sheet_prompt_template.md` from the confirmed scale contract. Do not freehand the prompt for production source sheets.
-- Ask for `Front 3/4 design | Back 3/4 design | registered Side 64-grid | registered Front 64-grid | registered Top 64-grid`.
+- Fill `references/style_reference_prompt_template.md` for the style reference.
+- Fill `references/source_sheet_prompt_template.md` for the orthographic sheet from the approved style reference and confirmed scale contract.
+- Do not freehand production prompts.
+- The style reference contains `Front 3/4 design | Back 3/4 design` only.
+- The orthographic sheet contains `registered Side 64-grid | registered Front 64-grid | registered Top 64-grid` only.
 - Require visible 64x64 grid guides and a clear bounding cell frame on Side, Front, and Top.
 - Require the same scale across Side, Front, and Top.
 - Require the asset to occupy its declared bounds inside the 64x64 cell, not fill the entire frame unless it is truly a full-cell object.
@@ -80,7 +85,9 @@ Orthographic registration gate:
 
 Source approval gate:
 
-- Do not approve multi-asset source sheets. For batches, repeat the source approval loop once per asset.
+- Do not approve multi-asset source sheets. For batches, repeat the style and orthographic approval loop once per asset.
+- Approve the style reference before generating orthographic views.
+- Do not measure scale from `Front 3/4` or `Back 3/4`; they are style/direction inputs only.
 - Do not ask for approval if Side/Front/Top lack visible 64-cell guides.
 - Before asking for approval, run the PNG source-sheet checker when the source sheet is available as a local PNG:
 
@@ -88,7 +95,7 @@ Source approval gate:
 python voxel_pipeline.py check-source-sheet --image "<source-sheet.png>" --asset cow --side 40x32 --front 20x32 --top 40x20 --tolerance 4 --json-out "<source-sheet-report.json>"
 ```
 
-- The checker detects grid panels, estimates real silhouette bboxes, checks target tolerances, flags colored guide annotations, checks top orientation, and checks basic Side/Front/Top registration.
+- The checker detects grid panels, reports approximate grid-line counts, estimates real silhouette bboxes, checks target tolerances, flags colored guide annotations, checks top orientation, and checks basic Side/Front/Top registration.
 - If auto panel detection fails, pass explicit frame coordinates with `--side-frame x,y,w,h --front-frame x,y,w,h --top-frame x,y,w,h`.
 - The checker is a hard gate for measurable failures, not a replacement for human visual review.
 - Before asking for approval, estimate any remaining occupied bounding box or landmark issues in the Side, Front, and Top panels.
@@ -110,13 +117,15 @@ Result: FAIL. The cow is too large and not registered. Report these failures, th
 
 Pipeline stages:
 
-1. Source sheet: generated by an image model or provided by the user, used to settle visual style, orientation, scale, silhouette, and declared occupied 64-cell bounds.
-2. Approval stop: do not write `.vox` until the user approves a source sheet that includes Side/Front/Top 64-grid design views.
-3. Voxel construction: convert into a structured `VoxelModel` array and write MagicaVoxel `.vox`.
-4. Review renders: source sheet plus generated icon, front three-quarter, and side/front/top views inside a 64-cell guide. The generated side/front/top views must come from the same `VoxelModel` coordinate set, not AI-drawn panels. Add the asset's model/manifest name in the upper-left corner of every generated source/review row.
-5. Validation: size, one-cell fit, domain-specific checks, `single_connected_component`, and `floating_component_sizes`.
-6. Viewer: rebuild `viewer/embedded-data.js` so `viewer/index.html` works from `file://`; the Reference pane should show `Source` first, then generated `Icon / Front 3/4 / Side / Front / Top`.
-7. Adapter: apply only after user approval.
+1. Style reference: generated by an image model or provided by the user, used to settle visual style, orientation, front/back identity, colors, and silhouette.
+2. Scale contract: confirm `game_cells`, Side/Front/Top occupied bounds, and tolerance.
+3. Orthographic source sheet: generated from the approved style reference and scale contract, used to settle declared occupied 64-cell bounds and Side/Front/Top registration.
+4. Approval stop: do not write `.vox` until the user approves a checker-passing orthographic source sheet.
+5. Voxel construction: convert into a structured `VoxelModel` array and write MagicaVoxel `.vox`.
+6. Review renders: approved sources plus generated icon, front three-quarter, and side/front/top views inside a 64-cell guide. The generated side/front/top views must come from the same `VoxelModel` coordinate set, not AI-drawn panels. Add the asset's model/manifest name in the upper-left corner of every generated source/review row.
+7. Validation: size, one-cell fit, domain-specific checks, `single_connected_component`, and `floating_component_sizes`.
+8. Viewer: rebuild `viewer/embedded-data.js` so `viewer/index.html` works from `file://`; the Reference pane should show `Source` first, then generated `Icon / Front 3/4 / Side / Front / Top`.
+9. Adapter: apply only after user approval.
 
 When adding new assets, update:
 
@@ -140,7 +149,7 @@ Failure handling:
 
 - If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset.
 - If the first source image was accidentally created by script-rendering a voxel draft, discard it as a design source.
-- If the first AI source sheet lacks Side/Front/Top 64-grid guides, discard or regenerate it before voxel work.
+- If the AI orthographic sheet lacks Side/Front/Top 64-grid guides or the grid-line count is clearly not 64x64, discard or regenerate it before voxel work.
 - If the bbox or registration self-check fails, report the failed measurements/checks before retrying; do not silently auto-regenerate.
 - Return to the design-source step and generate or request a proper raster design reference.
 - Do not continue by patching the draft model; this hides anatomy and proportion errors such as duplicated legs.

@@ -344,6 +344,49 @@ def colored_annotation_check(frame: Frame, width: int, pixels: list[RGBA]) -> di
     }
 
 
+def line_group_count(scores: list[int], threshold: float) -> int:
+    count = 0
+    in_group = False
+    for score in scores:
+        is_line = score >= threshold
+        if is_line and not in_group:
+            count += 1
+            in_group = True
+        elif not is_line:
+            in_group = False
+    return count
+
+
+def grid_resolution_check(frame: Frame, width: int, pixels: list[RGBA]) -> dict:
+    vertical_scores = [0 for _ in range(frame.w)]
+    horizontal_scores = [0 for _ in range(frame.h)]
+    for yy in range(frame.h):
+        y = frame.y + yy
+        for xx in range(frame.w):
+            x = frame.x + xx
+            if grid_like_pixel(pixels[y * width + x]):
+                vertical_scores[xx] += 1
+                horizontal_scores[yy] += 1
+    vertical_base = statistics.median(vertical_scores)
+    horizontal_base = statistics.median(horizontal_scores)
+    vertical_peak = max(vertical_scores) if vertical_scores else 0
+    horizontal_peak = max(horizontal_scores) if horizontal_scores else 0
+    vertical_threshold = max(8, vertical_base + (vertical_peak - vertical_base) * 0.45)
+    horizontal_threshold = max(8, horizontal_base + (horizontal_peak - horizontal_base) * 0.45)
+    vertical_lines = line_group_count(vertical_scores, vertical_threshold)
+    horizontal_lines = line_group_count(horizontal_scores, horizontal_threshold)
+    return {
+        "actual": {
+            "vertical_lines": vertical_lines,
+            "horizontal_lines": horizontal_lines,
+            "frame_size": [frame.w, frame.h],
+            "vertical_threshold": round(vertical_threshold, 1),
+            "horizontal_threshold": round(horizontal_threshold, 1),
+        },
+        "expected": "about 65 vertical and 65 horizontal grid lines for a 64x64 guide",
+    }
+
+
 def estimate_object_bounds(frame: Frame, width: int, pixels: list[RGBA]) -> Bounds | None:
     inner = frame.inner(5)
     bg = estimate_background(inner, width, pixels)
@@ -434,6 +477,18 @@ def run_check(args: argparse.Namespace) -> dict:
     bounds: dict[str, Bounds | None] = {}
     for name, frame in zip(names, frames, strict=True):
         report["frames"][name] = {"x": frame.x, "y": frame.y, "w": frame.w, "h": frame.h}
+        grid_resolution = grid_resolution_check(frame, width, pixels)
+        line_tol = args.grid_line_tolerance
+        add_check(
+            checks,
+            f"{name}_grid_resolution",
+            grid_resolution["actual"],
+            f"{grid_resolution['expected']}; tolerance +/- {line_tol:g} lines",
+            (
+                abs(grid_resolution["actual"]["vertical_lines"] - 65) <= line_tol
+                and abs(grid_resolution["actual"]["horizontal_lines"] - 65) <= line_tol
+            ),
+        )
         annotation = colored_annotation_check(frame.inner(5), width, pixels)
         add_check(
             checks,
@@ -522,7 +577,7 @@ def run_check(args: argparse.Namespace) -> dict:
     report["manual_review_required"] = [
         "head/front direction matches between Side and Top",
         "legs, ears/horns, tail, handles, wings, or markings line up across views",
-        "3/4 views match the orthographic proportions and style",
+        "orthographic views match the approved front/back style reference",
         "source image is AI/user raster design, not a script-rendered voxel draft",
     ]
     report["pass"] = all(check["pass"] for check in checks)
@@ -538,6 +593,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--top", required=True, type=parse_dims, help="Target top dims as lengthxdepth, e.g. 40x20.")
     parser.add_argument("--tolerance", type=float, default=4.0)
     parser.add_argument("--origin-tolerance", type=float, default=4.0)
+    parser.add_argument("--grid-line-tolerance", type=float, default=12.0)
     parser.add_argument("--side-frame", type=parse_frame, help="Explicit side frame x,y,w,h.")
     parser.add_argument("--front-frame", type=parse_frame, help="Explicit front frame x,y,w,h.")
     parser.add_argument("--top-frame", type=parse_frame, help="Explicit top frame x,y,w,h.")

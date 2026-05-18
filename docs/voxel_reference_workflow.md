@@ -2,13 +2,14 @@
 
 The first approved reference must be a design image, not a voxel render produced by this pipeline.
 
-Default source reference format:
+Default two-stage source reference format:
 
 ```text
-Front 3/4 design | Back 3/4 design | Side 64-grid | Front 64-grid | Top 64-grid
+Stage 1 style reference: Front 3/4 design | Back 3/4 design
+Stage 2 orthographic sheet: registered Side 64-grid | registered Front 64-grid | registered Top 64-grid
 ```
 
-Use one raster image for exactly one asset. It contains the front and back three-quarter design views plus three registered orthographic design views. The Side/Front/Top views must already include visible 64x64 guides, a bounding cell frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
+Use one asset per image. The style reference settles front/back identity, colors, silhouette, and distinctive features. The orthographic sheet is generated after style approval and contains only the registered Side/Front/Top design views. The Side/Front/Top views must include visible, countable 64x64 guides, a bounding cell frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
 
 Allowed first-step references:
 
@@ -26,19 +27,20 @@ Forbidden as first-step references:
 
 Workflow:
 
-1. Generate or provide the combined source sheet using a real raster design source.
-2. Before prompting, confirm `game_cells`, target occupied bounds, and tolerance with the user, such as `cow: about 40w x 32h x 20d inside one 64-cell frame, tolerance +/-4`.
-3. Fill the skill prompt template from the confirmed contract; do not improvise prompt structure.
-4. After generation, run `python voxel_pipeline.py check-source-sheet` when the source sheet is available as a PNG.
-5. Estimate any remaining visual bbox or landmark issues in Side, Front, and Top and write a bbox plus registration self-check report.
-6. Reject or regenerate it if Side/Front/Top do not include visible 64-cell guides, a bounding frame, consistent scale, registered axes, or the confirmed occupied bounds.
-7. Do not silently regenerate. Report failed bbox or registration measurements before retrying or ask the user to revise the scale contract.
-8. Stop for approval before creating voxel geometry or writing `.vox`.
-9. Build the voxel model from the approved sheet.
-10. Render generated review views: `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`.
-11. Run structural checks, especially `single_connected_component` and `floating_component_sizes`.
-12. Rebuild `viewer/embedded-data.js`.
-13. Review in `viewer/index.html`; the Reference pane should show `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top`.
+1. Generate or provide the style reference using a real raster design source: `Front 3/4 design + Back 3/4 design`.
+2. Approve style, front/back identity, colors, and rough silhouette. Do not measure occupied cells from this image.
+3. Before orthographic prompting, confirm `game_cells`, target occupied bounds, and tolerance with the user, such as `cow: about 40w x 32h x 20d inside one 64-cell frame, tolerance +/-4`.
+4. Generate the separate orthographic sheet from the approved style reference: `registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`.
+5. After generation, run `python voxel_pipeline.py check-source-sheet` when the orthographic sheet is available as a PNG.
+6. Estimate any remaining visual bbox or landmark issues in Side, Front, and Top and write a bbox plus registration self-check report.
+7. Reject or regenerate it if Side/Front/Top do not include valid visible 64-cell guides, a bounding frame, consistent scale, registered axes, or the confirmed occupied bounds.
+8. Do not silently regenerate. Report failed bbox, grid, or registration measurements before retrying or ask the user to revise the scale contract.
+9. Stop for approval before creating voxel geometry or writing `.vox`.
+10. Build the voxel model from the approved sheet.
+11. Render generated review views: `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`.
+12. Run structural checks, especially `single_connected_component` and `floating_component_sizes`.
+13. Rebuild `viewer/embedded-data.js`.
+14. Review in `viewer/index.html`; the Reference pane should show `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top`.
 
 Single-cell scale guide:
 
@@ -52,8 +54,10 @@ Single-cell scale guide:
 
 AI prompt requirements:
 
-- Request exactly one asset in one sheet with `Front 3/4 design | Back 3/4 design | registered Side 64-grid | registered Front 64-grid | registered Top 64-grid`.
-- Use `codex-skills/voxel-generation/references/source_sheet_prompt_template.md` as the production prompt template.
+- Request exactly one asset per image.
+- Use `codex-skills/voxel-generation/references/style_reference_prompt_template.md` for the front/back style reference.
+- Use `codex-skills/voxel-generation/references/source_sheet_prompt_template.md` for the orthographic sheet.
+- Do not measure occupied bounds from the style reference; only Side/Front/Top participate in scale validation.
 - Require visible 64x64 grid guides and bounding cell frames on Side, Front, and Top.
 - Keep Side, Front, and Top at the same scale.
 - State concrete occupied bounds inside the 64x64 cell; small objects should leave visible empty space.
@@ -76,7 +80,7 @@ python voxel_pipeline.py check-source-sheet `
   --json-out "<source-sheet-report.json>"
 ```
 
-The checker detects the three orthographic grid panels, estimates real silhouette bboxes, checks target tolerance, flags colored guide annotations, checks Top length orientation, and checks basic Side/Front/Top registration. If auto frame detection fails, pass explicit `--side-frame x,y,w,h --front-frame x,y,w,h --top-frame x,y,w,h`.
+The checker detects the three orthographic grid panels, reports approximate grid-line counts, estimates real silhouette bboxes, checks target tolerance, flags colored guide annotations, checks Top length orientation, and checks basic Side/Front/Top registration. If auto frame detection fails, pass explicit `--side-frame x,y,w,h --front-frame x,y,w,h --top-frame x,y,w,h`.
 
 BBox and registration self-check report:
 
@@ -104,7 +108,7 @@ Viewer dataset registration:
 - Do not add batch names manually to `viewer/app.js`.
 - Add optional `examples/<batch_name>/dataset.json` only when the displayed name, id, cell resolution, or order needs to be overridden.
 
-If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset. If a script-rendered voxel draft was used as the first source image, discard it and restart from the design-source step. If the AI source sheet lacks Side/Front/Top 64-grid guides or registered orthographic axes, regenerate it before voxel work. If bbox or registration self-check fails, report the failed measurements before retrying; do not silently auto-regenerate. Do not patch the model forward; errors such as duplicated limbs usually come from skipping the design-source gate.
+If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset. If a script-rendered voxel draft was used as the first source image, discard it and restart from the design-source step. If the AI orthographic sheet lacks Side/Front/Top 64-grid guides, registered orthographic axes, or a grid that is clearly not 64x64, regenerate it before voxel work. If bbox, grid, or registration self-check fails, report the failed measurements before retrying; do not silently auto-regenerate. Do not patch the model forward; errors such as duplicated limbs usually come from skipping the design-source gate.
 
 For animals and character assets:
 

@@ -32,6 +32,7 @@ def main() -> None:
     check_source.add_argument("--top", required=True)
     check_source.add_argument("--tolerance", default="4")
     check_source.add_argument("--origin-tolerance", default="4")
+    check_source.add_argument("--grid-line-tolerance", default="12")
     check_source.add_argument("--side-frame")
     check_source.add_argument("--front-frame")
     check_source.add_argument("--top-frame")
@@ -70,6 +71,8 @@ def main() -> None:
             args.tolerance,
             "--origin-tolerance",
             args.origin_tolerance,
+            "--grid-line-tolerance",
+            args.grid_line_tolerance,
         ]
         if args.side_frame:
             cmd_args.extend(["--side-frame", args.side_frame])
