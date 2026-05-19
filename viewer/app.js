@@ -1,6 +1,6 @@
 const DEFAULT_CELL_RESOLUTION = 8;
 const DEFAULT_YAW = -Math.PI / 4;
-const DEFAULT_PITCH = -0.55;
+const DEFAULT_PITCH = 0.55;
 
 const state = {
   datasets: new Map(),
