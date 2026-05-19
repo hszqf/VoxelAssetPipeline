@@ -1,0 +1,114 @@
+[
+  {
+    "name": "voxel_pig",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          20,
+          15,
+          9
+        ],
+        "actual": [
+          20,
+          15,
+          9
+        ]
+      },
+      {
+        "id": "inside_one_32_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 1241
+      },
+      {
+        "id": "voxel_count_range",
+        "pass": true,
+        "expected": "1000..1500",
+        "actual": 1241
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "body_voxels_min",
+        "pass": true,
+        "expected": ">= 350",
+        "actual": 1203
+      },
+      {
+        "id": "dark_detail_voxels_min",
+        "pass": true,
+        "expected": ">= 12",
+        "actual": 16
+      },
+      {
+        "id": "black_detail_voxels_min",
+        "pass": true,
+        "expected": ">= 8",
+        "actual": 22
+      },
+      {
+        "id": "side_projection_size",
+        "pass": true,
+        "expected": [
+          20,
+          15
+        ],
+        "actual": [
+          20,
+          15
+        ]
+      },
+      {
+        "id": "front_projection_size",
+        "pass": true,
+        "expected": [
+          9,
+          15
+        ],
+        "actual": [
+          9,
+          15
+        ]
+      },
+      {
+        "id": "top_projection_width",
+        "pass": true,
+        "expected": "19..20",
+        "actual": 20
+      },
+      {
+        "id": "top_projection_depth",
+        "pass": true,
+        "expected": 9,
+        "actual": 9
+      }
+    ],
+    "pass": true
+  }
+]

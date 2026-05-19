@@ -1,0 +1,59 @@
+[
+  {
+    "name": "voxel_pig",
+    "path": "examples/pig_trial/voxel_pig.vox",
+    "source_image": "examples/pig_trial/voxel_pig_source_32_attempt2_linecut_mode_cli.png",
+    "reference_views": [
+      {
+        "id": "source",
+        "label": "Source",
+        "path": "examples/pig_trial/voxel_pig_source_32_attempt2_linecut_mode_cli.png"
+      },
+      {
+        "id": "style",
+        "label": "Style",
+        "path": "examples/pig_trial/voxel_pig_style_reference.png"
+      },
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/pig_trial/reference_views/voxel_pig_iso.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/pig_trial/reference_views/voxel_pig_front3q.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/pig_trial/reference_views/voxel_pig_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/pig_trial/reference_views/voxel_pig_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/pig_trial/reference_views/voxel_pig_top.png"
+      }
+    ],
+    "cell_resolution": 32,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      20,
+      15,
+      9
+    ],
+    "voxel_count": 1241,
+    "observed": "Generated from the approved 32-grid pig Side/Front/Top source by visual-hull intersection, with visible surface colors sampled from the source cells."
+  }
+]

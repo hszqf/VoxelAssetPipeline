@@ -112,6 +112,9 @@ python voxel_pipeline.py check-dog-trial
 python voxel_pipeline.py generate-horse-trial
 python voxel_pipeline.py check-horse-trial
 
+python voxel_pipeline.py generate-pig-trial
+python voxel_pipeline.py check-pig-trial
+
 python voxel_pipeline.py check-source-sheet `
   --image "<source-sheet.png>" `
   --asset cow `

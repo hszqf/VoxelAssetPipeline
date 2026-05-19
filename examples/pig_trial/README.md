@@ -54,3 +54,22 @@ Expected checker result:
 - Side height matches Front height within tolerance
 - Ground baseline matches
 - `pass: true`
+
+Generate the voxel asset after source approval:
+
+```powershell
+python voxel_pipeline.py generate-pig-trial
+```
+
+The generation workflow reads `voxel_pig_source_32_attempt2_linecut_mode_cli.png`,
+builds `voxel_pig.vox` from the approved Side/Front/Top masks using a visual-hull
+intersection, applies visible surface colors sampled from the source cells, writes
+review renders, and runs `check-pig-trial`.
+
+Expected generated asset:
+
+- Output `.vox`: `voxel_pig.vox`
+- Size: `20 x 15 x 9`
+- Cell resolution: `32`
+- Structural checks: `single_connected_component` and no floating components
+- Viewer dataset: `pig-trial`

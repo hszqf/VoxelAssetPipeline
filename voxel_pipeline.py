@@ -28,6 +28,8 @@ def main() -> None:
     sub.add_parser("check-dog-trial")
     sub.add_parser("generate-horse-trial")
     sub.add_parser("check-horse-trial")
+    sub.add_parser("generate-pig-trial")
+    sub.add_parser("check-pig-trial")
     check_source = sub.add_parser("check-source-sheet")
     check_source.add_argument("--image", required=True)
     check_source.add_argument("--asset", required=True)
@@ -82,6 +84,10 @@ def main() -> None:
         raise SystemExit(run_python(ROOT / "workflows" / "horse_trial_assets.py"))
     if args.cmd == "check-horse-trial":
         raise SystemExit(run_python(ROOT / "workflows" / "check_horse_trial.py"))
+    if args.cmd == "generate-pig-trial":
+        raise SystemExit(run_python(ROOT / "workflows" / "pig_trial_assets.py"))
+    if args.cmd == "check-pig-trial":
+        raise SystemExit(run_python(ROOT / "workflows" / "check_pig_trial.py"))
     if args.cmd == "check-source-sheet":
         cmd_args = [
             "--image",
