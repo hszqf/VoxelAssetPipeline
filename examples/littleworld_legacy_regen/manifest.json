@@ -1,0 +1,971 @@
+[
+    {
+        "name":  "bird",
+        "path":  "examples/littleworld_legacy_regen/bird.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     20,
+                     12,
+                     20
+                 ],
+        "voxel_count":  565,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "cactus",
+        "path":  "examples/littleworld_legacy_regen/cactus.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     16,
+                     23,
+                     16
+                 ],
+        "voxel_count":  436,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from examples/quick_trial/trial_cactus.vox"
+    },
+    {
+        "name":  "cicada",
+        "path":  "examples/littleworld_legacy_regen/cicada.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     8,
+                     14
+                 ],
+        "voxel_count":  314,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "clownfish",
+        "path":  "examples/littleworld_legacy_regen/clownfish.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     22,
+                     12,
+                     10
+                 ],
+        "voxel_count":  541,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "coconut",
+        "path":  "examples/littleworld_legacy_regen/coconut.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     12,
+                     12,
+                     12
+                 ],
+        "voxel_count":  552,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "coral",
+        "path":  "examples/littleworld_legacy_regen/coral.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     16,
+                     14,
+                     12
+                 ],
+        "voxel_count":  162,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "cow",
+        "path":  "examples/littleworld_legacy_regen/cow.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     26,
+                     18,
+                     14
+                 ],
+        "voxel_count":  1138,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "dandelion",
+        "path":  "examples/littleworld_legacy_regen/dandelion.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     18
+                 ],
+        "voxel_count":  336,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "deer",
+        "path":  "examples/littleworld_legacy_regen/deer.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     26,
+                     22,
+                     14
+                 ],
+        "voxel_count":  1122,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "dinosaur",
+        "path":  "examples/littleworld_legacy_regen/dinosaur.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     34,
+                     22,
+                     14
+                 ],
+        "voxel_count":  1212,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "dog",
+        "path":  "examples/littleworld_legacy_regen/dog.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     24,
+                     15,
+                     14
+                 ],
+        "voxel_count":  761,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from examples/dog_trial/dog_golden.vox"
+    },
+    {
+        "name":  "dragonfly",
+        "path":  "examples/littleworld_legacy_regen/dragonfly.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     8,
+                     14
+                 ],
+        "voxel_count":  314,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "eagle",
+        "path":  "examples/littleworld_legacy_regen/eagle.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     20,
+                     12,
+                     20
+                 ],
+        "voxel_count":  565,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "egg",
+        "path":  "examples/littleworld_legacy_regen/egg.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     10,
+                     14,
+                     10
+                 ],
+        "voxel_count":  432,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "electric_eel",
+        "path":  "examples/littleworld_legacy_regen/electric_eel.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     28,
+                     8,
+                     8
+                 ],
+        "voxel_count":  166,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "firefly",
+        "path":  "examples/littleworld_legacy_regen/firefly.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     8,
+                     14
+                 ],
+        "voxel_count":  314,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "fly",
+        "path":  "examples/littleworld_legacy_regen/fly.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     8,
+                     14
+                 ],
+        "voxel_count":  314,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "fox",
+        "path":  "examples/littleworld_legacy_regen/fox.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     26,
+                     18,
+                     14
+                 ],
+        "voxel_count":  1184,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "frog",
+        "path":  "examples/littleworld_legacy_regen/frog.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     10,
+                     16
+                 ],
+        "voxel_count":  584,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from examples/quick_trial/trial_frog.vox"
+    },
+    {
+        "name":  "grass",
+        "path":  "examples/littleworld_legacy_regen/grass.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     18
+                 ],
+        "voxel_count":  94,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "hermit_crab",
+        "path":  "examples/littleworld_legacy_regen/hermit_crab.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     20,
+                     8,
+                     14
+                 ],
+        "voxel_count":  360,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "honey",
+        "path":  "examples/littleworld_legacy_regen/honey.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     14,
+                     14,
+                     12
+                 ],
+        "voxel_count":  550,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "horse",
+        "path":  "examples/littleworld_legacy_regen/horse.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     46,
+                     34,
+                     16
+                 ],
+        "voxel_count":  4059,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from examples/horse_trial/voxel_horse.vox"
+    },
+    {
+        "name":  "hummingbird",
+        "path":  "examples/littleworld_legacy_regen/hummingbird.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     20,
+                     12,
+                     20
+                 ],
+        "voxel_count":  565,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "jellyfish",
+        "path":  "examples/littleworld_legacy_regen/jellyfish.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     14,
+                     16,
+                     14
+                 ],
+        "voxel_count":  658,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "lotus",
+        "path":  "examples/littleworld_legacy_regen/lotus.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     18
+                 ],
+        "voxel_count":  146,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "milk",
+        "path":  "examples/littleworld_legacy_regen/milk.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     10,
+                     16,
+                     8
+                 ],
+        "voxel_count":  338,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "monkey",
+        "path":  "examples/littleworld_legacy_regen/monkey.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     12
+                 ],
+        "voxel_count":  738,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "moss",
+        "path":  "examples/littleworld_legacy_regen/moss.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     18
+                 ],
+        "voxel_count":  372,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "mouse",
+        "path":  "examples/littleworld_legacy_regen/mouse.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     22,
+                     24,
+                     20
+                 ],
+        "voxel_count":  3062,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from examples/yellow_mouse_trial/voxel_yellow_fantasy_mouse.vox"
+    },
+    {
+        "name":  "pearl",
+        "path":  "examples/littleworld_legacy_regen/pearl.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     10,
+                     10,
+                     10
+                 ],
+        "voxel_count":  280,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "plesiosaur",
+        "path":  "examples/littleworld_legacy_regen/plesiosaur.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     34,
+                     14,
+                     16
+                 ],
+        "voxel_count":  1044,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "poison_mushroom",
+        "path":  "examples/littleworld_legacy_regen/poison_mushroom.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     18
+                 ],
+        "voxel_count":  657,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "pottery",
+        "path":  "examples/littleworld_legacy_regen/pottery.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     14,
+                     16,
+                     14
+                 ],
+        "voxel_count":  860,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "pufferfish",
+        "path":  "examples/littleworld_legacy_regen/pufferfish.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     14,
+                     12
+                 ],
+        "voxel_count":  806,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "rainbow",
+        "path":  "examples/littleworld_legacy_regen/rainbow.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     26,
+                     18,
+                     8
+                 ],
+        "voxel_count":  284,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "reed",
+        "path":  "examples/littleworld_legacy_regen/reed.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     18
+                 ],
+        "voxel_count":  116,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "salamander",
+        "path":  "examples/littleworld_legacy_regen/salamander.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     24,
+                     8,
+                     10
+                 ],
+        "voxel_count":  395,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "scorpion",
+        "path":  "examples/littleworld_legacy_regen/scorpion.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     24,
+                     10,
+                     14
+                 ],
+        "voxel_count":  420,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "shrimp",
+        "path":  "examples/littleworld_legacy_regen/shrimp.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     20,
+                     8,
+                     10
+                 ],
+        "voxel_count":  198,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "squirrel",
+        "path":  "examples/littleworld_legacy_regen/squirrel.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     26,
+                     18,
+                     14
+                 ],
+        "voxel_count":  1310,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "steam",
+        "path":  "examples/littleworld_legacy_regen/steam.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     12,
+                     20,
+                     12
+                 ],
+        "voxel_count":  94,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "sunflower",
+        "path":  "examples/littleworld_legacy_regen/sunflower.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     18
+                 ],
+        "voxel_count":  296,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "swallow",
+        "path":  "examples/littleworld_legacy_regen/swallow.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     20,
+                     12,
+                     20
+                 ],
+        "voxel_count":  565,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "tiger",
+        "path":  "examples/littleworld_legacy_regen/tiger.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     26,
+                     18,
+                     14
+                 ],
+        "voxel_count":  1148,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "toad",
+        "path":  "examples/littleworld_legacy_regen/toad.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     10,
+                     16
+                 ],
+        "voxel_count":  858,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "tree_frog",
+        "path":  "examples/littleworld_legacy_regen/tree_frog.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     10,
+                     16
+                 ],
+        "voxel_count":  858,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "triceratops",
+        "path":  "examples/littleworld_legacy_regen/triceratops.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     26,
+                     20,
+                     14
+                 ],
+        "voxel_count":  1140,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "vine",
+        "path":  "examples/littleworld_legacy_regen/vine.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     18,
+                     24,
+                     18
+                 ],
+        "voxel_count":  176,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "wolf",
+        "path":  "examples/littleworld_legacy_regen/wolf.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     26,
+                     18,
+                     14
+                 ],
+        "voxel_count":  1120,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    },
+    {
+        "name":  "wool",
+        "path":  "examples/littleworld_legacy_regen/wool.vox",
+        "cell_resolution":  64,
+        "game_cells":  [
+                           1,
+                           1,
+                           1
+                       ],
+        "scale_tier":  "legacy_regen",
+        "review_status":  "pending_review",
+        "size":  [
+                     14,
+                     12,
+                     14
+                 ],
+        "voxel_count":  776,
+        "observed":  "Regenerated LittleWorld legacy prefab asset from procedural_legacy_regen_template"
+    }
+]
