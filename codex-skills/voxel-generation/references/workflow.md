@@ -52,8 +52,8 @@ Single-cell scale guide:
 | --- | --- | --- |
 | tiny | 8-16 cells | flower, shell, pickup |
 | small | 16-28 cells | frog, small dog, rock cluster |
-| medium | 28-44 cells | cow, deer, wolf, medium prop |
-| large | 44-56 cells | horse, small tree, large creature |
+| medium | 28-44 cells | cow, wolf, medium prop |
+| large | 44-56 cells | cart, small tree, large creature |
 | full-cell | 56-64 cells | block, full-cell obstacle, wall segment |
 
 AI source prompt requirements:
