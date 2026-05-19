@@ -1,0 +1,268 @@
+{
+  "asset": "voxel_pig",
+  "image": "E:\\aitest\\VoxelAssetPipeline\\examples\\pig_trial\\voxel_pig_source_32_attempt2.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "frame_source": "auto",
+  "frames": {
+    "side": {
+      "x": 25,
+      "y": 151,
+      "w": 584,
+      "h": 679
+    },
+    "front": {
+      "x": 635,
+      "y": 151,
+      "w": 528,
+      "h": 679
+    },
+    "top": {
+      "x": 1188,
+      "y": 151,
+      "w": 556,
+      "h": 679
+    }
+  },
+  "observed": {
+    "side": {
+      "x0": 0.3,
+      "y0": 0.2,
+      "x1": 31.7,
+      "y1": 31.8,
+      "width": 31.5,
+      "height": 31.5,
+      "bottom_gap": 0.2
+    },
+    "front": {
+      "x0": 0.3,
+      "y0": 0.2,
+      "x1": 31.7,
+      "y1": 31.8,
+      "width": 31.4,
+      "height": 31.5,
+      "bottom_gap": 0.2
+    },
+    "top": {
+      "x0": 0.3,
+      "y0": 0.2,
+      "x1": 31.7,
+      "y1": 31.8,
+      "width": 31.4,
+      "height": 31.5,
+      "bottom_gap": 0.2
+    }
+  },
+  "checks": [
+    {
+      "id": "png_readable",
+      "pass": true,
+      "expected": "readable 8-bit RGB/RGBA PNG",
+      "actual": "1774x887"
+    },
+    {
+      "id": "orthographic_frame_count",
+      "pass": true,
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "id": "side_grid_resolution",
+      "pass": false,
+      "expected": "about 33 vertical and 33 horizontal grid lines for a 32x32 guide; tolerance +/- 4 lines",
+      "actual": {
+        "vertical_lines": 24,
+        "horizontal_lines": 20,
+        "frame_size": [
+          584,
+          679
+        ],
+        "vertical_threshold": 325.4,
+        "horizontal_threshold": 283.7
+      }
+    },
+    {
+      "id": "side_no_colored_annotations",
+      "pass": true,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 96961,
+        "by_color": {
+          "red": 96961,
+          "green": 0,
+          "blue": 0
+        },
+        "longest_row": 489,
+        "longest_col": 351
+      }
+    },
+    {
+      "id": "side_width_within_target",
+      "pass": false,
+      "expected": "24 +/- 2",
+      "actual": 31.5
+    },
+    {
+      "id": "side_height_within_target",
+      "pass": false,
+      "expected": "18 +/- 2",
+      "actual": 31.5
+    },
+    {
+      "id": "front_grid_resolution",
+      "pass": false,
+      "expected": "about 33 vertical and 33 horizontal grid lines for a 32x32 guide; tolerance +/- 4 lines",
+      "actual": {
+        "vertical_lines": 18,
+        "horizontal_lines": 28,
+        "frame_size": [
+          528,
+          679
+        ],
+        "vertical_threshold": 331.4,
+        "horizontal_threshold": 251.9
+      }
+    },
+    {
+      "id": "front_no_colored_annotations",
+      "pass": true,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 66182,
+        "by_color": {
+          "red": 66182,
+          "green": 0,
+          "blue": 0
+        },
+        "longest_row": 239,
+        "longest_col": 327
+      }
+    },
+    {
+      "id": "front_width_within_target",
+      "pass": false,
+      "expected": "14 +/- 2",
+      "actual": 31.4
+    },
+    {
+      "id": "front_height_within_target",
+      "pass": false,
+      "expected": "18 +/- 2",
+      "actual": 31.5
+    },
+    {
+      "id": "top_grid_resolution",
+      "pass": false,
+      "expected": "about 33 vertical and 33 horizontal grid lines for a 32x32 guide; tolerance +/- 4 lines",
+      "actual": {
+        "vertical_lines": 22,
+        "horizontal_lines": 20,
+        "frame_size": [
+          556,
+          679
+        ],
+        "vertical_threshold": 324.2,
+        "horizontal_threshold": 271.1
+      }
+    },
+    {
+      "id": "top_no_colored_annotations",
+      "pass": true,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 86266,
+        "by_color": {
+          "red": 86266,
+          "green": 0,
+          "blue": 0
+        },
+        "longest_row": 479,
+        "longest_col": 226
+      }
+    },
+    {
+      "id": "top_width_within_target",
+      "pass": false,
+      "expected": "24 +/- 2",
+      "actual": 31.4
+    },
+    {
+      "id": "top_height_within_target",
+      "pass": false,
+      "expected": "14 +/- 2",
+      "actual": 31.5
+    },
+    {
+      "id": "registration_side_length_matches_top_length",
+      "pass": true,
+      "expected": "delta <= 2",
+      "actual": [
+        31.5,
+        31.4
+      ]
+    },
+    {
+      "id": "registration_front_width_matches_top_depth",
+      "pass": true,
+      "expected": "delta <= 2",
+      "actual": [
+        31.4,
+        31.5
+      ]
+    },
+    {
+      "id": "registration_side_height_matches_front_height",
+      "pass": true,
+      "expected": "delta <= 2",
+      "actual": [
+        31.5,
+        31.5
+      ]
+    },
+    {
+      "id": "registration_side_top_x_origin",
+      "pass": true,
+      "expected": "delta <= 2",
+      "actual": [
+        0.3,
+        0.3
+      ]
+    },
+    {
+      "id": "registration_front_top_z_origin",
+      "pass": true,
+      "expected": "delta <= 2",
+      "actual": [
+        0.3,
+        0.2
+      ]
+    },
+    {
+      "id": "registration_ground_baseline",
+      "pass": true,
+      "expected": "delta <= 2",
+      "actual": [
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "id": "top_length_orientation",
+      "pass": false,
+      "expected": "top width should be greater than top height for length-on-X assets",
+      "actual": [
+        31.4,
+        31.5
+      ]
+    }
+  ],
+  "manual_review_required": [
+    "head/front direction matches between Side and Top",
+    "legs, ears/horns, tail, handles, wings, or markings line up across views",
+    "orthographic views match the approved front/back style reference",
+    "source image is AI/user raster design, not a script-rendered voxel draft"
+  ],
+  "pass": false
+}

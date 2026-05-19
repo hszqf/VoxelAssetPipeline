@@ -1,0 +1,120 @@
+{
+  "asset": "voxel_pig",
+  "image": "E:\\aitest\\VoxelAssetPipeline\\examples\\pig_trial\\voxel_pig_source_32_attempt2.png",
+  "grid_size": 32,
+  "cell_px": 16,
+  "bucket_size": 8,
+  "sample_padding": 0.18,
+  "object_threshold": 0.18,
+  "frames": {
+    "side": {
+      "x": 25,
+      "y": 151,
+      "w": 584,
+      "h": 679
+    },
+    "front": {
+      "x": 635,
+      "y": 151,
+      "w": 528,
+      "h": 679
+    },
+    "top": {
+      "x": 1188,
+      "y": 151,
+      "w": 556,
+      "h": 679
+    }
+  },
+  "views": {
+    "side": {
+      "detected_source_grid": [
+        22,
+        27
+      ],
+      "raw_line_counts": [
+        24,
+        28
+      ],
+      "spacing_estimate": [
+        26.5,
+        25.01
+      ],
+      "output_offset": [
+        5,
+        2
+      ],
+      "cells": 162,
+      "bbox": [
+        7,
+        8,
+        27,
+        23
+      ],
+      "size": [
+        20,
+        15
+      ]
+    },
+    "front": {
+      "detected_source_grid": [
+        20,
+        27
+      ],
+      "raw_line_counts": [
+        21,
+        28
+      ],
+      "spacing_estimate": [
+        26.53,
+        25.01
+      ],
+      "output_offset": [
+        6,
+        2
+      ],
+      "cells": 113,
+      "bbox": [
+        11,
+        8,
+        20,
+        23
+      ],
+      "size": [
+        9,
+        15
+      ]
+    },
+    "top": {
+      "detected_source_grid": [
+        21,
+        27
+      ],
+      "raw_line_counts": [
+        24,
+        28
+      ],
+      "spacing_estimate": [
+        26.52,
+        25.0
+      ],
+      "output_offset": [
+        5,
+        2
+      ],
+      "cells": 140,
+      "bbox": [
+        6,
+        11,
+        25,
+        20
+      ],
+      "size": [
+        19,
+        9
+      ]
+    }
+  },
+  "sampling": "cut by detected source grid lines; center source cells in target grid; color is per-cell non-background RGB bucket mode",
+  "pass": true
+}

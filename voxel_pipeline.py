@@ -37,11 +37,26 @@ def main() -> None:
     check_source.add_argument("--tolerance", default="4")
     check_source.add_argument("--origin-tolerance", default="4")
     check_source.add_argument("--grid-line-tolerance", default="12")
+    check_source.add_argument("--grid-size", default="64")
     check_source.add_argument("--side-frame")
     check_source.add_argument("--front-frame")
     check_source.add_argument("--top-frame")
     check_source.add_argument("--allow-colored-annotations", action="store_true")
     check_source.add_argument("--json-out")
+    clean_source = sub.add_parser("clean-source-sheet")
+    clean_source.add_argument("--image", required=True)
+    clean_source.add_argument("--asset", required=True)
+    clean_source.add_argument("--out", required=True)
+    clean_source.add_argument("--json-out")
+    clean_source.add_argument("--overlay-out")
+    clean_source.add_argument("--grid-size", default="32")
+    clean_source.add_argument("--cell-px", default="16")
+    clean_source.add_argument("--bucket-size", default="8")
+    clean_source.add_argument("--sample-padding", default="0.18")
+    clean_source.add_argument("--object-threshold", default="0.18")
+    clean_source.add_argument("--side-frame")
+    clean_source.add_argument("--front-frame")
+    clean_source.add_argument("--top-frame")
     sub.add_parser("build-viewer-data")
     apply_lw = sub.add_parser("apply-littleworld")
     apply_lw.add_argument("--project", required=True)
@@ -85,6 +100,8 @@ def main() -> None:
             args.origin_tolerance,
             "--grid-line-tolerance",
             args.grid_line_tolerance,
+            "--grid-size",
+            args.grid_size,
         ]
         if args.side_frame:
             cmd_args.extend(["--side-frame", args.side_frame])
@@ -97,6 +114,36 @@ def main() -> None:
         if args.json_out:
             cmd_args.extend(["--json-out", args.json_out])
         raise SystemExit(run_python(ROOT / "voxel_asset_pipeline" / "source_sheet_check.py", *cmd_args))
+    if args.cmd == "clean-source-sheet":
+        cmd_args = [
+            "--image",
+            args.image,
+            "--asset",
+            args.asset,
+            "--out",
+            args.out,
+            "--grid-size",
+            args.grid_size,
+            "--cell-px",
+            args.cell_px,
+            "--bucket-size",
+            args.bucket_size,
+            "--sample-padding",
+            args.sample_padding,
+            "--object-threshold",
+            args.object_threshold,
+        ]
+        if args.json_out:
+            cmd_args.extend(["--json-out", args.json_out])
+        if args.overlay_out:
+            cmd_args.extend(["--overlay-out", args.overlay_out])
+        if args.side_frame:
+            cmd_args.extend(["--side-frame", args.side_frame])
+        if args.front_frame:
+            cmd_args.extend(["--front-frame", args.front_frame])
+        if args.top_frame:
+            cmd_args.extend(["--top-frame", args.top_frame])
+        raise SystemExit(run_python(ROOT / "voxel_asset_pipeline" / "source_sheet_clean.py", *cmd_args))
     if args.cmd == "build-viewer-data":
         raise SystemExit(subprocess.call(["node", str(ROOT / "viewer" / "build-embedded-data.mjs")], cwd=ROOT))
     if args.cmd == "apply-littleworld":

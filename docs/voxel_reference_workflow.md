@@ -84,6 +84,29 @@ python voxel_pipeline.py check-source-sheet `
 
 The checker detects the three orthographic grid panels, reports approximate grid-line counts, estimates real silhouette bboxes, checks target tolerance, flags colored guide annotations, checks Top length orientation, and checks basic Side/Front/Top registration. If auto frame detection fails, pass explicit `--side-frame x,y,w,h --front-frame x,y,w,h --top-frame x,y,w,h`.
 
+AI/user source cleanup:
+
+Use cleanup only after reporting the failed source-sheet measurements and only when the AI/user raster has the right visual design but an uneven grid, noisy antialiasing, or a nonstandard panel size. The cleanup input must be the AI/user raster source, never `VoxelModel`, `.vox`, viewer output, or a script-rendered voxel draft.
+
+```powershell
+python voxel_pipeline.py clean-source-sheet `
+  --image "<ai-source-sheet.png>" `
+  --asset cow `
+  --grid-size 32 `
+  --bucket-size 8 `
+  --out "<clean-source-sheet.png>" `
+  --overlay-out "<gridline-overlay.png>" `
+  --json-out "<clean-source-cells.json>"
+```
+
+Cleanup rules:
+
+- Detect the original drawn grid lines in each Side/Front/Top panel and cut source cells by those line positions. Do not impose equal slices over the whole image if the AI grid is uneven.
+- Center the detected source cells into the requested clean grid with symmetric empty padding. Do not stretch the art to fit the grid.
+- For each source cell, sample the cell interior and ignore only background/grid pixels. Internal art lines are normal pixels.
+- Choose the output cell color by the most frequent raw RGB bucket among sampled non-background pixels, usually `--bucket-size 8`. Do not use semantic palette labels, body-color defaults, or hand-corrected feature meanings.
+- Write a JSON report plus optional gridline overlay, then rerun `check-source-sheet` on the cleaned sheet before asking for approval.
+
 BBox and registration self-check report:
 
 ```text

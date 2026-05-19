@@ -118,7 +118,23 @@ python voxel_pipeline.py check-source-sheet --image "<source-sheet.png>" --asset
 - Do not create `VoxelModel`, `.vox`, manifest, viewer data, or generated review renders before this gate passes.
 - If the AI model omits the guides or changes scale between views, regenerate the source sheet with a stricter prompt.
 - Do not silently regenerate a failed source sheet. Tell the user the failed measurements/checks first; then regenerate under the confirmed user specification, or ask for a revised specification when the target itself seems wrong.
-- A cleaned/composited raster source is allowed only when it starts from an approved AI/user raster source and preserves the approved silhouette, colors, direction, landmarks, and user specification. Acceptable cleanup includes normalizing the 64-grid, separating panels, removing coordinate labels, and reducing shadows/noise so the checker can measure. Keep the failed original and JSON report as evidence. Do not create a cleaned source from `VoxelModel`, `.vox`, generated review renders, or viewer screenshots.
+- A cleaned/composited raster source is allowed only when it starts from an approved AI/user raster source and preserves the approved silhouette, colors, direction, landmarks, and user specification. Acceptable cleanup includes normalizing the confirmed grid, separating panels, removing coordinate labels, and reducing shadows/noise so the checker can measure. Keep the failed original and JSON report as evidence. Do not create a cleaned source from `VoxelModel`, `.vox`, generated review renders, or viewer screenshots.
+
+Use `clean-source-sheet` when the AI/user raster is visually right but the drawn grid is uneven, noisy, or not the requested panel size:
+
+```powershell
+python voxel_pipeline.py clean-source-sheet --image "<ai-source-sheet.png>" --asset cow --grid-size 32 --bucket-size 8 --out "<clean-source-sheet.png>" --overlay-out "<gridline-overlay.png>" --json-out "<clean-source-cells.json>"
+```
+
+`clean-source-sheet` cleanup contract:
+
+- Detect Side/Front/Top frames and the original drawn grid lines first.
+- Cut source cells by the original line positions. Do not slice the full panel into imagined equal cells if the AI grid is uneven.
+- Center the source cells into the requested clean grid with empty padding. Do not stretch or scale a view to make it fit.
+- Pick each output cell color from the dominant sampled raw RGB bucket among non-background pixels inside the original source cell, typically with `--bucket-size 8`.
+- Ignore only background/grid pixels. Internal art lines are counted as art pixels; do not fold them into body color.
+- Do not use semantic palette rules, hand-redrawn outlines, or feature labels during cleanup.
+- Rerun `check-source-sheet` on the cleaned source before asking for approval.
 
 Example bbox and registration self-check:
 

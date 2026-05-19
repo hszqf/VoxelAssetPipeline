@@ -38,6 +38,7 @@ class Bounds:
     y0: float
     x1: float
     y1: float
+    grid_size: float = 64.0
 
     @property
     def width(self) -> float:
@@ -49,7 +50,7 @@ class Bounds:
 
     @property
     def bottom_gap(self) -> float:
-        return 64.0 - self.y1
+        return self.grid_size - self.y1
 
 
 def paeth(a: int, b: int, c: int) -> int:
@@ -289,9 +290,9 @@ def estimate_background(frame: Frame, width: int, pixels: list[RGBA]) -> RGBA:
     return (rs[idx], gs[idx], bs[idx], 255)
 
 
-def near_cell_line(frame: Frame, x: int, y: int) -> bool:
-    cell_w = frame.w / 64.0
-    cell_h = frame.h / 64.0
+def near_cell_line(frame: Frame, x: int, y: int, grid_size: float) -> bool:
+    cell_w = frame.w / grid_size
+    cell_h = frame.h / grid_size
     cx = (x - frame.x) / cell_w
     cy = (y - frame.y) / cell_h
     dx = abs(cx - round(cx)) * cell_w
@@ -387,7 +388,7 @@ def grid_resolution_check(frame: Frame, width: int, pixels: list[RGBA]) -> dict:
     }
 
 
-def estimate_object_bounds(frame: Frame, width: int, pixels: list[RGBA]) -> Bounds | None:
+def estimate_object_bounds(frame: Frame, width: int, pixels: list[RGBA], grid_size: float) -> Bounds | None:
     inner = frame.inner(5)
     bg = estimate_background(inner, width, pixels)
     object_points: list[tuple[int, int]] = []
@@ -401,7 +402,7 @@ def estimate_object_bounds(frame: Frame, width: int, pixels: list[RGBA]) -> Boun
             dist = rgb_distance(p, bg)
             if rgb_distance(p, bg) < 18:
                 continue
-            if near_cell_line(frame, x, y) and sat < 0.18 and lum > 95:
+            if near_cell_line(frame, x, y, grid_size) and sat < 0.18 and lum > 95:
                 continue
             if dist >= 24 or sat >= 0.08 or lum <= 175:
                 object_points.append((x, y))
@@ -411,11 +412,11 @@ def estimate_object_bounds(frame: Frame, width: int, pixels: list[RGBA]) -> Boun
     max_x = max(x for x, _y in object_points)
     min_y = min(y for _x, y in object_points)
     max_y = max(y for _x, y in object_points)
-    x0 = (min_x - frame.x) / frame.w * 64.0
-    x1 = (max_x + 1 - frame.x) / frame.w * 64.0
-    y0 = (min_y - frame.y) / frame.h * 64.0
-    y1 = (max_y + 1 - frame.y) / frame.h * 64.0
-    return Bounds(x0, y0, x1, y1)
+    x0 = (min_x - frame.x) / frame.w * grid_size
+    x1 = (max_x + 1 - frame.x) / frame.w * grid_size
+    y0 = (min_y - frame.y) / frame.h * grid_size
+    y1 = (max_y + 1 - frame.y) / frame.h * grid_size
+    return Bounds(x0, y0, x1, y1, grid_size)
 
 
 def add_check(checks: list[dict], check_id: str, actual, expected, passed: bool) -> None:
@@ -469,6 +470,7 @@ def run_check(args: argparse.Namespace) -> dict:
         return report
 
     names = ["side", "front", "top"]
+    expected_grid_lines = int(round(args.grid_size)) + 1
     targets = {
         "side": args.side,
         "front": args.front,
@@ -483,10 +485,10 @@ def run_check(args: argparse.Namespace) -> dict:
             checks,
             f"{name}_grid_resolution",
             grid_resolution["actual"],
-            f"{grid_resolution['expected']}; tolerance +/- {line_tol:g} lines",
+            f"about {expected_grid_lines} vertical and {expected_grid_lines} horizontal grid lines for a {args.grid_size:g}x{args.grid_size:g} guide; tolerance +/- {line_tol:g} lines",
             (
-                abs(grid_resolution["actual"]["vertical_lines"] - 65) <= line_tol
-                and abs(grid_resolution["actual"]["horizontal_lines"] - 65) <= line_tol
+                abs(grid_resolution["actual"]["vertical_lines"] - expected_grid_lines) <= line_tol
+                and abs(grid_resolution["actual"]["horizontal_lines"] - expected_grid_lines) <= line_tol
             ),
         )
         annotation = colored_annotation_check(frame.inner(5), width, pixels)
@@ -497,7 +499,7 @@ def run_check(args: argparse.Namespace) -> dict:
             annotation["expected"],
             bool(annotation["pass"]) or bool(args.allow_colored_annotations),
         )
-        bounds[name] = estimate_object_bounds(frame, width, pixels)
+        bounds[name] = estimate_object_bounds(frame, width, pixels, args.grid_size)
         report["observed"][name] = rounded_bounds(bounds[name])
         if bounds[name] is None:
             add_check(checks, f"{name}_object_detected", None, "visible silhouette pixels inside grid", False)
@@ -594,6 +596,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--tolerance", type=float, default=4.0)
     parser.add_argument("--origin-tolerance", type=float, default=4.0)
     parser.add_argument("--grid-line-tolerance", type=float, default=12.0)
+    parser.add_argument("--grid-size", type=float, default=64.0, help="Panel guide size in cells, default 64.")
     parser.add_argument("--side-frame", type=parse_frame, help="Explicit side frame x,y,w,h.")
     parser.add_argument("--front-frame", type=parse_frame, help="Explicit front frame x,y,w,h.")
     parser.add_argument("--top-frame", type=parse_frame, help="Explicit top frame x,y,w,h.")
