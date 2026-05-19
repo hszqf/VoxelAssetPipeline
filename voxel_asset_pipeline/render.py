@@ -120,15 +120,23 @@ def draw_text(pixels, width: int, height: int, x: int, y: int, text: str, color,
 
 
 def draw_name_label(pixels, width: int, height: int, x: int, y: int, name: str) -> None:
-    label = name[:24]
-    text_w, text_h = text_size(label, 2)
+    label = name
+    scale = 2
+    max_w = max(24, width - x - 4)
+    text_w, text_h = text_size(label, scale)
+    if text_w + 12 > max_w:
+        scale = 1
+        text_w, text_h = text_size(label, scale)
+    while label and text_w + 12 > max_w:
+        label = label[:-1]
+        text_w, text_h = text_size(label, scale)
     pad_x = 6
     pad_y = 4
     box_w = text_w + pad_x * 2
     box_h = text_h + pad_y * 2
     fill_rect(pixels, width, height, x, y, box_w, box_h, (255, 253, 248, 255))
     stroke_rect(pixels, width, height, x, y, box_w, box_h, (54, 50, 44, 255))
-    draw_text(pixels, width, height, x + pad_x, y + pad_y, label, (45, 43, 38, 255), 2)
+    draw_text(pixels, width, height, x + pad_x, y + pad_y, label, (45, 43, 38, 255), scale)
 
 
 def axis_index(axis: str) -> int:

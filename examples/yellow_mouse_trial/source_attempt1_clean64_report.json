@@ -1,0 +1,268 @@
+{
+  "asset": "voxel_yellow_fantasy_mouse",
+  "image": "E:\\aitest\\VoxelAssetPipeline\\examples\\yellow_mouse_trial\\voxel_yellow_fantasy_mouse_source_attempt1_clean64.png",
+  "image_size": [
+    3208,
+    1198
+  ],
+  "frame_source": "auto",
+  "frames": {
+    "side": {
+      "x": 34,
+      "y": 132,
+      "w": 1025,
+      "h": 1025
+    },
+    "front": {
+      "x": 1092,
+      "y": 132,
+      "w": 1025,
+      "h": 1025
+    },
+    "top": {
+      "x": 2150,
+      "y": 132,
+      "w": 1025,
+      "h": 1025
+    }
+  },
+  "observed": {
+    "side": {
+      "x0": 26.0,
+      "y0": 24.0,
+      "x1": 38.0,
+      "y1": 39.0,
+      "width": 11.9,
+      "height": 14.9,
+      "bottom_gap": 25.0
+    },
+    "front": {
+      "x0": 25.0,
+      "y0": 24.0,
+      "x1": 37.0,
+      "y1": 39.0,
+      "width": 11.9,
+      "height": 14.9,
+      "bottom_gap": 25.0
+    },
+    "top": {
+      "x0": 26.0,
+      "y0": 22.0,
+      "x1": 37.0,
+      "y1": 37.0,
+      "width": 10.9,
+      "height": 14.9,
+      "bottom_gap": 27.0
+    }
+  },
+  "checks": [
+    {
+      "id": "png_readable",
+      "pass": true,
+      "expected": "readable 8-bit RGB/RGBA PNG",
+      "actual": "3208x1198"
+    },
+    {
+      "id": "orthographic_frame_count",
+      "pass": true,
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "id": "side_grid_resolution",
+      "pass": true,
+      "expected": "about 65 vertical and 65 horizontal grid lines for a 64x64 guide; tolerance +/- 12 lines",
+      "actual": {
+        "vertical_lines": 65,
+        "horizontal_lines": 65,
+        "frame_size": [
+          1025,
+          1025
+        ],
+        "vertical_threshold": 497.0,
+        "horizontal_threshold": 497.0
+      }
+    },
+    {
+      "id": "side_no_colored_annotations",
+      "pass": true,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 450,
+        "by_color": {
+          "red": 0,
+          "green": 0,
+          "blue": 450
+        },
+        "longest_row": 15,
+        "longest_col": 30
+      }
+    },
+    {
+      "id": "side_width_within_target",
+      "pass": false,
+      "expected": "32 +/- 4",
+      "actual": 11.9
+    },
+    {
+      "id": "side_height_within_target",
+      "pass": false,
+      "expected": "34 +/- 4",
+      "actual": 14.9
+    },
+    {
+      "id": "front_grid_resolution",
+      "pass": true,
+      "expected": "about 65 vertical and 65 horizontal grid lines for a 64x64 guide; tolerance +/- 12 lines",
+      "actual": {
+        "vertical_lines": 65,
+        "horizontal_lines": 65,
+        "frame_size": [
+          1025,
+          1025
+        ],
+        "vertical_threshold": 497.0,
+        "horizontal_threshold": 497.0
+      }
+    },
+    {
+      "id": "front_no_colored_annotations",
+      "pass": true,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 2250,
+        "by_color": {
+          "red": 1575,
+          "green": 0,
+          "blue": 675
+        },
+        "longest_row": 45,
+        "longest_col": 30
+      }
+    },
+    {
+      "id": "front_width_within_target",
+      "pass": false,
+      "expected": "24 +/- 4",
+      "actual": 11.9
+    },
+    {
+      "id": "front_height_within_target",
+      "pass": false,
+      "expected": "34 +/- 4",
+      "actual": 14.9
+    },
+    {
+      "id": "top_grid_resolution",
+      "pass": true,
+      "expected": "about 65 vertical and 65 horizontal grid lines for a 64x64 guide; tolerance +/- 12 lines",
+      "actual": {
+        "vertical_lines": 65,
+        "horizontal_lines": 65,
+        "frame_size": [
+          1025,
+          1025
+        ],
+        "vertical_threshold": 497.0,
+        "horizontal_threshold": 497.0
+      }
+    },
+    {
+      "id": "top_no_colored_annotations",
+      "pass": true,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 0,
+        "by_color": {
+          "red": 0,
+          "green": 0,
+          "blue": 0
+        },
+        "longest_row": 0,
+        "longest_col": 0
+      }
+    },
+    {
+      "id": "top_width_within_target",
+      "pass": false,
+      "expected": "32 +/- 4",
+      "actual": 10.9
+    },
+    {
+      "id": "top_height_within_target",
+      "pass": false,
+      "expected": "24 +/- 4",
+      "actual": 14.9
+    },
+    {
+      "id": "registration_side_length_matches_top_length",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        11.9,
+        10.9
+      ]
+    },
+    {
+      "id": "registration_front_width_matches_top_depth",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        11.9,
+        14.9
+      ]
+    },
+    {
+      "id": "registration_side_height_matches_front_height",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        14.9,
+        14.9
+      ]
+    },
+    {
+      "id": "registration_side_top_x_origin",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        26.0,
+        26.0
+      ]
+    },
+    {
+      "id": "registration_front_top_z_origin",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        25.0,
+        22.0
+      ]
+    },
+    {
+      "id": "registration_ground_baseline",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        25.0,
+        25.0
+      ]
+    },
+    {
+      "id": "top_length_orientation",
+      "pass": false,
+      "expected": "top width should be greater than top height for length-on-X assets",
+      "actual": [
+        10.9,
+        14.9
+      ]
+    }
+  ],
+  "manual_review_required": [
+    "head/front direction matches between Side and Top",
+    "legs, ears/horns, tail, handles, wings, or markings line up across views",
+    "orthographic views match the approved front/back style reference",
+    "source image is AI/user raster design, not a script-rendered voxel draft"
+  ],
+  "pass": false
+}

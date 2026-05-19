@@ -1,0 +1,120 @@
+{
+  "asset": "voxel_yellow_fantasy_mouse",
+  "image": "E:\\aitest\\VoxelAssetPipeline\\examples\\yellow_mouse_trial\\voxel_yellow_fantasy_mouse_source_attempt1.png",
+  "grid_size": 64,
+  "cell_px": 16,
+  "bucket_size": 8,
+  "sample_padding": 0.18,
+  "object_threshold": 0.18,
+  "frames": {
+    "side": {
+      "x": 25,
+      "y": 134,
+      "w": 566,
+      "h": 682
+    },
+    "front": {
+      "x": 623,
+      "y": 132,
+      "w": 543,
+      "h": 686
+    },
+    "top": {
+      "x": 1194,
+      "y": 132,
+      "w": 536,
+      "h": 686
+    }
+  },
+  "views": {
+    "side": {
+      "detected_source_grid": [
+        17,
+        23
+      ],
+      "raw_line_counts": [
+        18,
+        25
+      ],
+      "spacing_estimate": [
+        33.12,
+        30.0
+      ],
+      "output_offset": [
+        23,
+        20
+      ],
+      "cells": 94,
+      "bbox": [
+        26,
+        24,
+        38,
+        39
+      ],
+      "size": [
+        12,
+        15
+      ]
+    },
+    "front": {
+      "detected_source_grid": [
+        17,
+        23
+      ],
+      "raw_line_counts": [
+        18,
+        25
+      ],
+      "spacing_estimate": [
+        31.01,
+        30.0
+      ],
+      "output_offset": [
+        23,
+        20
+      ],
+      "cells": 120,
+      "bbox": [
+        25,
+        24,
+        37,
+        39
+      ],
+      "size": [
+        12,
+        15
+      ]
+    },
+    "top": {
+      "detected_source_grid": [
+        15,
+        23
+      ],
+      "raw_line_counts": [
+        17,
+        24
+      ],
+      "spacing_estimate": [
+        35.11,
+        30.0
+      ],
+      "output_offset": [
+        24,
+        20
+      ],
+      "cells": 89,
+      "bbox": [
+        26,
+        22,
+        37,
+        37
+      ],
+      "size": [
+        11,
+        15
+      ]
+    }
+  },
+  "sampling": "cut by detected source grid lines; center source cells in target grid; color is per-cell non-background RGB bucket mode",
+  "pass": true
+}

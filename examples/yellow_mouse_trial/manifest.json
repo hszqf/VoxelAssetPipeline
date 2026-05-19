@@ -1,0 +1,59 @@
+[
+  {
+    "name": "voxel_yellow_fantasy_mouse",
+    "path": "examples/yellow_mouse_trial/voxel_yellow_fantasy_mouse.vox",
+    "source_image": "examples/yellow_mouse_trial/voxel_yellow_fantasy_mouse_source_attempt3_clean64.png",
+    "reference_views": [
+      {
+        "id": "source",
+        "label": "Source",
+        "path": "examples/yellow_mouse_trial/voxel_yellow_fantasy_mouse_source_attempt3_clean64.png"
+      },
+      {
+        "id": "style",
+        "label": "Style",
+        "path": "examples/yellow_mouse_trial/voxel_yellow_fantasy_mouse_style_reference.png"
+      },
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/yellow_mouse_trial/reference_views/voxel_yellow_fantasy_mouse_iso.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/yellow_mouse_trial/reference_views/voxel_yellow_fantasy_mouse_front3q.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/yellow_mouse_trial/reference_views/voxel_yellow_fantasy_mouse_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/yellow_mouse_trial/reference_views/voxel_yellow_fantasy_mouse_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/yellow_mouse_trial/reference_views/voxel_yellow_fantasy_mouse_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      22,
+      24,
+      20
+    ],
+    "voxel_count": 3062,
+    "observed": "Generated from the approved cleaned Side/Front/Top yellow fantasy mouse source by visual-hull intersection, with surface colors sampled from the source cells."
+  }
+]

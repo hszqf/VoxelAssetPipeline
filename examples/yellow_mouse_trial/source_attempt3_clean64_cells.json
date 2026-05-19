@@ -1,0 +1,120 @@
+{
+  "asset": "voxel_yellow_fantasy_mouse",
+  "image": "E:\\aitest\\VoxelAssetPipeline\\examples\\yellow_mouse_trial\\voxel_yellow_fantasy_mouse_source_attempt3.png",
+  "grid_size": 64,
+  "cell_px": 16,
+  "bucket_size": 8,
+  "sample_padding": 0.18,
+  "object_threshold": 0.18,
+  "frames": {
+    "side": {
+      "x": 26,
+      "y": 133,
+      "w": 542,
+      "h": 699
+    },
+    "front": {
+      "x": 595,
+      "y": 133,
+      "w": 538,
+      "h": 696
+    },
+    "top": {
+      "x": 1159,
+      "y": 133,
+      "w": 539,
+      "h": 699
+    }
+  },
+  "views": {
+    "side": {
+      "detected_source_grid": [
+        26,
+        33
+      ],
+      "raw_line_counts": [
+        27,
+        34
+      ],
+      "spacing_estimate": [
+        20.99,
+        21.11
+      ],
+      "output_offset": [
+        19,
+        15
+      ],
+      "cells": 251,
+      "bbox": [
+        23,
+        19,
+        42,
+        43
+      ],
+      "size": [
+        19,
+        24
+      ]
+    },
+    "front": {
+      "detected_source_grid": [
+        27,
+        33
+      ],
+      "raw_line_counts": [
+        28,
+        34
+      ],
+      "spacing_estimate": [
+        20.01,
+        21.0
+      ],
+      "output_offset": [
+        18,
+        15
+      ],
+      "cells": 335,
+      "bbox": [
+        22,
+        19,
+        41,
+        43
+      ],
+      "size": [
+        19,
+        24
+      ]
+    },
+    "top": {
+      "detected_source_grid": [
+        27,
+        34
+      ],
+      "raw_line_counts": [
+        28,
+        35
+      ],
+      "spacing_estimate": [
+        19.99,
+        20.59
+      ],
+      "output_offset": [
+        18,
+        15
+      ],
+      "cells": 223,
+      "bbox": [
+        20,
+        23,
+        42,
+        43
+      ],
+      "size": [
+        22,
+        20
+      ]
+    }
+  },
+  "sampling": "cut by detected source grid lines; center source cells in target grid; color is per-cell non-background RGB bucket mode",
+  "pass": true
+}

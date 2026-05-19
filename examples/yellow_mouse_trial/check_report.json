@@ -1,0 +1,126 @@
+[
+  {
+    "name": "voxel_yellow_fantasy_mouse",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          22,
+          24,
+          20
+        ],
+        "actual": [
+          22,
+          24,
+          20
+        ]
+      },
+      {
+        "id": "inside_one_64_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 3062
+      },
+      {
+        "id": "voxel_count_range",
+        "pass": true,
+        "expected": "700..4500",
+        "actual": 3062
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "yellow_body_voxels_min",
+        "pass": true,
+        "expected": ">= 450",
+        "actual": 2898
+      },
+      {
+        "id": "cream_detail_voxels_min",
+        "pass": true,
+        "expected": ">= 20",
+        "actual": 106
+      },
+      {
+        "id": "brown_detail_voxels_min",
+        "pass": true,
+        "expected": ">= 8",
+        "actual": 41
+      },
+      {
+        "id": "black_detail_voxels_min",
+        "pass": true,
+        "expected": ">= 4",
+        "actual": 5
+      },
+      {
+        "id": "teal_cheek_voxels_min",
+        "pass": true,
+        "expected": ">= 4",
+        "actual": 12
+      },
+      {
+        "id": "side_projection_width",
+        "pass": true,
+        "expected": "18..22",
+        "actual": 19
+      },
+      {
+        "id": "side_projection_height",
+        "pass": true,
+        "expected": "20..24",
+        "actual": 24
+      },
+      {
+        "id": "front_projection_width",
+        "pass": true,
+        "expected": "16..20",
+        "actual": 19
+      },
+      {
+        "id": "front_projection_height",
+        "pass": true,
+        "expected": "20..24",
+        "actual": 24
+      },
+      {
+        "id": "top_projection_width",
+        "pass": true,
+        "expected": "18..22",
+        "actual": 19
+      },
+      {
+        "id": "top_projection_depth",
+        "pass": true,
+        "expected": "16..20",
+        "actual": 19
+      }
+    ],
+    "pass": true
+  }
+]

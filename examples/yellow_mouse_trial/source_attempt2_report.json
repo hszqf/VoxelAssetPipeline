@@ -1,0 +1,268 @@
+{
+  "asset": "voxel_yellow_fantasy_mouse",
+  "image": "E:\\aitest\\VoxelAssetPipeline\\examples\\yellow_mouse_trial\\voxel_yellow_fantasy_mouse_source_attempt2.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "frame_source": "auto",
+  "frames": {
+    "side": {
+      "x": 28,
+      "y": 134,
+      "w": 553,
+      "h": 628
+    },
+    "front": {
+      "x": 611,
+      "y": 134,
+      "w": 552,
+      "h": 628
+    },
+    "top": {
+      "x": 1195,
+      "y": 134,
+      "w": 553,
+      "h": 628
+    }
+  },
+  "observed": {
+    "side": {
+      "x0": 0.6,
+      "y0": 0.5,
+      "x1": 63.4,
+      "y1": 63.5,
+      "width": 62.8,
+      "height": 63.0,
+      "bottom_gap": 0.5
+    },
+    "front": {
+      "x0": 0.6,
+      "y0": 0.5,
+      "x1": 63.4,
+      "y1": 63.5,
+      "width": 62.8,
+      "height": 63.0,
+      "bottom_gap": 0.5
+    },
+    "top": {
+      "x0": 0.6,
+      "y0": 0.5,
+      "x1": 63.4,
+      "y1": 63.5,
+      "width": 62.8,
+      "height": 63.0,
+      "bottom_gap": 0.5
+    }
+  },
+  "checks": [
+    {
+      "id": "png_readable",
+      "pass": true,
+      "expected": "readable 8-bit RGB/RGBA PNG",
+      "actual": "1774x887"
+    },
+    {
+      "id": "orthographic_frame_count",
+      "pass": true,
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "id": "side_grid_resolution",
+      "pass": false,
+      "expected": "about 65 vertical and 65 horizontal grid lines for a 64x64 guide; tolerance +/- 12 lines",
+      "actual": {
+        "vertical_lines": 25,
+        "horizontal_lines": 27,
+        "frame_size": [
+          553,
+          628
+        ],
+        "vertical_threshold": 308.0,
+        "horizontal_threshold": 273.1
+      }
+    },
+    {
+      "id": "side_no_colored_annotations",
+      "pass": false,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 13749,
+        "by_color": {
+          "red": 12164,
+          "green": 0,
+          "blue": 1585
+        },
+        "longest_row": 93,
+        "longest_col": 110
+      }
+    },
+    {
+      "id": "side_width_within_target",
+      "pass": false,
+      "expected": "32 +/- 4",
+      "actual": 62.8
+    },
+    {
+      "id": "side_height_within_target",
+      "pass": false,
+      "expected": "34 +/- 4",
+      "actual": 63.0
+    },
+    {
+      "id": "front_grid_resolution",
+      "pass": false,
+      "expected": "about 65 vertical and 65 horizontal grid lines for a 64x64 guide; tolerance +/- 12 lines",
+      "actual": {
+        "vertical_lines": 19,
+        "horizontal_lines": 31,
+        "frame_size": [
+          552,
+          628
+        ],
+        "vertical_threshold": 310.9,
+        "horizontal_threshold": 267.6
+      }
+    },
+    {
+      "id": "front_no_colored_annotations",
+      "pass": false,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 11760,
+        "by_color": {
+          "red": 10376,
+          "green": 0,
+          "blue": 1384
+        },
+        "longest_row": 159,
+        "longest_col": 115
+      }
+    },
+    {
+      "id": "front_width_within_target",
+      "pass": false,
+      "expected": "24 +/- 4",
+      "actual": 62.8
+    },
+    {
+      "id": "front_height_within_target",
+      "pass": false,
+      "expected": "34 +/- 4",
+      "actual": 63.0
+    },
+    {
+      "id": "top_grid_resolution",
+      "pass": false,
+      "expected": "about 65 vertical and 65 horizontal grid lines for a 64x64 guide; tolerance +/- 12 lines",
+      "actual": {
+        "vertical_lines": 37,
+        "horizontal_lines": 30,
+        "frame_size": [
+          553,
+          628
+        ],
+        "vertical_threshold": 310.2,
+        "horizontal_threshold": 280.8
+      }
+    },
+    {
+      "id": "top_no_colored_annotations",
+      "pass": false,
+      "expected": "no red/green/blue dimension or axis annotations inside grid",
+      "actual": {
+        "colored_pixels": 8207,
+        "by_color": {
+          "red": 8207,
+          "green": 0,
+          "blue": 0
+        },
+        "longest_row": 84,
+        "longest_col": 118
+      }
+    },
+    {
+      "id": "top_width_within_target",
+      "pass": false,
+      "expected": "32 +/- 4",
+      "actual": 62.8
+    },
+    {
+      "id": "top_height_within_target",
+      "pass": false,
+      "expected": "24 +/- 4",
+      "actual": 63.0
+    },
+    {
+      "id": "registration_side_length_matches_top_length",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        62.8,
+        62.8
+      ]
+    },
+    {
+      "id": "registration_front_width_matches_top_depth",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        62.8,
+        63.0
+      ]
+    },
+    {
+      "id": "registration_side_height_matches_front_height",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        63.0,
+        63.0
+      ]
+    },
+    {
+      "id": "registration_side_top_x_origin",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        0.6,
+        0.6
+      ]
+    },
+    {
+      "id": "registration_front_top_z_origin",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        0.6,
+        0.5
+      ]
+    },
+    {
+      "id": "registration_ground_baseline",
+      "pass": true,
+      "expected": "delta <= 4",
+      "actual": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "top_length_orientation",
+      "pass": false,
+      "expected": "top width should be greater than top height for length-on-X assets",
+      "actual": [
+        62.8,
+        63.0
+      ]
+    }
+  ],
+  "manual_review_required": [
+    "head/front direction matches between Side and Top",
+    "legs, ears/horns, tail, handles, wings, or markings line up across views",
+    "orthographic views match the approved front/back style reference",
+    "source image is AI/user raster design, not a script-rendered voxel draft"
+  ],
+  "pass": false
+}
