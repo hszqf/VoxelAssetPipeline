@@ -1,0 +1,54 @@
+[
+  {
+    "name": "voxel_horse",
+    "path": "examples/horse_trial/voxel_horse.vox",
+    "source_image": "examples/horse_trial/reference_horse_icon_three_view_clean.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/horse_trial/reference_views/voxel_horse_iso.png"
+      },
+      {
+        "id": "source",
+        "label": "Source",
+        "path": "examples/horse_trial/reference_horse_icon_three_view_clean.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/horse_trial/reference_views/voxel_horse_front3q.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/horse_trial/reference_views/voxel_horse_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/horse_trial/reference_views/voxel_horse_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/horse_trial/reference_views/voxel_horse_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "medium",
+    "review_status": "pending_review",
+    "size": [
+      46,
+      34,
+      16
+    ],
+    "voxel_count": 4059,
+    "observed": "Procedural chestnut voxel horse with long legs, raised head, dark mane, cream muzzle, four hooves, and connected rear tail."
+  }
+]

@@ -1,0 +1,108 @@
+[
+  {
+    "name": "voxel_horse",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          46,
+          34,
+          16
+        ],
+        "actual": [
+          46,
+          34,
+          16
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 48",
+        "actual": 46
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 4059
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "coat_voxels_min",
+        "pass": true,
+        "expected": ">= 2800",
+        "actual": 3480
+      },
+      {
+        "id": "mane_tail_voxels_min",
+        "pass": true,
+        "expected": ">= 250",
+        "actual": 329
+      },
+      {
+        "id": "muzzle_voxels_min",
+        "pass": true,
+        "expected": ">= 25",
+        "actual": 46
+      },
+      {
+        "id": "face_detail_voxels_min",
+        "pass": true,
+        "expected": ">= 4",
+        "actual": 4
+      },
+      {
+        "id": "hoof_component_count",
+        "pass": true,
+        "expected": 4,
+        "actual": 4
+      },
+      {
+        "id": "ears_reach_top",
+        "pass": true,
+        "expected": true,
+        "actual": true
+      },
+      {
+        "id": "tail_reaches_rear",
+        "pass": true,
+        "expected": true,
+        "actual": true
+      },
+      {
+        "id": "head_reaches_front",
+        "pass": true,
+        "expected": true,
+        "actual": true
+      }
+    ],
+    "pass": true
+  }
+]

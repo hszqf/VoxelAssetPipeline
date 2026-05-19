@@ -8,7 +8,8 @@ Default two-stage source format:
 
 ```text
 Stage 1 style reference: Front 3/4 design | Back 3/4 design
-Stage 2 orthographic sheet: registered Side 64-grid | registered Front 64-grid | registered Top 64-grid
+Stage 2 setup: generated asset dimensions | three-view panel grid, default 64x64
+Stage 3 orthographic sheet: registered Side grid | registered Front grid | registered Top grid
 ```
 
 Use one asset per image. The style reference settles front/back identity, colors, silhouette, and distinctive features. The orthographic sheet is generated after style approval and contains only the registered Side/Front/Top design views. Side/Front/Top must include visible, countable 64x64 guides, a bounding cell frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
@@ -36,17 +37,19 @@ Design source vs deterministic review:
 - Script-rendered `VoxelModel` sheets prove exact geometry after approval. They are deterministic projections from one voxel coordinate set, like `dog_golden`; they are not valid first-step design sources.
 - If an early image looks perfectly grid-registered because it was rendered from a script or voxel draft, treat it as a review artifact and restart the design-source gate.
 
-Scale contract gate:
+User specification gate:
 
-- Choose `game_cells` before image generation. Default is `[1, 1, 1]`.
-- Declare target occupied bounds in voxel cells before prompting, for example `cow: side about 40 cells wide x 32 cells high, top about 40 cells long x 20 cells deep`.
-- Confirm the scale contract with the user before generating when the user has not already given exact bounds.
-- Include a tolerance, usually `±4 cells` or about `10%` of the target dimension.
-- Do not let a normal animal, prop, plant, or pickup fill the full 64x64 frame unless it is intentionally a full-cell object.
-- If the object should be larger than one cell, choose a multi-cell target such as `[2, 1, 1]` before source generation and make the source sheet reflect that larger frame.
+- Before generating the orthographic sheet, ask exactly two user-facing questions when they are not already provided: generated asset dimensions and three-view panel grid size.
+- Always propose a default generated asset dimension inferred from the approved style reference, written as `X length x Y height x Z depth`. If there is no better estimate, use `32 x 32 x 32` as the fallback default.
+- Ask whether to use the default `64 x 64` grid for each Side/Front/Top panel. Only ask for a different panel size if the proposed asset dimensions do not fit comfortably.
+- Use an internal default tolerance, usually `+/-4 cells` or about `10%` of the target dimension. Do not ask about tolerance unless the user brings it up.
+- Do not introduce `game_cells` or game-grid assumptions. This workflow is a generic voxel asset tool and must follow the user's requested specification.
+- Do not ask for engine scale, split strategy, maximum bounding box, or other output constraints at this gate.
+- Do not let a normal animal, prop, plant, or pickup fill the full 64x64 source guide unless the user intentionally requests a near-full-guide asset.
+- If the object should be larger than the default `64 x 64` source guide, ask for a larger generated asset dimension and/or larger three-view panel grid before source generation.
 - Reject source sheets where the asset ignores the declared bounds.
 
-Single-cell scale guide:
+Generic 64-cell guide size hints:
 
 | Tier | Typical occupied max dimension inside 64 | Examples |
 | --- | --- | --- |
@@ -60,13 +63,14 @@ AI source prompt requirements:
 
 - Ask for exactly one asset in one clean sheet.
 - Fill `references/style_reference_prompt_template.md` for the style reference.
-- Fill `references/source_sheet_prompt_template.md` for the orthographic sheet from the approved style reference and confirmed scale contract.
+- Fill `references/source_sheet_prompt_template.md` for the orthographic sheet from the approved style reference, confirmed generated asset dimensions, and confirmed three-view panel grid size.
 - Do not freehand production prompts.
 - The style reference contains `Front 3/4 design | Back 3/4 design` only.
-- The orthographic sheet contains `registered Side 64-grid | registered Front 64-grid | registered Top 64-grid` only.
-- Require visible 64x64 grid guides and a clear bounding cell frame on Side, Front, and Top.
+- The orthographic sheet contains registered `Side | Front | Top` grids only, defaulting to 64x64 per panel.
+- Require visible grid guides and a clear bounding frame on Side, Front, and Top.
+- Require the Side/Front/Top grid lines to be drawn on the top layer above the asset art, so the grid stays visible across the silhouette.
 - Require the same scale across Side, Front, and Top.
-- Require the asset to occupy its declared bounds inside the 64x64 cell, not fill the entire frame unless it is truly a full-cell object.
+- Require the asset to occupy its declared bounds inside the confirmed source guide, not fill the entire frame unless the user requested that.
 - For small creatures, props, plants, and pickups, state that the object should use only a small portion of the cell while preserving empty space.
 - Require direction cues in both Front 3/4 and Back 3/4 views for animals and characters.
 - Require orthographic axes: Side uses X length horizontally and Y height vertically; Front uses Z width/depth horizontally and Y height vertically; Top uses X length horizontally and Z width/depth vertically.
@@ -83,7 +87,7 @@ Blueprint source quality:
 
 Orthographic registration gate:
 
-- Do not accept Side, Front, and Top as three separately centered drawings. They must behave like a blueprint registered to one 64-cell coordinate system.
+- Do not accept Side, Front, and Top as three separately centered drawings. They must behave like a blueprint registered to one shared coordinate system.
 - Side length must match Top length on X within tolerance.
 - Front width must match Top width on Z within tolerance.
 - Side height must match Front height on Y within tolerance.
@@ -96,7 +100,7 @@ Source approval gate:
 - Do not approve multi-asset source sheets. For batches, repeat the style and orthographic approval loop once per asset.
 - Approve the style reference before generating orthographic views.
 - Do not measure scale from `Front 3/4` or `Back 3/4`; they are style/direction inputs only.
-- Do not ask for approval if Side/Front/Top lack visible 64-cell guides.
+- Do not ask for approval if Side/Front/Top lack visible grid guides, or if the asset art covers the grid lines instead of the grid being drawn on top.
 - Before asking for approval, run the PNG source-sheet checker when the source sheet is available as a local PNG:
 
 ```powershell
@@ -109,17 +113,17 @@ python voxel_pipeline.py check-source-sheet --image "<source-sheet.png>" --asset
 - The checker is a hard gate for measurable failures, not a replacement for human visual review.
 - Before asking for approval, estimate any remaining occupied bounding box or landmark issues in the Side, Front, and Top panels.
 - Write a short bbox and registration self-check report: target bounds, observed Side/Front/Top bounds, tolerance, registration checks, and pass/fail.
-- Do not approve if the asset's bounding box is much larger or smaller than the confirmed scale contract.
+- Do not approve if the asset's bounding box is much larger or smaller than the confirmed user specification.
 - Do not approve if Side/Front/Top have inconsistent origins, separately centered silhouettes, mismatched height/length/width, inconsistent ground baseline, or contradictory landmark positions.
 - Do not create `VoxelModel`, `.vox`, manifest, viewer data, or generated review renders before this gate passes.
 - If the AI model omits the guides or changes scale between views, regenerate the source sheet with a stricter prompt.
-- Do not silently regenerate a failed source sheet. Tell the user the failed measurements/checks first; then regenerate under the confirmed contract, or ask for a revised contract when the target itself seems wrong.
-- A cleaned/composited raster source is allowed only when it starts from an approved AI/user raster source and preserves the approved silhouette, colors, direction, landmarks, and scale contract. Acceptable cleanup includes normalizing the 64-grid, separating panels, removing coordinate labels, and reducing shadows/noise so the checker can measure. Keep the failed original and JSON report as evidence. Do not create a cleaned source from `VoxelModel`, `.vox`, generated review renders, or viewer screenshots.
+- Do not silently regenerate a failed source sheet. Tell the user the failed measurements/checks first; then regenerate under the confirmed user specification, or ask for a revised specification when the target itself seems wrong.
+- A cleaned/composited raster source is allowed only when it starts from an approved AI/user raster source and preserves the approved silhouette, colors, direction, landmarks, and user specification. Acceptable cleanup includes normalizing the 64-grid, separating panels, removing coordinate labels, and reducing shadows/noise so the checker can measure. Keep the failed original and JSON report as evidence. Do not create a cleaned source from `VoxelModel`, `.vox`, generated review renders, or viewer screenshots.
 
 Example bbox and registration self-check:
 
 ```text
-Scale contract: cow, game_cells=[1,1,1], target side 40w x 32h, top 40w x 20d, tolerance ±4
+User specification: cow, generated asset 40 x 32 x 20, three-view panel grid 64 x 64, tolerance +/-4
 Observed: side 54w x 42h, front 31w x 44h, top 48w x 29d
 Registration: FAIL. Side length does not match Top length; Side/Front height does not match; Top is separately centered.
 Result: FAIL. The cow is too large and not registered. Report these failures, then regenerate with stronger empty-space, 40x32x20 bounds, and registered axes.
@@ -128,12 +132,12 @@ Result: FAIL. The cow is too large and not registered. Report these failures, th
 Pipeline stages:
 
 1. Style reference: generated by an image model or provided by the user, used to settle visual style, orientation, front/back identity, colors, and silhouette.
-2. Scale contract: confirm `game_cells`, Side/Front/Top occupied bounds, and tolerance.
-3. Orthographic source sheet: generated from the approved style reference and scale contract, used to settle declared occupied 64-cell bounds and Side/Front/Top registration.
+2. User specification: ask only for generated asset dimensions, with a default, and three-view panel grid size, default 64x64.
+3. Orthographic source sheet: generated from the approved style reference and user specification, used to settle declared occupied bounds and Side/Front/Top registration.
 4. Approval stop: do not write `.vox` until the user approves a checker-passing orthographic source sheet.
 5. Voxel construction: convert into a structured `VoxelModel` array and write MagicaVoxel `.vox`.
-6. Review renders: approved sources plus generated icon, front three-quarter, and side/front/top views inside a 64-cell guide. The generated side/front/top views must come from the same `VoxelModel` coordinate set, not AI-drawn panels. Add the asset's model/manifest name in the upper-left corner of every generated source/review row.
-7. Validation: size, one-cell fit, domain-specific checks, `single_connected_component`, and `floating_component_sizes`.
+6. Review renders: approved sources plus generated icon, front three-quarter, and side/front/top views inside the confirmed guide. The generated side/front/top views must come from the same `VoxelModel` coordinate set, not AI-drawn panels. Add the asset's model/manifest name in the upper-left corner of every generated source/review row.
+7. Validation: user-requested size fit, domain-specific checks, `single_connected_component`, and `floating_component_sizes`.
 8. Viewer: rebuild `viewer/embedded-data.js` so `viewer/index.html` works from `file://`; the Reference pane should show `Source` first, then generated `Icon / Front 3/4 / Side / Front / Top`.
 9. Adapter: apply only after user approval.
 

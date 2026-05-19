@@ -27,7 +27,7 @@ const assetName = document.getElementById("assetName");
 const assetSize = document.getElementById("assetSize");
 const assetVoxels = document.getElementById("assetVoxels");
 const assetScale = document.getElementById("assetScale");
-const assetCells = document.getElementById("assetCells");
+const assetGuideFrame = document.getElementById("assetGuideFrame");
 const assetObserved = document.getElementById("assetObserved");
 const floatingInfo = document.getElementById("floatingInfo");
 const infoToggle = document.getElementById("infoToggle");
@@ -292,11 +292,11 @@ function colorToCss(rgba, factor) {
 
 function modelFrame(model) {
   const { width, height, depth } = model.size;
-  const gameCell = currentCellResolution();
+  const guideStep = currentGuideResolution();
   return {
-    width: Math.max(gameCell, Math.ceil(width / gameCell) * gameCell),
-    height: Math.max(gameCell, Math.ceil(height / gameCell) * gameCell),
-    depth: Math.max(gameCell, Math.ceil(depth / gameCell) * gameCell),
+    width: Math.max(guideStep, Math.ceil(width / guideStep) * guideStep),
+    height: Math.max(guideStep, Math.ceil(height / guideStep) * guideStep),
+    depth: Math.max(guideStep, Math.ceil(depth / guideStep) * guideStep),
   };
 }
 
@@ -352,22 +352,22 @@ function buildFaces(model) {
 
 function gridLines(frame) {
   const lines = [];
-  const gameCell = currentCellResolution();
-  for (let x = 0; x <= frame.width; x += gameCell) {
-    for (let z = 0; z <= frame.depth; z += gameCell) {
+  const guideStep = currentGuideResolution();
+  for (let x = 0; x <= frame.width; x += guideStep) {
+    for (let z = 0; z <= frame.depth; z += guideStep) {
       lines.push([[x, 0, z], [x, frame.height, z]]);
     }
   }
-  for (let y = 0; y <= frame.height; y += gameCell) {
-    for (let z = 0; z <= frame.depth; z += gameCell) {
+  for (let y = 0; y <= frame.height; y += guideStep) {
+    for (let z = 0; z <= frame.depth; z += guideStep) {
       lines.push([[0, y, z], [frame.width, y, z]]);
     }
-    for (let x = 0; x <= frame.width; x += gameCell) {
+    for (let x = 0; x <= frame.width; x += guideStep) {
       lines.push([[x, y, 0], [x, y, frame.depth]]);
     }
   }
-  for (let x = 0; x <= frame.width; x += gameCell) {
-    for (let y = 0; y <= frame.height; y += gameCell) {
+  for (let x = 0; x <= frame.width; x += guideStep) {
+    for (let y = 0; y <= frame.height; y += guideStep) {
       lines.push([[x, y, 0], [x, y, frame.depth]]);
     }
   }
@@ -414,7 +414,7 @@ function drawWireframe(frame, centerX, centerY) {
   ctx.lineWidth = Math.max(2, (window.devicePixelRatio || 1) * 1.5);
   ctx.strokeStyle = "rgba(33, 182, 215, 0.95)";
   ctx.setLineDash([9, 5]);
-  drawLines(boxEdgeLines(0, 0, 0, currentCellResolution(), currentCellResolution(), currentCellResolution()), origin, centerX, centerY);
+  drawLines(boxEdgeLines(0, 0, 0, currentGuideResolution(), currentGuideResolution(), currentGuideResolution()), origin, centerX, centerY);
   ctx.restore();
 }
 
@@ -465,17 +465,17 @@ function updateInfo() {
   }
 
   const frame = modelFrame(model);
-  const gameCell = currentCellResolution();
+  const guideStep = currentGuideResolution();
   assetName.textContent = asset.name;
   assetSize.textContent = `${model.size.width} x ${model.size.height} x ${model.size.depth}`;
   assetVoxels.textContent = `${model.voxels.length}`;
   assetScale.textContent = asset.scale_tier || asset.scaleTier || "-";
-  assetCells.textContent = `${frame.width / gameCell} x ${frame.height / gameCell} x ${frame.depth / gameCell} (${gameCell} vox/cell)`;
+  assetGuideFrame.textContent = `${frame.width} x ${frame.height} x ${frame.depth} (${guideStep} voxel guide)`;
   assetObserved.textContent = asset.observed || "";
   updateReference(asset);
 }
 
-function currentCellResolution() {
+function currentGuideResolution() {
   const dataset = state.datasets.get(state.currentDataset);
   return state.currentAsset?.cell_resolution || dataset?.cellResolution || DEFAULT_CELL_RESOLUTION;
 }

@@ -6,10 +6,11 @@ Default two-stage source reference format:
 
 ```text
 Stage 1 style reference: Front 3/4 design | Back 3/4 design
-Stage 2 orthographic sheet: registered Side 64-grid | registered Front 64-grid | registered Top 64-grid
+Stage 2 setup: generated asset dimensions | three-view panel grid, default 64x64
+Stage 3 orthographic sheet: registered Side grid | registered Front grid | registered Top grid
 ```
 
-Use one asset per image. The style reference settles front/back identity, colors, silhouette, and distinctive features. The orthographic sheet is generated after style approval and contains only the registered Side/Front/Top design views. The Side/Front/Top views must include visible, countable 64x64 guides, a bounding cell frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
+Use one asset per image. The style reference settles front/back identity, colors, silhouette, and distinctive features. The orthographic sheet is generated after style approval and contains only the registered Side/Front/Top design views. The Side/Front/Top views must include visible, countable grid guides, a bounding frame, and shared coordinate registration. These guides are part of source approval, not a post-voxel review overlay.
 
 Allowed first-step references:
 
@@ -29,12 +30,12 @@ Workflow:
 
 1. Generate or provide the style reference using a real raster design source: `Front 3/4 design + Back 3/4 design`.
 2. Approve style, front/back identity, colors, and rough silhouette. Do not measure occupied cells from this image.
-3. Before orthographic prompting, confirm `game_cells`, target occupied bounds, and tolerance with the user, such as `cow: about 40w x 32h x 20d inside one 64-cell frame, tolerance +/-4`.
-4. Generate the separate orthographic sheet from the approved style reference: `registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`.
+3. Before orthographic prompting, ask only for generated asset dimensions and the three-view panel grid size if they are not already provided. Propose a default generated asset dimension as `X length x Y height x Z depth`; if there is no better estimate, use `32 x 32 x 32`. Ask whether to use the default `64 x 64` Side/Front/Top panel grid.
+4. Generate the separate orthographic sheet from the approved style reference: `registered Side grid + registered Front grid + registered Top grid`.
 5. After generation, run `python voxel_pipeline.py check-source-sheet` when the orthographic sheet is available as a PNG.
 6. Estimate any remaining visual bbox or landmark issues in Side, Front, and Top and write a bbox plus registration self-check report.
-7. Reject or regenerate it if Side/Front/Top do not include valid visible 64-cell guides, a bounding frame, consistent scale, registered axes, or the confirmed occupied bounds.
-8. Do not silently regenerate. Report failed bbox, grid, or registration measurements before retrying or ask the user to revise the scale contract.
+7. Reject or regenerate it if Side/Front/Top do not include valid visible grid guides, a bounding frame, consistent scale, registered axes, or the confirmed occupied bounds.
+8. Do not silently regenerate. Report failed bbox, grid, or registration measurements before retrying or ask the user to revise the generated asset dimensions or panel grid size.
 9. Stop for approval before creating voxel geometry or writing `.vox`.
 10. Build the voxel model from the approved sheet.
 11. Render generated review views: `Icon`, `Front 3/4`, `Side`, `Front`, and `Top`.
@@ -42,7 +43,7 @@ Workflow:
 13. Rebuild `viewer/embedded-data.js`.
 14. Review in `viewer/index.html`; the Reference pane should show `Source` first, followed by generated `Icon / Front 3/4 / Side / Front / Top`.
 
-Single-cell scale guide:
+Generic 64-cell guide size hints:
 
 | Tier | Typical occupied max dimension inside 64 | Examples |
 | --- | --- | --- |
@@ -58,9 +59,10 @@ AI prompt requirements:
 - Use `codex-skills/voxel-generation/references/style_reference_prompt_template.md` for the front/back style reference.
 - Use `codex-skills/voxel-generation/references/source_sheet_prompt_template.md` for the orthographic sheet.
 - Do not measure occupied bounds from the style reference; only Side/Front/Top participate in scale validation.
-- Require visible 64x64 grid guides and bounding cell frames on Side, Front, and Top.
+- Require visible grid guides and bounding frames on Side, Front, and Top.
+- Require the Side/Front/Top grid lines to be drawn on the top layer above the asset art, so the grid stays visible across the silhouette.
 - Keep Side, Front, and Top at the same scale.
-- State concrete occupied bounds inside the 64x64 cell; small objects should leave visible empty space.
+- State concrete occupied bounds inside the confirmed source guide; small objects should leave visible empty space.
 - Include front/back direction cues for animals and characters.
 - Require registered orthographic axes: Side uses X length horizontally and Y height vertically; Front uses Z width/depth horizontally and Y height vertically; Top uses X length horizontally and Z width/depth vertically.
 - Require the same front/head direction between Side and Top.
@@ -85,7 +87,7 @@ The checker detects the three orthographic grid panels, reports approximate grid
 BBox and registration self-check report:
 
 ```text
-Scale contract: cow, game_cells=[1,1,1], target side 40w x 32h, top 40w x 20d, tolerance +/-4
+User specification: cow, generated asset 40 x 32 x 20, three-view panel grid 64 x 64, tolerance +/-4
 Observed: side 54w x 42h, front 31w x 44h, top 48w x 29d
 Registration: FAIL. Side length does not match Top length; Side/Front height does not match; Top is separately centered.
 Result: FAIL. The cow is too large and not registered. Report these failures, then retry with stronger empty-space, 40x32x20 bounds, and registered axes.
@@ -108,7 +110,7 @@ Viewer dataset registration:
 - Do not add batch names manually to `viewer/app.js`.
 - Add optional `examples/<batch_name>/dataset.json` only when the displayed name, id, cell resolution, or order needs to be overridden.
 
-If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset. If a script-rendered voxel draft was used as the first source image, discard it and restart from the design-source step. If the AI orthographic sheet lacks Side/Front/Top 64-grid guides, registered orthographic axes, or a grid that is clearly not 64x64, regenerate it before voxel work. If bbox, grid, or registration self-check fails, report the failed measurements before retrying; do not silently auto-regenerate. Do not patch the model forward; errors such as duplicated limbs usually come from skipping the design-source gate.
+If the source sheet contains multiple assets, split the batch and regenerate one source sheet per asset. If a script-rendered voxel draft was used as the first source image, discard it and restart from the design-source step. If the AI orthographic sheet lacks Side/Front/Top grid guides, registered orthographic axes, or a grid that does not match the confirmed panel size, regenerate it before voxel work. If bbox, grid, or registration self-check fails, report the failed measurements before retrying; do not silently auto-regenerate. Do not patch the model forward; errors such as duplicated limbs usually come from skipping the design-source gate.
 
 For animals and character assets:
 

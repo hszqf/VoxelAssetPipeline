@@ -23,11 +23,11 @@ The first artifact should be a style reference for exactly one asset: `Front 3/4
 
 This first style reference must come from a user-provided raster image or an image-generation model. Do not use script-rendered `VoxelModel`, `.vox`, viewer, canvas, SVG, or projection output as the design reference; those are review artifacts after the design source has been approved.
 
-After the style reference is approved, generate a separate orthographic sheet containing only `registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`. The left/front-back style views do not participate in occupied-cell measurement. Side, Front, and Top must show visible, countable 64x64 guides, a bounding cell frame, and shared orthographic registration. Each asset should occupy its intended proportion inside the 64-cell frame, not automatically fill it. For batches, repeat the style and orthographic approval loop one asset at a time.
+After the style reference is approved, ask only for generated asset dimensions and the three-view panel grid size if they are not already provided. Propose a default asset dimension from the approved style reference, written as `X length x Y height x Z depth`; if there is no better estimate, use `32 x 32 x 32`. Ask whether to use the default `64 x 64` Side/Front/Top panel grid.
 
-Before generating the orthographic sheet, confirm the scale contract. A single-cell cow should read as a medium asset, for example roughly `40w x 32h x 20d` inside the 64-cell frame with tolerance such as `+/-4`, leaving empty grid space around it. Objects larger than that should either use a larger tier or be declared as multi-cell assets instead of being squeezed into one 64-cell frame. Production prompts should be filled from `codex-skills/voxel-generation/references/style_reference_prompt_template.md` and `codex-skills/voxel-generation/references/source_sheet_prompt_template.md`.
+Then generate a separate orthographic sheet containing only `registered Side grid + registered Front grid + registered Top grid`, defaulting to `64 x 64` per panel. The left/front-back style views do not participate in occupied-cell measurement. Side, Front, and Top must show visible, countable grid guides, a bounding frame, and shared orthographic registration. The three-view grid lines must be drawn on the top layer above the asset art, so the grid remains visible across the silhouette. The panels are measurement guides for the source sheet, not game cells. Production prompts should be filled from `codex-skills/voxel-generation/references/style_reference_prompt_template.md` and `codex-skills/voxel-generation/references/source_sheet_prompt_template.md`.
 
-After orthographic generation, run the PNG source-sheet checker and report the grid, bbox, and registration self-check before asking for approval. Side, Front, and Top must behave like a registered blueprint: Side length matches Top length, Front width matches Top width, Side/Front height and ground baseline match, and major landmarks line up. If the generated sheet is out of tolerance, has a clearly wrong grid, or is separately centered, do not silently regenerate; report the failed measurements first, then regenerate under the confirmed scale contract or revise the contract with the user.
+After orthographic generation, run the PNG source-sheet checker and report the grid, bbox, and registration self-check before asking for approval. Side, Front, and Top must behave like a registered blueprint: Side length matches Top length, Front width matches Top width, Side/Front height and ground baseline match, and major landmarks line up. If the generated sheet is out of tolerance, has a clearly wrong grid, or is separately centered, do not silently regenerate; report the failed measurements first, then regenerate under the confirmed user specification or revise that specification with the user.
 
 Script-rendered sheets like the dog example below are deterministic review artifacts from one `VoxelModel`; they prove geometry after approval, but they should not be used as the first design source.
 
@@ -107,6 +107,9 @@ python voxel_pipeline.py check-quick-trial
 python voxel_pipeline.py generate-dog-trial
 python voxel_pipeline.py check-dog-trial
 
+python voxel_pipeline.py generate-horse-trial
+python voxel_pipeline.py check-horse-trial
+
 python voxel_pipeline.py check-source-sheet `
   --image "<source-sheet.png>" `
   --asset cow `
@@ -128,11 +131,11 @@ python voxel_pipeline.py apply-littleworld --project "E:\AI Projects\LittleWorld
 
 1. Generate or provide a style reference with `Front 3/4 design + Back 3/4 design`.
 2. Approve style, direction, colors, and rough silhouette without measuring occupied cells.
-3. Confirm the Side/Front/Top scale contract.
-4. Generate a separate orthographic sheet with `registered Side 64-grid + registered Front 64-grid + registered Top 64-grid`.
+3. Confirm generated asset dimensions and the three-view panel grid size, defaulting to 64x64.
+4. Generate a separate orthographic sheet with `registered Side grid + registered Front grid + registered Top grid`.
 5. Run `check-source-sheet` on the orthographic PNG.
-6. Reject or regenerate it if Side/Front/Top lack valid 64x64 guides, bounding frames, consistent scale, or shared orthographic registration.
-7. Stop for human approval of occupied 64-cell proportion and landmark alignment.
+6. Reject or regenerate it if Side/Front/Top lack valid grid guides, bounding frames, consistent scale, or shared orthographic registration.
+7. Stop for human approval of occupied proportion and landmark alignment.
 8. Build `.vox` assets from the approved sheet.
 9. Render source and generated reference views.
 10. Run validators.
