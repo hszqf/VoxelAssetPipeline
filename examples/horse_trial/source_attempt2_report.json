@@ -1,0 +1,26 @@
+{
+  "asset": "voxel_horse",
+  "image": "E:\\aitest\\VoxelAssetPipeline\\examples\\horse_trial\\voxel_horse_source_attempt2.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "frame_source": "auto",
+  "frames": {},
+  "observed": {},
+  "checks": [
+    {
+      "id": "png_readable",
+      "pass": true,
+      "expected": "readable 8-bit RGB/RGBA PNG",
+      "actual": "1774x887"
+    },
+    {
+      "id": "orthographic_frame_count",
+      "pass": false,
+      "expected": 3,
+      "actual": 2
+    }
+  ],
+  "pass": false
+}

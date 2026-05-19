@@ -22,6 +22,10 @@ def main() -> None:
     sub.add_parser("check-design-sheet")
     sub.add_parser("generate-quick-trial")
     sub.add_parser("check-quick-trial")
+    sub.add_parser("generate-house-trial")
+    sub.add_parser("check-house-trial")
+    sub.add_parser("generate-horse-trial")
+    sub.add_parser("check-horse-trial")
     sub.add_parser("generate-dog-trial")
     sub.add_parser("check-dog-trial")
     check_source = sub.add_parser("check-source-sheet")
@@ -51,6 +55,14 @@ def main() -> None:
         raise SystemExit(run_python(ROOT / "workflows" / "quick_trial_assets.py"))
     if args.cmd == "check-quick-trial":
         raise SystemExit(run_python(ROOT / "workflows" / "check_quick_trial.py"))
+    if args.cmd == "generate-house-trial":
+        raise SystemExit(run_python(ROOT / "workflows" / "house_trial_assets.py"))
+    if args.cmd == "check-house-trial":
+        raise SystemExit(run_python(ROOT / "workflows" / "check_house_trial.py"))
+    if args.cmd == "generate-horse-trial":
+        raise SystemExit(run_python(ROOT / "workflows" / "horse_trial_assets.py"))
+    if args.cmd == "check-horse-trial":
+        raise SystemExit(run_python(ROOT / "workflows" / "check_horse_trial.py"))
     if args.cmd == "generate-dog-trial":
         raise SystemExit(run_python(ROOT / "workflows" / "dog_trial_assets.py"))
     if args.cmd == "check-dog-trial":

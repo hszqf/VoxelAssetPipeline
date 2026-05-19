@@ -1,0 +1,59 @@
+[
+  {
+    "name": "voxel_horse",
+    "path": "examples/horse_trial/voxel_horse.vox",
+    "source_image": "examples/horse_trial/voxel_horse_source_clean2.png",
+    "reference_views": [
+      {
+        "id": "style",
+        "label": "Style",
+        "path": "examples/horse_trial/voxel_horse_style_reference.png"
+      },
+      {
+        "id": "source",
+        "label": "Source",
+        "path": "examples/horse_trial/voxel_horse_source_clean2.png"
+      },
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/horse_trial/reference_views/voxel_horse_iso.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/horse_trial/reference_views/voxel_horse_front3q.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/horse_trial/reference_views/voxel_horse_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/horse_trial/reference_views/voxel_horse_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/horse_trial/reference_views/voxel_horse_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      46,
+      34,
+      16
+    ],
+    "voxel_count": 5366,
+    "observed": "Voxel horse built from approved source sheet: chestnut body, dark mane and tail, black hooves, and white face blaze."
+  }
+]

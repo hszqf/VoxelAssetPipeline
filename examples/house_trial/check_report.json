@@ -1,0 +1,96 @@
+[
+  {
+    "name": "voxel_cottage",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          34,
+          34,
+          28
+        ],
+        "actual": [
+          34,
+          34,
+          28
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_style_scale",
+        "pass": true,
+        "expected": "<= 40",
+        "actual": 34
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 14757
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "wall_voxels_min",
+        "pass": true,
+        "expected": ">= 3500",
+        "actual": 4680
+      },
+      {
+        "id": "roof_voxels_min",
+        "pass": true,
+        "expected": ">= 2600",
+        "actual": 4796
+      },
+      {
+        "id": "wood_voxels_min",
+        "pass": true,
+        "expected": ">= 450",
+        "actual": 2761
+      },
+      {
+        "id": "stone_voxels_min",
+        "pass": true,
+        "expected": ">= 900",
+        "actual": 2458
+      },
+      {
+        "id": "window_voxels_min",
+        "pass": true,
+        "expected": ">= 35",
+        "actual": 61
+      },
+      {
+        "id": "chimney_reaches_top",
+        "pass": true,
+        "expected": true,
+        "actual": true
+      }
+    ],
+    "pass": true
+  }
+]

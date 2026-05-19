@@ -73,6 +73,14 @@ AI source prompt requirements:
 - Mark the front/head direction and keep it consistent between Side and Top.
 - Forbid colored axes, colored dashed baselines, dimension arrows, brackets, and numeric measurement labels inside grid panels. The checker measures the real silhouette; AI-written numbers are not trusted.
 
+Blueprint source quality:
+
+- Treat the orthographic source sheet as measurement input, not presentation art.
+- Ask for flat blocky voxel-pixel blueprint art: simple solid color rectangles, crisp orthographic silhouettes, and low decoration.
+- Explicitly forbid isometric or perspective views, soft shadows, cast shadows, gradients, glossy lighting, coordinate numbers, tick labels, legends, dimension text, arrows, and brackets.
+- Prefer a smaller clean image with countable grid lines over a high-resolution polished render. Pixel resolution is less important than measurable 64-cell registration.
+- If a source image looks good but checker sees the whole frame as object, it is usually too rendered: shadows, gradients, antialiasing, or noisy grid lines are contaminating bbox detection.
+
 Orthographic registration gate:
 
 - Do not accept Side, Front, and Top as three separately centered drawings. They must behave like a blueprint registered to one 64-cell coordinate system.
@@ -97,6 +105,7 @@ python voxel_pipeline.py check-source-sheet --image "<source-sheet.png>" --asset
 
 - The checker detects grid panels, reports approximate grid-line counts, estimates real silhouette bboxes, checks target tolerances, flags colored guide annotations, checks top orientation, and checks basic Side/Front/Top registration.
 - If auto panel detection fails, pass explicit frame coordinates with `--side-frame x,y,w,h --front-frame x,y,w,h --top-frame x,y,w,h`.
+- If colored-annotation checks fail because the asset itself is red/orange/blue/green, visually confirm that there are no colored axes, arrows, baselines, or dimension marks before using `--allow-colored-annotations`. Mention this as a checker false positive in the report.
 - The checker is a hard gate for measurable failures, not a replacement for human visual review.
 - Before asking for approval, estimate any remaining occupied bounding box or landmark issues in the Side, Front, and Top panels.
 - Write a short bbox and registration self-check report: target bounds, observed Side/Front/Top bounds, tolerance, registration checks, and pass/fail.
@@ -105,6 +114,7 @@ python voxel_pipeline.py check-source-sheet --image "<source-sheet.png>" --asset
 - Do not create `VoxelModel`, `.vox`, manifest, viewer data, or generated review renders before this gate passes.
 - If the AI model omits the guides or changes scale between views, regenerate the source sheet with a stricter prompt.
 - Do not silently regenerate a failed source sheet. Tell the user the failed measurements/checks first; then regenerate under the confirmed contract, or ask for a revised contract when the target itself seems wrong.
+- A cleaned/composited raster source is allowed only when it starts from an approved AI/user raster source and preserves the approved silhouette, colors, direction, landmarks, and scale contract. Acceptable cleanup includes normalizing the 64-grid, separating panels, removing coordinate labels, and reducing shadows/noise so the checker can measure. Keep the failed original and JSON report as evidence. Do not create a cleaned source from `VoxelModel`, `.vox`, generated review renders, or viewer screenshots.
 
 Example bbox and registration self-check:
 
@@ -151,6 +161,7 @@ Failure handling:
 - If the first source image was accidentally created by script-rendering a voxel draft, discard it as a design source.
 - If the AI orthographic sheet lacks Side/Front/Top 64-grid guides or the grid-line count is clearly not 64x64, discard or regenerate it before voxel work.
 - If the bbox or registration self-check fails, report the failed measurements/checks before retrying; do not silently auto-regenerate.
+- If visual quality is correct but checker failure is caused by rendered shadows, antialiasing, panel detection, or colored asset false positives, either regenerate with stricter blueprint wording or create a cleaned raster source from the AI/user source under the cleanup rule above, then rerun the checker.
 - Return to the design-source step and generate or request a proper raster design reference.
 - Do not continue by patching the draft model; this hides anatomy and proportion errors such as duplicated legs.
 

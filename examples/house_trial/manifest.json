@@ -1,0 +1,49 @@
+[
+  {
+    "name": "voxel_cottage",
+    "path": "examples/house_trial/voxel_cottage.vox",
+    "source_image": "examples/house_trial/reference_views/voxel_cottage_iso.png",
+    "reference_views": [
+      {
+        "id": "iso",
+        "label": "Icon",
+        "path": "examples/house_trial/reference_views/voxel_cottage_iso.png"
+      },
+      {
+        "id": "front3q",
+        "label": "Front 3/4",
+        "path": "examples/house_trial/reference_views/voxel_cottage_front3q.png"
+      },
+      {
+        "id": "side",
+        "label": "Side",
+        "path": "examples/house_trial/reference_views/voxel_cottage_side.png"
+      },
+      {
+        "id": "front",
+        "label": "Front",
+        "path": "examples/house_trial/reference_views/voxel_cottage_front.png"
+      },
+      {
+        "id": "top",
+        "label": "Top",
+        "path": "examples/house_trial/reference_views/voxel_cottage_top.png"
+      }
+    ],
+    "cell_resolution": 64,
+    "game_cells": [
+      1,
+      1,
+      1
+    ],
+    "scale_tier": "small",
+    "review_status": "pending_review",
+    "size": [
+      34,
+      34,
+      28
+    ],
+    "voxel_count": 14757,
+    "observed": "Procedural voxel cottage with stone foundation, cream walls, gabled roof, chimney, door, windows, and entry step."
+  }
+]

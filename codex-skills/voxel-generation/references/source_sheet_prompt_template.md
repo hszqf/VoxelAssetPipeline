@@ -6,6 +6,8 @@ placeholder from the confirmed scale contract.
 ```text
 Create one clean voxel game asset orthographic source sheet for exactly one asset.
 
+This must be a production blueprint source sheet, not a polished render.
+
 Use the approved front/back style reference as the visual source of truth for:
 - colors
 - front/back direction
@@ -16,6 +18,13 @@ Asset:
 - name: {{asset_name}}
 - subject: {{asset_description}}
 - style: clean low-poly voxel icon design, readable small game asset, simple connected forms
+
+Rendering style:
+- Flat blocky voxel-pixel blueprint art.
+- Use simple solid color rectangles aligned to the visible grid.
+- No soft shadows, no cast shadows, no gradients, no glossy lighting.
+- No 3D perspective, no isometric view, no presentation render.
+- Avoid decorative anti-aliased edges; keep silhouettes crisp and measurable.
 
 Scale contract:
 - game_cells: {{game_cells}}
@@ -47,13 +56,16 @@ Clean-grid requirements:
 - Use a light neutral background.
 - Side, Front, and Top must each have a visible 64 x 64 light gray grid and a plain bounding frame.
 - Each grid must genuinely read as 64 cells by 64 cells. Do not draw a vague decorative grid.
+- Each panel must be a square blueprint panel. Keep the three grid panels separated and fully visible.
 - Do not draw colored axes, colored dashed baselines, measurement arrows, brackets, or dimension numbers inside the grid panels.
 - Do not draw blue/red/green guide labels inside the grid panels.
+- Do not draw coordinate numbers, tick labels, legends, or scale text anywhere in or around the panels.
 - Panel titles are allowed above panels only.
 - The grid is a design guide only; the actual full silhouette must visibly fit the target dimensions.
 
 Reject conditions:
 - More than one asset appears.
+- The image looks like a polished voxel render instead of a flat orthographic blueprint.
 - Any orthographic panel is separately centered instead of registered to the same 64-cell coordinate system.
 - The Top view is rotated so length is vertical instead of horizontal.
 - The visible full silhouette exceeds the target bounds by more than +/- {{tolerance}} cells.

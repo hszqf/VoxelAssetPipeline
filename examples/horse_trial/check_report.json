@@ -1,0 +1,120 @@
+[
+  {
+    "name": "voxel_horse",
+    "checks": [
+      {
+        "id": "size",
+        "pass": true,
+        "expected": [
+          46,
+          34,
+          16
+        ],
+        "actual": [
+          46,
+          34,
+          16
+        ]
+      },
+      {
+        "id": "inside_one_cell",
+        "pass": true,
+        "expected": [
+          1,
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "max_axis_within_source_scale",
+        "pass": true,
+        "expected": "<= 46",
+        "actual": 46
+      },
+      {
+        "id": "has_voxels",
+        "pass": true,
+        "expected": "> 0",
+        "actual": 5366
+      },
+      {
+        "id": "single_connected_component",
+        "pass": true,
+        "expected": 1,
+        "actual": 1
+      },
+      {
+        "id": "floating_component_sizes",
+        "pass": true,
+        "expected": [],
+        "actual": []
+      },
+      {
+        "id": "coat_voxels_min",
+        "pass": true,
+        "expected": ">= 1600",
+        "actual": 4206
+      },
+      {
+        "id": "mane_tail_voxels_min",
+        "pass": true,
+        "expected": ">= 450",
+        "actual": 922
+      },
+      {
+        "id": "black_detail_voxels_min",
+        "pass": true,
+        "expected": ">= 120",
+        "actual": 176
+      },
+      {
+        "id": "white_blaze_voxels_min",
+        "pass": true,
+        "expected": ">= 30",
+        "actual": 62
+      },
+      {
+        "id": "declared_source_side_size",
+        "pass": true,
+        "expected": [
+          46,
+          34
+        ],
+        "actual": [
+          46,
+          34
+        ]
+      },
+      {
+        "id": "declared_source_front_size",
+        "pass": true,
+        "expected": [
+          16,
+          34
+        ],
+        "actual": [
+          16,
+          34
+        ]
+      },
+      {
+        "id": "declared_source_top_size",
+        "pass": true,
+        "expected": [
+          46,
+          16
+        ],
+        "actual": [
+          46,
+          16
+        ]
+      }
+    ],
+    "pass": true
+  }
+]
