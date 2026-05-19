@@ -174,6 +174,13 @@ def oriented_model(model: VoxelModel, orientation: str = "icon") -> VoxelModel:
     return mirrored
 
 
+def voxel_model_from_dict(name: str, data: dict) -> VoxelModel:
+    width, height, depth = data["size"]
+    model = VoxelModel(name, width, height, depth)
+    model.voxels.update(data["voxels"])
+    return model
+
+
 def model_offset(model: VoxelModel, frame_size: int = 64) -> tuple[int, int, int]:
     return ((frame_size - model.width) // 2, 0, (frame_size - model.depth) // 2)
 
@@ -290,7 +297,7 @@ def render_reference_sheet(model: VoxelModel, path: Path, include_icon: bool = T
 def render_review(path: Path, out_dir: Path, assets: list[str], frame_size: list[int]) -> None:
     cell_w = 280
     cell_h = 190
-    width = cell_w * len(VIEWS)
+    width = cell_w * (len(VIEWS) + 1)
     height = cell_h * len(assets)
     bg = (244, 241, 233, 255)
     grid = (216, 212, 202, 255)
@@ -300,6 +307,8 @@ def render_review(path: Path, out_dir: Path, assets: list[str], frame_size: list
 
     for row, asset in enumerate(assets):
         model = read_vox(out_dir / f"{asset}.vox")
+        voxel_model = voxel_model_from_dict(asset, model)
+        draw_iso_panel(pixels, width, height, 0, row * cell_h, cell_w, cell_h, voxel_model, "front3q")
         offset = (
             (frame_size[0] - model["size"][0]) // 2,
             0,
@@ -310,7 +319,7 @@ def render_review(path: Path, out_dir: Path, assets: list[str], frame_size: list
             view_w = frame_size[axis_index(axes[0])]
             view_h = frame_size[axis_index(axes[1])]
             scale = min((cell_w - 54) / view_w, (cell_h - 42) / view_h)
-            ox = int(col * cell_w + (cell_w - view_w * scale) * 0.5)
+            ox = int((col + 1) * cell_w + (cell_w - view_w * scale) * 0.5)
             oy = int(row * cell_h + (cell_h - view_h * scale) * 0.5)
             for x in range(view_w + 1):
                 px = int(ox + x * scale)

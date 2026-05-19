@@ -1,12 +1,14 @@
 const DEFAULT_CELL_RESOLUTION = 8;
+const DEFAULT_YAW = Math.PI / 4;
+const DEFAULT_PITCH = -0.55;
 
 const state = {
   datasets: new Map(),
   currentDataset: null,
   currentAsset: null,
   currentModel: null,
-  yaw: -Math.PI / 4,
-  pitch: -0.55,
+  yaw: DEFAULT_YAW,
+  pitch: DEFAULT_PITCH,
   zoom: 28,
   dragging: false,
   lastX: 0,
@@ -732,8 +734,8 @@ async function init() {
   });
 
   resetViewButton.addEventListener("click", () => {
-    state.yaw = -Math.PI / 4;
-    state.pitch = -0.55;
+    state.yaw = DEFAULT_YAW;
+    state.pitch = DEFAULT_PITCH;
     fitZoom();
     render();
   });
