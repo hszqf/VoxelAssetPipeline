@@ -459,6 +459,28 @@ function render() {
   ctx.restore();
 }
 
+function defaultYawForAsset(asset) {
+  const direction = String(asset?.front_direction || asset?.frontDirection || "-x").toLowerCase();
+  if (direction === "+x" || direction === "x" || direction === "pos_x") {
+    return Math.PI / 4;
+  }
+  if (direction === "-x" || direction === "neg_x") {
+    return -Math.PI / 4;
+  }
+  if (direction === "+z" || direction === "z" || direction === "pos_z") {
+    return 0;
+  }
+  if (direction === "-z" || direction === "neg_z") {
+    return Math.PI;
+  }
+  return DEFAULT_YAW;
+}
+
+function resetCameraForAsset(asset = state.currentAsset) {
+  state.yaw = defaultYawForAsset(asset);
+  state.pitch = DEFAULT_PITCH;
+}
+
 function updateInfo() {
   const asset = state.currentAsset;
   const model = state.currentModel;
@@ -651,6 +673,7 @@ async function loadModel(asset) {
   state.currentAsset = asset;
   const buffer = await fetchVoxWithEmbeddedFallback(asset.path);
   state.currentModel = parseVox(buffer);
+  resetCameraForAsset(asset);
   updateInfo();
   renderAssetList();
   fitZoom();
@@ -734,8 +757,7 @@ async function init() {
   });
 
   resetViewButton.addEventListener("click", () => {
-    state.yaw = DEFAULT_YAW;
-    state.pitch = DEFAULT_PITCH;
+    resetCameraForAsset();
     fitZoom();
     render();
   });

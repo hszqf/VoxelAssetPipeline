@@ -128,6 +128,7 @@ def generate() -> list[dict]:
                 "source_image": SOURCE_REFERENCE,
                 "reference_views": reference_views,
                 "cell_resolution": CELL_RESOLUTION,
+                "front_direction": "+x",
                 "game_cells": [1, 1, 1],
                 "scale_tier": "medium",
                 "review_status": "pending_review",

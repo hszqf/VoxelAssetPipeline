@@ -36,6 +36,7 @@
       }
     ],
     "cell_resolution": 64,
+    "front_direction": "+x",
     "game_cells": [
       1,
       1,
