@@ -47,7 +47,29 @@ the AI design-reference stages for a new asset.
 
 ## Tool Project
 
-Use the current workspace if it contains `voxel_pipeline.py`. If not, ask for the local `VoxelAssetPipeline` clone path.
+Use the current workspace if it contains `voxel_pipeline.py`.
+
+If the current workspace does not contain `voxel_pipeline.py`, look for a local
+project-scoped clone at:
+
+```text
+tools/external/VoxelAssetPipeline/voxel_pipeline.py
+```
+
+If that clone is missing and network access is available or can be approved,
+clone the tool project from:
+
+```text
+https://github.com/hszqf/VoxelAssetPipeline.git
+```
+
+Recommended project-scoped clone command:
+
+```powershell
+git clone https://github.com/hszqf/VoxelAssetPipeline.git tools\external\VoxelAssetPipeline
+```
+
+If cloning is not possible, ask for the local `VoxelAssetPipeline` clone path.
 
 Run the CLI from the project root:
 
